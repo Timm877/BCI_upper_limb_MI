@@ -1,29 +1,9 @@
-'''
-Created by Victor Delvigne
-ISIA Lab, Faculty of Engineering University of Mons, Mons (Belgium)
-IMT Nord Europe, Villeneuve d'Ascq (France)
-victor.delvigne@umons.ac.be
-Source: TBD
-Copyright (C) 2021 - UMons/IMT Nord Europe
-This library is free software; you can redistribute it and/or
-modify it under the terms of the GNU Lesser General Public
-License as published by the Free Software Foundation; either
-version 2.1 of the License, or (at your option) any later version.
-This library is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
-Lesser General Public License for more details.
-You should have received a copy of the GNU Lesser General Public
-License along with this library; if not, write to the Free Software
-Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
-'''
-
 import msvcrt
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
-
 from pylsl import StreamInlet, resolve_stream
+
 
 # duration is just an arbitrary num / seconds before plotting / giving size to the plot
 duration = 4
@@ -64,9 +44,11 @@ def main():
             if j < int(duration*sampling_frequency/down_sampling_ratio):
                 t[j] = timestamp
                 y[j] = sample[choosen_electrode]
+
                 # let's see if we can plot data from all 8 electrodes
                 #x[j,:] = sample[:8]
             else:
+                
                 # np.roll used to shift all 1 to the left
                 # First, in the if statement above, we fill an array to a specific length we want 
                 # (before plotting as the plot has a specific size)
