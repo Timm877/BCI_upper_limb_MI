@@ -7,14 +7,14 @@ Earlier, a pipeline for upper limb motor imagery has been developed using a SVM-
 In this project, this pipeline will be re-avaluated and tried to improve.
 
 ## Installation instructions
-'''
+```
 conda env create -f environment.yml
-'''
+```
 
 ## Usage instruction
-'''
+```
 python scripts/main.py
-'''
+```
 
 ## References
 [SVM-based Brain–Machine Interface for controlling a robot arm
