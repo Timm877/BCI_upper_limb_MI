@@ -6,9 +6,18 @@ import matplotlib.pyplot as plt
 import numpy as np
 from joblib import dump, load
 from scipy import signal
+from mne.decoding import CSP
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+from sklearn.pipeline import Pipeline
 
+def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2):
+    filters = []
+    for f in range(freq_lim.shape[0]):
+        b, a = init_filt_coef(freq_lim[f], fs=sample_freq, filtype=filt_type, order=order)
+        filters.append([b, a])
+    return filters
 
-def init_filt_coef(cuttoff, fs=50, filtype='lowpass', order=4):
+def init_filt_coef(cuttoff, fs, filtype, order):
     if filtype == 'lowpass':
         b,a = signal.butter(order, cuttoff[0]/(fs/2), filtype)
     elif filtype == 'bandpass':
@@ -23,9 +32,18 @@ def apply_filter(sig, b, a):
     return signal.filtfilt(b, a, sig)
 
 def min_max_scale(x):
+    # this function alters original x which is undesirable --> change this func 
     x -= x.min()
     x = x/x.max()
     return x
+
+def create_pipeline(pipeline_name = 'CSP+LDA', n_components = 4):
+    lda = LDA()
+    csp = CSP(n_components=n_components, reg=None, log=True, norm_trace=False)
+    if pipeline_name == 'CSP+LDA':
+        pipeline = Pipeline([('CSP', csp), ('LDA', lda)])
+
+    return pipeline
 
 def comp_feat_short(sig, filters):
     f_vector = []
