@@ -1,19 +1,11 @@
-import datetime
 import glob
 import os
 import shutil
-import tkinter
 
-import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 from joblib import dump, load
-from playsound import playsound
-from pylsl import StreamInlet, resolve_stream
 from scipy import signal
-from sklearn import tree
-from sklearn.model_selection import train_test_split
-from tqdm import tqdm
 
 
 def init_filt_coef(cuttoff, fs=50, filtype='lowpass', order=4):
