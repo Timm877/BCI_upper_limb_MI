@@ -4,6 +4,8 @@ import numpy as np
 from pylsl import StreamInlet, resolve_stream
 from src.utils import init_filt_coeff, comp_feat_short
 
+#TODO design this code to when no device is detected / chosen, one can still run the program with dummy code?
+
 def main():
     # init stuff
     duration = 4 # --> 4 seconds
@@ -19,7 +21,6 @@ def main():
     j = 0
         
     # initialize filters coefficients to filter freqs to get brain waves
-    # TODO: Add Notch filter? Or maybe a Bandpass for 0.5-32 Hz? Or is this already done by Unicorn?
     filters = [] 
     freq_lim = np.asarray([
         [4, 4], #delta 0.5-4 Hz --> funcs: deep sleep

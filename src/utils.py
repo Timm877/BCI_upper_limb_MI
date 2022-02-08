@@ -9,6 +9,13 @@ from scipy import signal
 from mne.decoding import CSP
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from sklearn.pipeline import Pipeline
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
+
+from pyriemann.estimation import Covariances
+from pyriemann.tangentspace import TangentSpace
+from pyriemann.classification import MDM
+
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2):
     filters = []
@@ -37,36 +44,71 @@ def min_max_scale(x):
     x = x/x.max()
     return x
 
-def create_pipeline(pipeline_name = 'CSP+LDA', n_components = 4):
-    lda = LDA()
-    csp = CSP(n_components=n_components, reg=None, log=True, norm_trace=False)
-    if pipeline_name == 'CSP+LDA':
-        pipeline = Pipeline([('CSP', csp), ('LDA', lda)])
+def init_pipelines(pipeline_names = ['csp+lda'], n_components = 4):
+    pipelines = {}
 
-    return pipeline
+    # standard / Laura's approach
+    pipelines["csp+lda"] = Pipeline(steps=[('csp', CSP(n_components=n_components)), 
+                                    ('lda', LDA())])
+                                    
+    # Using Ledoit-Wolf lemma shrinkage, which is said to outperform standard LDA
+    pipelines["csp+s_lda"] = Pipeline(steps=[('csp', CSP(n_components=n_components)), 
+                                    ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
 
-def comp_feat_short(sig, filters):
-    f_vector = []
-    for f in range(len(filters)):
-        b, a = filters[f]
-        f_vector.append(compute_entropy(apply_filter(sig, b, a)))
-    return np.asarray(f_vector)
+    # Minimum distance to riemanian mean (MDRM) --> directly on the manifold
+    # the RMDM approach is parameter-free!!
+    pipelines["mdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                   ('mdm', MDM(metric="riemann"))])
 
-def compute_entropy(sig):
-    return 0.5*np.log10(2*np.pi*np.exp(1)*np.var(sig))
+    # LDA in the tangent space (projection of the data in the tangent space + LDA)
+    pipelines["tgsp+lda"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                        ('tg', TangentSpace(metric="riemann")),
+                                        ('lda', LDA())])
 
-def signal_segmentation(sig, wind_len=4, overlapping=0.2, fs=50):
-    win = wind_len*fs
-    x = []
-    end = False
-    i = 0
-    while not end:
-        if i+win < len(sig):
-            x.append(sig[i:i+win])
-            i += int(win*(1-overlapping))
-        else: 
-            end = True
-    return np.asarray(x)
+    # Grid-search pipelines
+    parameters = {'l1_ratio': [0.2, 0.5, 0.8],
+                'C': np.logspace(-1, 1, 3)}
+    elasticnet = GridSearchCV(LogisticRegression(penalty='elasticnet', solver='saga'),
+                            parameters)
+
+    pipelines["csp+en"] = Pipeline(steps=[('csp', CSP(n_components=8)),
+                                        ('en', elasticnet)])
+    pipelines["tgsp+en"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                        ('tg', TangentSpace(metric="riemann")),
+                                        ('en', elasticnet)])
+
+
+    chosen_pipelines = {}
+    for pipeline_name in pipeline_names:
+        chosen_pipelines[pipeline_name] = pipelines[pipeline_name]
+
+    return chosen_pipelines
+
+def signal_segmentation(dataset, ):
+    filtered_dataset = pd.DataFrame()
+    for electrode in selected_electrodes_names:
+        for f in range(len(filters)):
+            b, a = filters[f] #TODO how to live-update these?
+
+            end = False
+            i = 0
+            filter_results = []
+            while not end:
+                if i+sample_duration < len(dataset):
+                        segment_relax = data_relax[i:i+sample_duration][electrode]
+                        segment_MI= data_MI[i:i+sample_duration][electrode]
+                        #plt.plot(segment)
+                        #plt.show()
+                        #print(segment)
+
+                        filt_result_relax = utils.apply_filter(segment_relax,b,a)
+                        filt_result_MI = utils.apply_filter(segment_relax,b,a)
+                        for data_point in filt_result_relax:
+                            filter_results.append(data_point)
+                        i += sample_duration
+                else: 
+                        end = True        
+            filtered_dataset[electrode + '_' + freq_limits_names[f]] = filter_results
 
 
 
