@@ -48,16 +48,11 @@ def min_max_scale(x):
 
 def init_pipelines(pipeline_names = ['csp+lda'], n_components = 8):
     pipelines = {}
-
-    # standard / Laura's approach
-    for n_comp in [2, 4, 8, 16]:
+    # standard / Laura's approach + variations
+    for n_comp in [8, 10, 11, 12, 13, 14, 16]:
         pipelines["csp+lda_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                         ('lda', LDA())])
                                         
-        # Using Ledoit-Wolf lemma shrinkage, which is said to outperform standard LDA
-        pipelines["csp+s_lda_eigen_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
-                                        ('slda', LDA(solver = 'eigen', shrinkage='auto'))])
-
         # Using Ledoit-Wolf lemma shrinkage, which is said to outperform standard LDA
         pipelines["csp+s_lda_lsqr_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                         ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
@@ -65,13 +60,12 @@ def init_pipelines(pipeline_names = ['csp+lda'], n_components = 8):
         pipelines["csp+svm_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                             ('svm', SVC(kernel='linear'))])
 
-
+    # Riemannian approaches
     pipelines["tgsp+svm"] = Pipeline(steps=[('cov', Covariances("oas")), 
                                         ('tg', TangentSpace(metric="riemann")),
                                         ('svm', SVC(kernel='linear'))])
     
-    # Minimum distance to riemanian mean (MDRM) --> directly on the manifold
-    # the RMDM approach is parameter-free!!
+    # Minimum distance to riemanian mean (MDRM) --> directly on the manifold --> parameter-free!
     pipelines["mdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
                                    ('mdm', MDM(metric="riemann"))])
 
@@ -81,13 +75,26 @@ def segmentation_and_filter(dataset, selected_electrodes_names,filters, sample_d
     filter_results = {}
     for electrode in selected_electrodes_names:
         for f in range(len(filters)):
-            b, a = filters[f] #TODO how to live-update these?
+            b, a = filters[f] 
             filter_results[electrode + '_' + freq_limits_names[f]] = []
             for _, segment in dataset[electrode].groupby(np.arange(len(dataset)) // sample_duration):
                 if segment.shape[0] == sample_duration:                     
                     filt_result_relax = apply_filter(segment,b,a)                     
                     for data_point in filt_result_relax:
                         filter_results[electrode + '_' + freq_limits_names[f]].append(data_point)      
+    filtered_dataset = pd.DataFrame.from_dict(filter_results)        
+    return filtered_dataset
+
+def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
+    filter_results = {}
+    for electrode in selected_electrodes_names:
+        for f in range(len(filters)):
+            b, a = filters[f] 
+            filter_results[electrode + '_' + freq_limits_names[f]] = []
+            if segment.shape[0] == sample_duration:                     
+                filt_result_relax = apply_filter(segment,b,a)                     
+                for data_point in filt_result_relax:
+                    filter_results[electrode + '_' + freq_limits_names[f]].append(data_point)      
     filtered_dataset = pd.DataFrame.from_dict(filter_results)        
     return filtered_dataset
 
@@ -98,6 +105,14 @@ def segmentation_for_ML(dataset,sample_duration):
         segments.append(segment.iloc[:,:-1].transpose())
         labels.append(segment['label'].mode()) 
     return np.stack(segments), np.array(labels).ravel()
+
+def segmentation_all(dataset,sample_duration):
+    segments = []
+    labels = []
+    for _, segment in dataset.groupby(np.arange(len(dataset)) // sample_duration):
+        segments.append(segment.iloc[:,:-1].transpose())
+        labels.append(segment['label'].mode()) 
+    return segments, labels
 
 def plot_dataset(data_table, columns, match='like', display='line'):
     names = list(data_table.columns)

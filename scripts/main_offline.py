@@ -10,7 +10,7 @@ import scipy.io
 import matplotlib.pyplot as plt
 import time
 
-from sklearn.model_selection import KFold, cross_val_score
+from sklearn.model_selection import KFold, cross_validate
 import mne
 
 def print_flags():
@@ -21,23 +21,7 @@ def print_flags():
         print(key + ' : ' + str(value))
 
 def main():
-     # 1. get files
-     folder_path = Path('./data/offline/')
-     result_path = Path('./data/offline/intermediate_datafiles/1/')
-     result_path.mkdir(exist_ok=True, parents=True)
-     
-     for instance in os.scandir(folder_path): # go through all data files  
-          # when having only 1 file this is not needed
-          if instance.path.endswith('.mat'):
-               #TODO add multiple sessions
-               sig = scipy.io.loadmat(instance.path)
-               X = sig['session']['data_EEG']
-               y = sig['session']['task_EEG']
-
-               X = X[0][0][:-1,:].T #get relevant data and transpose
-               y = y[0][0].T #get relevant data and transpose
-
-     # 2. INIT
+     # INIT
      sampling_frequency = 200 # 250 for ours, 200 for Laura's
      sample_duration = 200 # 1 second
      all_electrode_names = ['F3', 'FZ', 'FC1','FCZ','C1','CZ','CP1','CPZ', 
@@ -47,17 +31,34 @@ def main():
      selected_electrodes_names = [x for x in all_electrode_names if x not in deleted_electrodes_names]
      # for us: ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
      n_electrodes = len(selected_electrodes_names)
+
+     # Get files
+     folder_path = Path('./data/offline/')
+     result_path = Path('./data/offline/intermediate_datafiles/1/')
+     result_path.mkdir(exist_ok=True, parents=True)
+     
+     for instance in os.scandir(folder_path): # go through all data files  
+          # when having only 1 file this is not needed
+          if instance.path.endswith('.mat'):
+               #TODO add multiple sessions --> segment them individually, then add the segments together
+               # only use the even numbered trials --> are with moving
+               sig = scipy.io.loadmat(instance.path)
+               X = sig['session']['data_EEG']
+               y = sig['session']['task_EEG']
+
+               X = X[0][0][:-1,:].T #get relevant data and transpose
+               y = y[0][0].T #get relevant data and transpose
+
+
      # transform np array to pandas dataframe
      dataset = pd.DataFrame(X, columns=all_electrode_names)
      # IMPORTANT: DELETE! F3, C5, F4, C2 --> only used for eye artifact correction!
      dataset.drop(deleted_electrodes_names, axis=1, inplace=True)
 
-
      labels = pd.DataFrame(y, columns=['label'])
      data_relax = dataset.loc[labels['label'] == 402] 
-     # TODO relax is made of 2 segments --> dumb concat may lead to weird transition? for now, don't care as it's only influencing 1 segment
+     # relax is made of 2 segments --> dumb concat may lead to weird transition? for now, don't care as it's only influencing 1 segment
      data_MI = dataset.loc[labels['label'] == 404]
-
 
      # init filters 
      # TODO add more filter experimentation
@@ -83,20 +84,23 @@ def main():
 
      # 4. init pipeline by parser args, and apply to data.
      chosen_pipelines = utils.init_pipelines(FLAGS.p)
-     cv = KFold(n_splits=3, shuffle=True, random_state=42)
+     cv = KFold(n_splits=5, shuffle=True, random_state=42)
      results = {}
+     scoring = {'f1': 'f1', 
+          'acc': 'accuracy',
+           'prec_macro': 'precision_macro',
+           'rec_macro': 'recall_macro',
+           }
 
-     # TODO: add all results to pd dataframe: save results as dicts of dict --> categorize on f1 score
-     results = {}
-     scoring = ['accuracy', 'f1_score', 'precision', 'recall']
      for clf in chosen_pipelines:
           start_time = time.time()
-          accuracy = cross_val_score(chosen_pipelines[clf], X_segmented, y, cv=cv, n_jobs=-1).mean()
-          #TODO add f1 p r
+          scores = cross_validate(chosen_pipelines[clf], X_segmented, y, cv=cv, n_jobs=-1, scoring=scoring, return_train_score=True)
           elapsed_time = time.time() - start_time
           results[clf] = {'filter_order': filter_order, 'filter_limits': freq_limits_names,
-                'accuracy': accuracy, 'time (seconds)': elapsed_time,  }   
-     print(results) #and save
+                'test_accuracy': scores['test_acc'].mean(),'test_f1': scores['test_f1'].mean(),'test_prec': scores['test_prec_macro'].mean(),
+                 'test_rec': scores['test_rec_macro'].mean(), 'time (seconds)': elapsed_time}  
+     results_df = pd.DataFrame.from_dict(results, orient='index').sort_values('test_f1', ascending=False) 
+     print(results_df)
 
 if __name__ == '__main__':
      parser = argparse.ArgumentParser(description="Run offline BCI analysis")
