@@ -13,6 +13,8 @@ import time
 from sklearn.model_selection import KFold, cross_validate
 import mne
 
+pd.options.mode.chained_assignment = None  # default='warn'
+
 def print_flags():
     """
     Prints all entries in FLAGS variable.
@@ -34,7 +36,7 @@ def main():
 
 
     folder_path = Path('./data/offline/202100722_MI_atencion_online/')
-    result_path = Path('./data/offline/intermediate_datafiles/1/')
+    result_path = Path('./data/offline/intermediate_datafiles/')
     result_path.mkdir(exist_ok=True, parents=True)
 
     X_all = []
@@ -59,30 +61,36 @@ def main():
             data_relax = dataset.loc[labels['label'] == 402] 
             data_MI = dataset.loc[labels['label'] == 404]
 
-            #--------
-            # below filtering part --> maybe later add this to pipeline function?
             freq_limits = np.asarray([[5, 10], [10, 15], [15, 20], [20, 25]]) 
             freq_limits_names = ['5_10Hz', '10_15Hz','15_20Hz','20_25Hz']
             filter_order = 2
             filters = utils.init_filters(freq_limits, sampling_frequency, filt_type = 'bandpass', order=filter_order)
-            #-----------
 
-            data_relax.loc['label'] = 0
+            data_relax['label'] = 0
             data_MI['label'] = 1
 
             dataset_full = pd.concat([data_relax,data_MI], axis=0)
             dataset_full.reset_index(drop=True, inplace=True)
-            print(dataset_full.shape) #TODO why 14001 and not 14000
+
             X_segmented, y = utils.segmentation_all(dataset_full,sample_duration)
             for segment in range(len(X_segmented)):
                 segment_filt = utils.filter_1seg(X_segmented[segment].transpose(), selected_electrodes_names,filters, sample_duration, freq_limits_names)
+
+                #utils.plot_dataset(segment_filt, ['FZ_','PZ_', 'HL', 'CZ_', 'VD_'],
+                #                    ['like', 'like', 'like', 'like', 'like'],
+                #                    ['line', 'line', 'line', 'line', 'line'])
+
                 segment_filt = segment_filt.transpose()
-                X_all.append(X_segmented[segment])
+
+                #append each segment-df to a list of dfs
+                X_all.append(segment_filt)
                 y_all.append(y[segment])
-    #TODO check if filtering goes well
+
+    # transform to np for use in ML-pipeline
     X_np = np.stack(X_all)
-    y_np = np.array(labels).ravel()
-    #print(X_np.shape)
+    y_np = np.array(y_all).ravel()
+    print(X_np.shape)
+    print(y_np.shape)
 
     # apply pipelines
     chosen_pipelines = utils.init_pipelines(FLAGS.p)
@@ -96,14 +104,16 @@ def main():
 
     for clf in chosen_pipelines:
         start_time = time.time()
-        scores = cross_validate(chosen_pipelines[clf], X_segmented, y, cv=cv, n_jobs=-1, scoring=scoring, return_train_score=True)
+        scores = cross_validate(chosen_pipelines[clf], X_np, y_np, cv=cv, n_jobs=-1, scoring=scoring, return_train_score=True)
         elapsed_time = time.time() - start_time
+
         results[clf] = {'filter_order': filter_order, 'filter_limits': freq_limits_names,
-            'test_accuracy': scores['test_acc'].mean(),'test_f1': scores['test_f1'].mean(),'test_prec': scores['test_prec_macro'].mean(),
-                'test_rec': scores['test_rec_macro'].mean(), 'time (seconds)': elapsed_time}  
-        print(results[clf]) #TODO check results for this
+            'test_accuracy': scores['test_acc'].mean(),'test_f1': scores['test_f1'].mean(),
+            'test_prec': scores['test_prec_macro'].mean(), 'test_rec': scores['test_rec_macro'].mean(), 
+            'time (seconds)': elapsed_time}  
     results_df = pd.DataFrame.from_dict(results, orient='index').sort_values('test_f1', ascending=False) 
     print(results_df)
+
 
 if __name__ == '__main__':
      parser = argparse.ArgumentParser(description="Run offline BCI analysis")

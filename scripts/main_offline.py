@@ -61,10 +61,7 @@ def main():
      data_MI = dataset.loc[labels['label'] == 404]
 
      # init filters 
-     # TODO add more filter experimentation
-     # order of 2, 3, 4
-     # freq limits: big - [[5, 15], [15, 25], [25, 35]],          normal [[5, 10], [10, 15], [15, 20], [20, 25]], 
-     #  low [[0.5, 5], [5, 10], [10, 15]],         high  [[5, 10], [10, 15], [15, 20], [20, 25], [25, 30], [30, 35]], 
+
 
      freq_limits = np.asarray([[5, 10], [10, 15], [15, 20], [20, 25]]) 
      freq_limits_names = ['5_10Hz', '10_15Hz','15_20Hz','20_25Hz']

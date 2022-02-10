@@ -49,7 +49,7 @@ def min_max_scale(x):
 def init_pipelines(pipeline_names = ['csp+lda'], n_components = 8):
     pipelines = {}
     # standard / Laura's approach + variations
-    for n_comp in [8, 10, 11, 12, 13, 14, 16]:
+    for n_comp in [4, 8, 10, 11, 12, 13, 16]:
         pipelines["csp+lda_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                         ('lda', LDA())])
                                         
@@ -86,15 +86,23 @@ def segmentation_and_filter(dataset, selected_electrodes_names,filters, sample_d
     return filtered_dataset
 
 def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
+    # filters dataframe with 1 segment of 1 sec for all given filters
+    # returns a dataframe with as electrodexfilters columns
     filter_results = {}
     for electrode in selected_electrodes_names:
         for f in range(len(filters)):
             b, a = filters[f] 
             filter_results[electrode + '_' + freq_limits_names[f]] = []
-            if segment.shape[0] == sample_duration:                     
-                filt_result_relax = apply_filter(segment,b,a)                     
-                for data_point in filt_result_relax:
-                    filter_results[electrode + '_' + freq_limits_names[f]].append(data_point)      
+            if segment.shape[0] == sample_duration: 
+                #print('segment\n')
+                #print(segment)                    
+                filt_result_temp = apply_filter(segment[electrode],b,a)
+                #print('filtresult\n')
+                #print(filt_result_temp)                     
+                for data_point in filt_result_temp:
+                    filter_results[electrode + '_' + freq_limits_names[f]].append(data_point) 
+                #print('end result\n')  
+                #print(filter_results[electrode + '_' + freq_limits_names[f]])   
     filtered_dataset = pd.DataFrame.from_dict(filter_results)        
     return filtered_dataset
 
