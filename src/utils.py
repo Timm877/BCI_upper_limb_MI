@@ -16,7 +16,7 @@ from sklearn.svm import SVC
 
 from pyriemann.estimation import Covariances
 from pyriemann.tangentspace import TangentSpace
-from pyriemann.classification import MDM
+from pyriemann.classification import MDM, FgMDM
 
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2):
@@ -41,15 +41,15 @@ def apply_filter(sig, b, a):
     return signal.filtfilt(b, a, sig)
 
 def min_max_scale(x):
-    # this function alters original x which is undesirable --> change this func 
     x -= x.min()
     x = x/x.max()
     return x
 
 def init_pipelines(pipeline_names = ['csp+lda'], n_components = 8):
     pipelines = {}
+
     # standard / Laura's approach + variations
-    for n_comp in [4, 8, 10, 11, 12, 13, 16]:
+    for n_comp in [8, 10, 11, 12, 13]:
         pipelines["csp+lda_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                         ('lda', LDA())])
                                         
@@ -59,7 +59,7 @@ def init_pipelines(pipeline_names = ['csp+lda'], n_components = 8):
         
         pipelines["csp+svm_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                             ('svm', SVC(kernel='linear'))])
-
+    '''
     # Riemannian approaches
     pipelines["tgsp+svm"] = Pipeline(steps=[('cov', Covariances("oas")), 
                                         ('tg', TangentSpace(metric="riemann")),
@@ -68,7 +68,9 @@ def init_pipelines(pipeline_names = ['csp+lda'], n_components = 8):
     # Minimum distance to riemanian mean (MDRM) --> directly on the manifold --> parameter-free!
     pipelines["mdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
                                    ('mdm', MDM(metric="riemann"))])
-
+    pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                   ('mdm', FgMDM(metric="riemann"))])
+    '''
     return pipelines
 
 def segmentation_and_filter(dataset, selected_electrodes_names,filters, sample_duration, freq_limits_names):

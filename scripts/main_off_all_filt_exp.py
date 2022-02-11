@@ -35,26 +35,33 @@ def main():
     n_electrodes = len(selected_electrodes_names)
 
 
-    folder_path = Path('./data/offline/202100722_MI_atencion_online/')
+    folder_path = Path('./data/offline/20210517_MI_atencion_online/')
     result_path = Path('./data/offline/intermediate_datafiles/')
     result_path.mkdir(exist_ok=True, parents=True)
-    results_fname = 'filtering_experiments.csv'
+    results_fname = 'filtering_experiments_csp_subject2.csv'
 
 
     #---- build for loops for experimenting with filter options
-    #     # order of 2, 3, 4
-    # freq limits: big - [[5, 15], [15, 25], [25, 35]],          normal [[5, 10], [10, 15], [15, 20], [20, 25]], 
-    #  low [[0.5, 5], [5, 10], [10, 15]],         high  [[5, 10], [10, 15], [15, 20], [20, 25], [25, 30], [30, 35]], 
+  
     list_of_freq_lim = [[[5, 10], [10, 15], [15, 20], [20, 25]], 
     [[5, 15], [15, 25], [25, 35]],
-    [[0.5, 5], [5, 10], [10, 15]],
+    [[4, 8], [8, 12], [12, 16], [16, 20], [20,24], [24,28], [28,32], [32,36], [36,40]],
     [[5, 10], [10, 15], [15, 20], [20, 25], [25, 30], [30, 35]]]
     freq_limits_names_list = [['5_10Hz', '10_15Hz','15_20Hz','20_25Hz'],
     ['5_15Hz', '15_25Hz','25_35Hz'],
-    ['0.5_5Hz', '5_10Hz','10_15Hz'],
+    ['4_8Hz', '8_12Hz','12_16Hz','16_20Hz', '20_24Hz','24_28Hz', '28_32Hz', '32_36Hz', '36_40Hz'],
     ['5_10Hz', '10_15Hz','15_20Hz','20_25Hz', '25_30Hz','30_35Hz']]
-    filt_orders = [2,3,4,5]
+    filt_orders = [2,3,4]
 
+    ''' 
+    # RIEMANNIAN APPROACH - 1 large bandpass filter with 
+    list_of_freq_lim = [[[3, 30]], 
+    [[3, 35]],
+    [[4,35]], [[4,30]], [[8,35]]]
+    freq_limits_names_list = [['3_30Hz'],
+    ['3_35Hz'], ['4-35Hz'], ['4-30Hz'],['8-35hz']]
+    filt_orders = [2,3,4]
+    '''
     results = {}
     for filt_ord in range(len(filt_orders)):
         for freq_limit_instance in range(len(list_of_freq_lim)):
@@ -85,8 +92,6 @@ def main():
 
                     data_relax = dataset.loc[labels['label'] == 402] 
                     data_MI = dataset.loc[labels['label'] == 404]
-                    
-
                     data_relax['label'] = 0
                     data_MI['label'] = 1
 
@@ -134,6 +139,10 @@ def main():
 
     
 if __name__ == '__main__':
+    # TODO add experiment flag --> to know that more pipelines are tested
+    # TODO add csp / riemann / DL flag
+    # TODO add better way to save CSV files without overwriting
+    # TODO experiment with window sizes
      parser = argparse.ArgumentParser(description="Run offline BCI analysis")
      parser.add_argument("--p", type=list, default=['csp+lda'], help="The pipeline used. \
      This variable is a list containing all names of selected pipelines. Options currently are: ")
