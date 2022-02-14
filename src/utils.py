@@ -1,23 +1,23 @@
+import copy
 import glob
 import os
 import shutil
-import copy
+
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from joblib import dump, load
-from scipy import signal
 from mne.decoding import CSP
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-from sklearn.pipeline import Pipeline
-from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV
-from sklearn.svm import SVC
-from sklearn.ensemble import RandomForestClassifier as RFC
-
+from pyriemann.classification import MDM, FgMDM
 from pyriemann.estimation import Covariances
 from pyriemann.tangentspace import TangentSpace
-from pyriemann.classification import MDM, FgMDM
+from scipy import signal
+from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
+from sklearn.ensemble import RandomForestClassifier as RFC
+from sklearn.linear_model import LogisticRegression
+from sklearn.model_selection import GridSearchCV
+from sklearn.pipeline import Pipeline
+from sklearn.svm import SVC
 
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2):
@@ -37,8 +37,11 @@ def init_filt_coef(cuttoff, fs, filtype, order):
     return b, a 
 
 def apply_filter(sig, b, a):
-    #sig -= sig.mean()
-    #sig = min_max_scale(sig)
+    # Substract mean and then scaling of signal to 0-1, as original signal is in range of -14000
+    # as the signal has to be centered at zero before filtering.
+    # https://stackoverflow.com/questions/69728320/setting-parameters-for-a-butterworth-filter
+    sig -= sig.mean()
+    sig = min_max_scale(sig)
     return signal.filtfilt(b, a, sig)
 
 def min_max_scale(x):

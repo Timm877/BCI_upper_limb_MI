@@ -110,11 +110,8 @@ def main():
                     for segment in range(len(X_segmented)):
                         segment_filt = utils.filter_1seg(X_segmented[segment].transpose(), selected_electrodes_names,filters, sample_duration,
                         freq_limits_names)
-
-                        f, Pxx_den = signal.periodogram(segment_filt, fs)
-                        plt.plot(signal.periodogram(segment_filt))
-                        plt.show()
                         segment_filt = segment_filt.transpose()
+
                         # append each segment-df to a list of dfs
                         X_all.append(segment_filt)
                         y_all.append(y[segment])
@@ -147,7 +144,7 @@ def main():
     print('Finished. Boem')
 
 if __name__ == '__main__':
-    # TODO update filter parameters for each segment?
+    # TODO update filter parameters after each segment?
     parser = argparse.ArgumentParser(description="Run offline BCI analysis")
     parser.add_argument("--p", type=str, default=['csp'], help="The variant of pipelines used. \
     This variable is a list containing the name of the variants. Options are: 'csp', 'riemann', 'deep'")
