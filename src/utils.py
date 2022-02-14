@@ -1,7 +1,7 @@
 import glob
 import os
 import shutil
-
+import copy
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -13,6 +13,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV
 from sklearn.svm import SVC
+from sklearn.ensemble import RandomForestClassifier as RFC
 
 from pyriemann.estimation import Covariances
 from pyriemann.tangentspace import TangentSpace
@@ -36,8 +37,8 @@ def init_filt_coef(cuttoff, fs, filtype, order):
     return b, a 
 
 def apply_filter(sig, b, a):
-    sig -= sig.mean()
-    sig = min_max_scale(sig)
+    #sig -= sig.mean()
+    #sig = min_max_scale(sig)
     return signal.filtfilt(b, a, sig)
 
 def min_max_scale(x):
@@ -45,32 +46,46 @@ def min_max_scale(x):
     x = x/x.max()
     return x
 
-def init_pipelines(pipeline_names = ['csp+lda'], n_components = 8):
+def init_pipelines(pipeline_name = ['csp'], n_components = 8):
     pipelines = {}
-
+    if 'csp' in pipeline_name:
     # standard / Laura's approach + variations
-    for n_comp in [8, 10, 11, 12, 13]:
-        pipelines["csp+lda_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
-                                        ('lda', LDA())])
-                                        
-        # Using Ledoit-Wolf lemma shrinkage, which is said to outperform standard LDA
-        pipelines["csp+s_lda_lsqr_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
-                                        ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
-        
-        pipelines["csp+svm_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
-                                            ('svm', SVC(kernel='linear'))])
-    '''
-    # Riemannian approaches
-    pipelines["tgsp+svm"] = Pipeline(steps=[('cov', Covariances("oas")), 
-                                        ('tg', TangentSpace(metric="riemann")),
-                                        ('svm', SVC(kernel='linear'))])
+        for n_comp in [8, 10, 11, 12, 13]:
+            pipelines["csp+lda_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
+                                            ('lda', LDA())])
+                                            
+            # Using Ledoit-Wolf lemma shrinkage, which is said to outperform standard LDA
+            pipelines["csp+s_lda_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
+                                            ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
+            
+            pipelines["csp+svm_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
+                                                ('svm', SVC(kernel='linear'))])
+
+            pipelines["csp+rf_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
+                                                ('rf', RFC(random_state=42))])
     
-    # Minimum distance to riemanian mean (MDRM) --> directly on the manifold --> parameter-free!
-    pipelines["mdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
-                                   ('mdm', MDM(metric="riemann"))])
-    pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
-                                   ('mdm', FgMDM(metric="riemann"))])
-    '''
+    # Riemannian approaches
+    if 'riemann' in pipeline_name:
+        pipelines["tgsp+svm"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                            ('tg', TangentSpace(metric="riemann")),
+                                            ('svm', SVC(kernel='linear'))])
+                                            
+        pipelines["tgsp+rf"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                            ('tg', TangentSpace(metric="riemann")),
+                                            ('rf', RFC(random_state=42))])
+        
+        # Minimum distance to riemanian mean (MDRM) --> directly on the manifold --> parameter-free!
+        pipelines["mdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                    ('mdm', MDM(metric="riemann"))])
+        pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                    ('mdm', FgMDM(metric="riemann"))])
+
+    if 'deep' in pipeline_name:
+        #TODO, for now just pass 1 random
+        pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                    ('mdm', FgMDM(metric="riemann"))])
+
+
     return pipelines
 
 def segmentation_and_filter(dataset, selected_electrodes_names,filters, sample_duration, freq_limits_names):
@@ -111,7 +126,8 @@ def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, fre
 def segmentation_for_ML(dataset,sample_duration):
     segments = []
     labels = []
-    for _, segment in dataset.groupby(np.arange(len(dataset)) // sample_duration):
+    dataset_c = copy.deepcopy(dataset)
+    for _, segment in dataset_c.groupby(np.arange(len(dataset)) // sample_duration):
         segments.append(segment.iloc[:,:-1].transpose())
         labels.append(segment['label'].mode()) 
     return np.stack(segments), np.array(labels).ravel()
@@ -119,7 +135,8 @@ def segmentation_for_ML(dataset,sample_duration):
 def segmentation_all(dataset,sample_duration):
     segments = []
     labels = []
-    for _, segment in dataset.groupby(np.arange(len(dataset)) // sample_duration):
+    dataset_c = copy.deepcopy(dataset)
+    for _, segment in dataset_c.groupby(np.arange(len(dataset)) // sample_duration):
         segments.append(segment.iloc[:,:-1].transpose())
         labels.append(segment['label'].mode()) 
     return segments, labels
