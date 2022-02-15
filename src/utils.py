@@ -107,22 +107,17 @@ def segmentation_and_filter(dataset, selected_electrodes_names,filters, sample_d
 
 def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
     # filters dataframe with 1 segment of 1 sec for all given filters
-    # returns a dataframe with as electrodexfilters columns
+    # returns a dataframe with columns as electrode-filters
     filter_results = {}
     for electrode in selected_electrodes_names:
         for f in range(len(filters)):
             b, a = filters[f] 
             filter_results[electrode + '_' + freq_limits_names[f]] = []
-            if segment.shape[0] == sample_duration: 
-                #print('segment\n')
-                #print(segment)                    
-                filt_result_temp = apply_filter(segment[electrode],b,a)
-                #print('filtresult\n')
-                #print(filt_result_temp)                     
+            if segment.shape[0] == sample_duration:                
+                filt_result_temp = apply_filter(segment[electrode],b,a)                   
                 for data_point in filt_result_temp:
                     filter_results[electrode + '_' + freq_limits_names[f]].append(data_point) 
-                #print('end result\n')  
-                #print(filter_results[electrode + '_' + freq_limits_names[f]])   
+  
     filtered_dataset = pd.DataFrame.from_dict(filter_results)        
     return filtered_dataset
 
