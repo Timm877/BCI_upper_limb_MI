@@ -49,8 +49,17 @@ def min_max_scale(x):
     x = x/x.max()
     return x
 
-def init_pipelines(pipeline_name = ['csp'], n_components = 8):
+def init_pipelines(pipeline_name = ['csp'], n_components = 8, gridsearch=['svm']):
     pipelines = {}
+    if 'svm' in gridsearch:
+        parameters = {'kernel': ['rbf', 'linear'],
+                    'gamma': [1e-3, 1e-4],
+                    'C': [1, 10, 100]}
+        svc = GridSearchCV(SVC(probability=True), parameters, cv=5, scoring='accuracy')
+    else:
+        svc = SVC(kernel='linear')
+
+
     if 'csp' in pipeline_name:
     # standard / Laura's approach + variations
         for n_comp in [8, 10, 11, 12, 13]:
@@ -62,7 +71,7 @@ def init_pipelines(pipeline_name = ['csp'], n_components = 8):
                                             ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
             
             pipelines["csp+svm_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
-                                                ('svm', SVC(kernel='linear'))])
+                                                ('svm', svc)])
 
             pipelines["csp+rf_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                                 ('rf', RFC(random_state=42))])
@@ -91,20 +100,6 @@ def init_pipelines(pipeline_name = ['csp'], n_components = 8):
 
     return pipelines
 
-def segmentation_and_filter(dataset, selected_electrodes_names,filters, sample_duration, freq_limits_names):
-    filter_results = {}
-    for electrode in selected_electrodes_names:
-        for f in range(len(filters)):
-            b, a = filters[f] 
-            filter_results[electrode + '_' + freq_limits_names[f]] = []
-            for _, segment in dataset[electrode].groupby(np.arange(len(dataset)) // sample_duration):
-                if segment.shape[0] == sample_duration:                     
-                    filt_result_relax = apply_filter(segment,b,a)                     
-                    for data_point in filt_result_relax:
-                        filter_results[electrode + '_' + freq_limits_names[f]].append(data_point)      
-    filtered_dataset = pd.DataFrame.from_dict(filter_results)        
-    return filtered_dataset
-
 def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
     # filters dataframe with 1 segment of 1 sec for all given filters
     # returns a dataframe with columns as electrode-filters
@@ -120,15 +115,6 @@ def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, fre
   
     filtered_dataset = pd.DataFrame.from_dict(filter_results)        
     return filtered_dataset
-
-def segmentation_for_ML(dataset,sample_duration):
-    segments = []
-    labels = []
-    dataset_c = copy.deepcopy(dataset)
-    for _, segment in dataset_c.groupby(np.arange(len(dataset)) // sample_duration):
-        segments.append(segment.iloc[:,:-1].transpose())
-        labels.append(segment['label'].mode()) 
-    return np.stack(segments), np.array(labels).ravel()
 
 def segmentation_all(dataset,sample_duration):
     segments = []
@@ -201,3 +187,33 @@ def plot_dataset(data_table, columns, match='like', display='line'):
     plt.setp([a.get_xticklabels() for a in f.axes[:-1]], visible=False)
     plt.xlabel('time')
     plt.show()
+
+
+
+'''
+
+def segmentation_for_ML(dataset,sample_duration):
+    segments = []
+    labels = []
+    dataset_c = copy.deepcopy(dataset)
+    for _, segment in dataset_c.groupby(np.arange(len(dataset)) // sample_duration):
+        segments.append(segment.iloc[:,:-1].transpose())
+        labels.append(segment['label'].mode()) 
+    return np.stack(segments), np.array(labels).ravel()
+
+def segmentation_and_filter(dataset, selected_electrodes_names,filters, sample_duration, freq_limits_names):
+    filter_results = {}
+    for electrode in selected_electrodes_names:
+        for f in range(len(filters)):
+            b, a = filters[f] 
+            filter_results[electrode + '_' + freq_limits_names[f]] = []
+            for _, segment in dataset[electrode].groupby(np.arange(len(dataset)) // sample_duration):
+                if segment.shape[0] == sample_duration:                     
+                    filt_result_relax = apply_filter(segment,b,a)                     
+                    for data_point in filt_result_relax:
+                        filter_results[electrode + '_' + freq_limits_names[f]].append(data_point)      
+    filtered_dataset = pd.DataFrame.from_dict(filter_results)        
+    return filtered_dataset
+
+
+'''
