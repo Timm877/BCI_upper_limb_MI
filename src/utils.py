@@ -51,15 +51,6 @@ def min_max_scale(x):
 
 def init_pipelines(pipeline_name = ['csp'], n_components = 8, gridsearch=['svm']):
     pipelines = {}
-    if 'svm' in gridsearch:
-        parameters = {'kernel': ['rbf', 'linear'],
-                    'gamma': [1e-3, 1e-4],
-                    'C': [1, 10, 100]}
-        svc = GridSearchCV(SVC(probability=True), parameters, cv=5, scoring='accuracy')
-    else:
-        svc = SVC(kernel='linear')
-
-
     if 'csp' in pipeline_name:
     # standard / Laura's approach + variations
         for n_comp in [8, 10, 11, 12, 13]:
@@ -71,7 +62,7 @@ def init_pipelines(pipeline_name = ['csp'], n_components = 8, gridsearch=['svm']
                                             ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
             
             pipelines["csp+svm_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
-                                                ('svm', svc)])
+                                                ('svm', SVC())])
 
             pipelines["csp+rf_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                                 ('rf', RFC(random_state=42))])
@@ -80,11 +71,11 @@ def init_pipelines(pipeline_name = ['csp'], n_components = 8, gridsearch=['svm']
     if 'riemann' in pipeline_name:
         pipelines["tgsp+svm"] = Pipeline(steps=[('cov', Covariances("oas")), 
                                             ('tg', TangentSpace(metric="riemann")),
-                                            ('svm', SVC(kernel='linear'))])
-                                            
-        pipelines["tgsp+rf"] = Pipeline(steps=[('cov', Covariances("oas")), 
-                                            ('tg', TangentSpace(metric="riemann")),
-                                            ('rf', RFC(random_state=42))])
+                                            ('svm', SVC(gamma = 0.05, C=10))])
+                                
+      #  pipelines["tgsp+rf"] = Pipeline(steps=[('cov', Covariances("oas")), 
+       #                                     ('tg', TangentSpace(metric="riemann")),
+        #                                    ('rf', RFC(random_state=42))])
         
         # Minimum distance to riemanian mean (MDRM) --> directly on the manifold --> parameter-free!
         pipelines["mdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
@@ -99,6 +90,47 @@ def init_pipelines(pipeline_name = ['csp'], n_components = 8, gridsearch=['svm']
 
 
     return pipelines
+
+def init_pipelines_grid(pipeline_name = ['csp'], gridsearch=['svm']):
+    pipelines = {}
+    if 'csp' in pipeline_name:
+        pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC())])
+        param_grid = {"csp__n_components": [10,11,12],
+            "svm__C": [1, 10],
+            "svm__gamma": [0.1, 0.01, 0.001]
+                }
+        pipelines["csp+svm"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
+
+        pipe = Pipeline(steps=[('csp', CSP()), ('rf', RFC(random_state=42))])
+        param_grid = {"csp__n_components": [10,11,12],
+            "rf__min_samples_leaf": [1, 2],
+            "rf__n_estimators": [50, 100, 200],
+            "rf__criterion": ['gini', 'entropy']}
+        pipelines["csp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
+
+    if 'riemann' in pipeline_name:  
+        pipe = Pipeline(steps=[('cov', Covariances("oas")), 
+                                            ('tg', TangentSpace(metric="riemann")),
+                                            ('svm', SVC())])
+        param_grid = {"svm__C": [0.1, 1, 10, 100],
+            "svm__gamma": [0.1, 0.01, 0.001],
+            "svm__kernel": ['rbf', 'linear']
+                }
+        pipelines["tgsp+svm"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)  
+
+        pipe = Pipeline(steps=[('cov', Covariances("oas")), 
+                                            ('tg', TangentSpace(metric="riemann")),
+                                            ('rf', RFC(random_state=42))])
+        param_grid = {"rf__min_samples_leaf": [1, 2, 50, 100],
+            "rf__n_estimators": [10, 50, 100, 200],
+            "rf__criterion": ['gini', 'entropy']}
+        pipelines["tgsp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
+    return pipelines  
+
+    #need to use something like this below
+    # https://scikit-learn.org/stable/tutorial/statistical_inference/putting_together.html
+
+  
 
 def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
     # filters dataframe with 1 segment of 1 sec for all given filters

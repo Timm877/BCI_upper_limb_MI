@@ -6,11 +6,12 @@ from pathlib import Path
 import matplotlib
 import matplotlib.pyplot as plt
 import mne
+import torch
 import numpy as np
 import pandas as pd
 import scipy.io
 import src.utils as utils
-from sklearn.model_selection import KFold, cross_validate
+from sklearn.model_selection import KFold, cross_validate, train_test_split
 from scipy import signal, stats
 
 pd.options.mode.chained_assignment = None  # default='warn'
@@ -43,6 +44,7 @@ def main():
     result_path.mkdir(exist_ok=True, parents=True)
     
     if 'csp' in FLAGS.p:
+        #TODO change to func
         results_fname = f'csp_{time.time()}_filtering_experiments_{subject}.csv'
         list_of_freq_lim = [[[5, 10], [10, 15], [15, 20], [20, 25]], 
         [[5, 15], [15, 25], [25, 35]],
@@ -55,12 +57,14 @@ def main():
         filt_orders = [2,3,4]
 
     if 'riemann' in FLAGS.p:
+        #TODO change to func
         results_fname = f'riemann_{time.time()}_filtering_experiments_{subject}.csv'
         list_of_freq_lim = [[[4, 30]], [[4, 35]], [[4,40]], [[8,30]], [[8,35]], [[8,40]]]
         freq_limits_names_list = [['4_30Hz'], ['4_35Hz'], ['4-40Hz'], ['8-30Hz'], ['8-35Hz'], ['8-40hz']]
         filt_orders = [2,3,4]
 
     if 'deep' in FLAGS.p:
+        #TODO change to func
         results_fname = f'deepl_{time.time()}_filtering_experiments_{subject}.csv'
         list_of_freq_lim = [[[4, 30]], [[4, 35]], [[4,40]], [[8,30]], [[8,35]], [[8,40]]]
         freq_limits_names_list = [['4_30Hz'], ['4_35Hz'], ['4-40Hz'], ['8-30Hz'], ['8-35Hz'], ['8-40hz']]
@@ -71,6 +75,7 @@ def main():
     for instance in os.scandir(folder_path): 
         if instance.path.endswith('.mat'):
             print(f'adding_{instance} to dataset...')
+            #TODO change to func
             sig = scipy.io.loadmat(instance.path)
             X = sig['session']['data_EEG'][0][0][:-1,:].T
             y = sig['session']['task_EEG'][0][0].T 
@@ -86,8 +91,6 @@ def main():
             data_MI['label'] = 1
             dataset_full[str(instance)] = pd.concat([data_relax,data_MI], axis=0)
             dataset_full[str(instance)].reset_index(drop=True, inplace=True)
-
-
 
     results = {}
     for filt_ord in range(len(filt_orders)):
@@ -105,6 +108,7 @@ def main():
                 for segment in range(len(X_segmented)):
                     # initial filtering of 0.1-100Hz + Notch --> same for each approach 
                     if pre_filtering == True:
+                        # TODO change to func
                         prefilters =  [[0.1, 99.9]]
                         prefreq_limits_names = ['0.1-99.9Hz']
                         prefilt_coef = utils.init_filters(np.asarray(prefilters), sampling_frequency, filt_type = 'bandpass', order=8)
@@ -129,6 +133,7 @@ def main():
                         X_all.append(segment_filt)
                         y_all.append(y[segment])
                     else:
+                        #TODO change to func
                         curr_segment = X_segmented[segment].transpose()
                         outliers=0
                         # 1 OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
@@ -154,34 +159,76 @@ def main():
             X_np = np.stack(X_all)
             y_np = np.array(y_all).ravel()
 
-            chosen_pipelines = utils.init_pipelines(FLAGS.p)
-            cv = KFold(n_splits=5, shuffle=True, random_state=42)
-            scoring = {'f1': 'f1', 
+            if 'deep' in FLAGS.p:
+                # TODO change to func
+                # set up train val test set distribution: 0.6 0.2 0.2
+                X_train, X_test, y_train, y_test = train_test_split(X_np, y_np, test_size=0.2, shuffle=True, random_state=42)
+                X_train, X_val, y_train, y_val = train_test_split(X_train, y_train, test_size=0.25, shuffle=True, random_state=42)
+
+                trainX = torch.from_numpy(X_train)
+                trainY = torch.from_numpy(y_train)
+                validationX = torch.from_numpy(X_val)
+                validationY = torch.from_numpy(y_val)
+                testX = torch.from_numpy(X_test)
+                testY = torch.from_numpy(y_test)
+
+                train = torch.utils.data.TensorDataset(trainX, trainY)
+                validation = torch.utils.data.TensorDataset(validationX, validationY)
+                test = torch.utils.data.TensorDataset(testX, testY)
+
+                trainloader = torch.utils.data.DataLoader(train, batch_size=16, shuffle=True)
+                testloader = torch.utils.data.DataLoader(validation, batch_size=1, shuffle=True)
+
+                # TODO INSERT TRAINING PIPELINE DL
+
+        
+            if FLAGS.g ==True: #gridsearch experimentation
+                # TODO change to func
+                chosen_pipelines = utils.init_pipelines_grid(FLAGS.p)
+                for clf in chosen_pipelines:
+                    start_time = time.time()
+                    preds = np.zeros(len(y_np))
+                    X_train, X_test, y_train, y_test = train_test_split(X_np, y_np, test_size=0.2, shuffle=True, random_state=42)
+                    chosen_pipelines[clf].fit(X_train, y_train)
+                    print(chosen_pipelines[clf].best_params_)
+                    preds = chosen_pipelines[clf].predict(X_test)
+                    acc = np.mean(preds == y_test)
+                    print("Classification accuracy: %f " % (acc))
+                    elapsed_time = time.time() - start_time
+                    results[f"grid_search_{clf}_{filter_order}_{freq_limits_names}_{sample_duration}"] = {'clf': clf, 'filter_order' : filter_order, 
+                    'freq_limits' : freq_limits_names, 'windowsize' : sample_duration, 
+                        'test_accuracy': acc, 'time (seconds)': elapsed_time, 'bestParams': chosen_pipelines[clf].best_params_ } 
+            else:
+                # TODO change to func 
+                # data leakage?? --> watch out my friend
+                chosen_pipelines = utils.init_pipelines(FLAGS.p)
+                cv = KFold(n_splits=5, shuffle=True, random_state=42)
+                scoring = {'f1': 'f1', 
                 'acc': 'accuracy',
                 'prec_macro': 'precision_macro',
                 'rec_macro': 'recall_macro',
                 }
-
-            for clf in chosen_pipelines:
-                print(f'applying {clf}...')
-                start_time = time.time()
-                scores = cross_validate(chosen_pipelines[clf], X_np, y_np, cv=cv, n_jobs=-1, scoring=scoring, return_train_score=True)
-                elapsed_time = time.time() - start_time
-                results[f"{clf}_{filter_order}_{freq_limits_names}_{sample_duration}"] = {'clf': clf, 'filter_order' : filter_order, 
-                'freq_limits' : freq_limits_names, 'windowsize' : sample_duration, 
-                    'test_accuracy': scores['test_acc'].mean(),'test_f1': scores['test_f1'].mean(),
-                    'test_prec': scores['test_prec_macro'].mean(), 'test_rec': scores['test_rec_macro'].mean(), 
-                    'time (seconds)': elapsed_time }  
-    results_df = pd.DataFrame.from_dict(results, orient='index').sort_values('test_f1', ascending=False) 
+                for clf in chosen_pipelines:
+                    print(f'applying {clf}...')
+                    start_time = time.time()
+                    scores = cross_validate(chosen_pipelines[clf], X_np, y_np, cv=cv, n_jobs=-1, scoring=scoring, return_train_score=True)
+                    elapsed_time = time.time() - start_time
+                    results[f"{clf}_{filter_order}_{freq_limits_names}_{sample_duration}"] = {'clf': clf, 'filter_order' : filter_order, 
+                    'freq_limits' : freq_limits_names, 'windowsize' : sample_duration, 
+                        'test_accuracy': scores['test_acc'].mean(),'test_f1': scores['test_f1'].mean(),
+                        'test_prec': scores['test_prec_macro'].mean(), 'test_rec': scores['test_rec_macro'].mean(), 
+                        'time (seconds)': elapsed_time, 'train_accuracy': scores['train_acc'].mean() }  
+                    print(chosen_pipelines[clf].get_params())
+    results_df = pd.DataFrame.from_dict(results, orient='index').sort_values('test_accuracy', ascending=False) 
     results_df.to_csv(result_path / results_fname)
     print('Finished. Boem')
 
 if __name__ == '__main__':
-    # TODO update filter parameters after each segment?
     #TODO change main to a Class --> possible to e.g. run both csp and riemann after each other with self. etc.
     parser = argparse.ArgumentParser(description="Run offline BCI analysis experiments.")
     parser.add_argument("--p", type=str, default=['csp'], help="The variant of pipelines used. \
     This variable is a list containing the name of the variants. Options are: 'csp', 'riemann', 'deep'")
-
+    parser.add_argument("--g", type=bool, default=False, help="Option to experiment with gridsearch pipelines \
+    or without. This is a bool.")
     FLAGS, unparsed = parser.parse_known_args()
     main()
