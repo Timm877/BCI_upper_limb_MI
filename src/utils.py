@@ -2,6 +2,7 @@ import copy
 import glob
 import os
 import shutil
+import time
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -11,11 +12,11 @@ from mne.decoding import CSP
 from pyriemann.classification import MDM, FgMDM
 from pyriemann.estimation import Covariances
 from pyriemann.tangentspace import TangentSpace
-from scipy import signal
+from scipy import signal, stats
 from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
 from sklearn.ensemble import RandomForestClassifier as RFC
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV
+from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
 
@@ -73,9 +74,9 @@ def init_pipelines(pipeline_name = ['csp'], n_components = 8, gridsearch=['svm']
                                             ('tg', TangentSpace(metric="riemann")),
                                             ('svm', SVC(gamma = 0.05, C=10))])
                                 
-      #  pipelines["tgsp+rf"] = Pipeline(steps=[('cov', Covariances("oas")), 
-       #                                     ('tg', TangentSpace(metric="riemann")),
-        #                                    ('rf', RFC(random_state=42))])
+        pipelines["tgsp+rf"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                            ('tg', TangentSpace(metric="riemann")),
+                                            ('rf', RFC(random_state=42))])
         
         # Minimum distance to riemanian mean (MDRM) --> directly on the manifold --> parameter-free!
         pipelines["mdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
@@ -127,9 +128,24 @@ def init_pipelines_grid(pipeline_name = ['csp'], gridsearch=['svm']):
         pipelines["tgsp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
     return pipelines  
 
-    #need to use something like this below
-    # https://scikit-learn.org/stable/tutorial/statistical_inference/putting_together.html
 
+def pre_processing(segment,selected_electrodes_names,filters, sample_duration, freq_limits_names):
+    curr_segment = segment.transpose()
+    outlier=0
+    #TODO add notch filter 50Hz for Unicorn BCI experiments
+    # 1 OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
+    for i, j in curr_segment.iterrows():
+        if stats.kurtosis(j) > 4*np.std(j) or (abs(j) > 125000).any():
+            print('wow')
+            print(j)
+            outlier +=1
+    # 2 APPLY COMMON AVERAGE REFERENCE (CAR) per segment: 
+    # substracting mean of each colum (e.g each sample of all electrodes)                  
+    curr_segment -= curr_segment.mean()
+    # 3 FILTERING filter bank / bandpass
+    segment_filt = filter_1seg(curr_segment, selected_electrodes_names, filters, sample_duration, freq_limits_names)
+    segment_filt = segment_filt.transpose()
+    return segment_filt, outlier
   
 
 def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
@@ -156,6 +172,19 @@ def segmentation_all(dataset,sample_duration):
         segments.append(segment.iloc[:,:-1].transpose())
         labels.append(segment['label'].mode()) 
     return segments, labels
+
+def grid_search_execution(X_np, y_np, chosen_pipelines, clf):
+    start_time = time.time()
+    preds = np.zeros(len(y_np))
+    X_train, X_test, y_train, y_test = train_test_split(X_np, y_np, test_size=0.2, shuffle=True, random_state=42)
+    chosen_pipelines[clf].fit(X_train, y_train)
+    print(chosen_pipelines[clf].best_params_)
+    preds = chosen_pipelines[clf].predict(X_test)
+    acc = np.mean(preds == y_test)
+    print("Classification accuracy: %f " % (acc))
+    elapsed_time = time.time() - start_time
+    return acc, elapsed_time, chosen_pipelines
+
 
 def plot_dataset(data_table, columns, match='like', display='line'):
     names = list(data_table.columns)
