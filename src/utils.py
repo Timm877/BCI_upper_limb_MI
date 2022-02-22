@@ -20,16 +20,33 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
 
-
-def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2):
-    #TODO add a for loop for each electrode create dict with empty list
+def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2, state_space=True):
     filters = []
     z = []
-    for f in range(freq_lim.shape[0]):
-        b, a = init_filt_coef(freq_lim[f], fs=sample_freq, filtype=filt_type, order=order)
-        z.append(signal.lfilter_zi(b, a))
-        filters.append([b, a])
+    if state_space:
+        for f in range(freq_lim.shape[0]):
+            A, B, C, D, Xnn  = init_filt_coef_statespace(freq_lim[f], fs=sample_freq, filtype=filt_type, order=order)
+            filters.append([A, B, C, D, Xnn ])
+    else:
+        for f in range(freq_lim.shape[0]):
+            b, a = init_filt_coef(freq_lim[f], fs=sample_freq, filtype=filt_type, order=order)
+            filters.append([b, a])
+            # some z stuff
     return filters, z
+
+def init_filt_coef_statespace(cuttoff, fs, filtype, order,len_selected_electrodes=27):
+    if filtype == 'lowpass':
+        b,a = signal.butter(order, cuttoff[0]/(fs/2), filtype)
+    elif filtype == 'bandpass':
+        b,a = signal.butter(order, [cuttoff[0]/(fs/2), cuttoff[1]/(fs/2)], filtype)
+    elif filtype == 'highpass':
+        b,a = signal.butter(order, cuttoff[0]/(fs/2), filtype)
+    # getting matrices for the state-space form of the filter from scipy and init state vector
+    A, B, C, D = signal.tf2ss(b,a)
+    Xnn = np.zeros((1,len_selected_electrodes,A.shape[0],1))
+    #print(Xnn[0,2])
+    #print('h')
+    return A, B, C, D, Xnn 
 
 def init_filt_coef(cuttoff, fs, filtype, order):
     if filtype == 'lowpass':
@@ -38,33 +55,102 @@ def init_filt_coef(cuttoff, fs, filtype, order):
         b,a = signal.butter(order, [cuttoff[0]/(fs/2), cuttoff[1]/(fs/2)], filtype)
     elif filtype == 'highpass':
         b,a = signal.butter(order, cuttoff[0]/(fs/2), filtype)
-
     # getting matrices for the state-space form of the filter from scipy.
-    A, B, C, D = signal.tf2ss(b,a)
-    return A, B, C, D
+    return b, a 
 
 def apply_filter(sig, b, a, zi):
-    # Substract mean and then scaling of signal to 0-1, as original signal is in range of -14000
-    # as the signal has to be centered at zero before filtering.
+    # Substract mean as the signal has to be centered at zero before filtering.
     # https://stackoverflow.com/questions/69728320/setting-parameters-for-a-butterworth-filter
     sig -= sig.mean()
-    print(sig.mean())
-    sig = min_max_scale(sig)
-    print(sig.mean())
-    #NOTE: when I want to change back to filfilt, only have to uncomment the line below and comment lfilter call
+    #NOTE: when I want to change back to filfilt or to lfilter, only have to comment/uncomment
     filt_sig = signal.filtfilt(b, a, sig)
     #filt_sig, zi = signal.lfilter(b, a, sig, zi=zi)
-    plt.plot(sig)
-    plt.plot(filt_sig)
-    plt.show()
     return filt_sig, zi
 
-def min_max_scale(x):
-    x -= x.min()
-    x = x/x.max()
-    return x
+def apply_filter_statespace(sig, A, B, C, D, Xnn):
+    # Substract mean for centering around 0
+    # as the signal has to be centered at zero before filtering (for better comparison in plots).
+    # https://stackoverflow.com/questions/69728320/setting-parameters-for-a-butterworth-filter
+    sig -= sig.mean()
+    # sig = min_max_scale(sig)
+    # State space with scipy's matrices
+    filt_sig = np.array([])
+    for sample in sig: 
+        filt_sig = np.append(filt_sig, C.dot(Xnn) + D * sample)
+        Xnn = A@Xnn + B * sample
+    return filt_sig, Xnn
 
-def init_pipelines(pipeline_name = ['csp'], n_components = 8, gridsearch=['svm']):
+def pre_processing(segment,selected_electrodes_names ,filters, sample_duration, freq_limits_names,z, state_space=True):
+    curr_segment = segment.transpose()
+    outlier=0
+    #TODO add notch filter 50Hz for Unicorn BCI experiments??? --> is needed?
+    # 1 OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
+    for i, j in curr_segment.iterrows():
+        if stats.kurtosis(j) > 4*np.std(j) or (abs(j) > 125000).any():
+            print('wow')
+            print(j)
+            outlier +=1
+    # 2 APPLY COMMON AVERAGE REFERENCE (CAR) per segment: 
+    # substracting mean of each colum (e.g each sample of all electrodes)                  
+    curr_segment -= curr_segment.mean()
+    # 3 FILTERING filter bank / bandpass
+    if state_space == True:
+        segment_filt, filters = filter_1seg_statespace(curr_segment, selected_electrodes_names, filters, sample_duration, 
+        freq_limits_names)
+    else:
+        segment_filt, z = filter_1seg(curr_segment, selected_electrodes_names, filters, sample_duration, freq_limits_names, z)
+
+    segment_filt = segment_filt.transpose()
+    return segment_filt, outlier, filters
+
+def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
+    # filters dataframe with 1 segment of 1 sec for all given filters
+    # returns a dataframe with columns as electrode-filters
+    filter_results = {}
+    for electrode in range(len(selected_electrodes_names)):
+        for f in range(len(filters)):
+            # TODO change to sos filt as that is supposed to be more stable??
+            A, B, C, D, Xnn = filters[f] 
+            filter_results[selected_electrodes_names[electrode] + '_' + freq_limits_names[f]] = []
+            if segment.shape[0] == sample_duration:      
+                # apply filter ánd update Xnn state vector       
+                # print(f'this should be a vector of size len(A): {Xnn[0,electrode]}. Boem.') 
+                filt_result_temp, Xnn[0,electrode] = apply_filter_statespace(segment[selected_electrodes_names[electrode]], 
+                A, B, C, D, Xnn[0,electrode])         
+                for data_point in filt_result_temp:
+                    filter_results[selected_electrodes_names[electrode] + '_' + freq_limits_names[f]].append(data_point) 
+            filters[f] = [A, B, C, D, Xnn]
+            #print('made it to here')
+    filtered_dataset = pd.DataFrame.from_dict(filter_results)     
+    return filtered_dataset, filters
+  
+def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names, z):
+    # filters dataframe with 1 segment of 1 sec for all given filters
+    # returns a dataframe with columns as electrode-filters
+    filter_results = {}
+    for electrode in selected_electrodes_names:
+        for f in range(len(filters)):
+            b, a = filters[f] 
+            zi = z[f]
+            filter_results[electrode + '_' + freq_limits_names[f]] = []
+            if segment.shape[0] == sample_duration:                
+                filt_result_temp, zi = apply_filter(segment[electrode],b,a,zi)            
+                for data_point in filt_result_temp:
+                    filter_results[electrode + '_' + freq_limits_names[f]].append(data_point) 
+                z[f] = zi #update z
+    filtered_dataset = pd.DataFrame.from_dict(filter_results)        
+    return filtered_dataset, z
+    
+def segmentation_all(dataset,sample_duration):
+    segments = []
+    labels = []
+    dataset_c = copy.deepcopy(dataset)
+    for _, segment in dataset_c.groupby(np.arange(len(dataset)) // sample_duration):
+        segments.append(segment.iloc[:,:-1].transpose())
+        labels.append(segment['label'].mode()) 
+    return segments, labels
+
+def init_pipelines(pipeline_name = ['csp']):
     pipelines = {}
     if 'csp' in pipeline_name:
     # standard / Laura's approach + variations
@@ -98,15 +184,9 @@ def init_pipelines(pipeline_name = ['csp'], n_components = 8, gridsearch=['svm']
         pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
                                     ('mdm', FgMDM(metric="riemann"))])
 
-    if 'deep' in pipeline_name:
-        #TODO, for now just pass 1 random
-        pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
-                                    ('mdm', FgMDM(metric="riemann"))])
-
-
     return pipelines
 
-def init_pipelines_grid(pipeline_name = ['csp'], gridsearch=['svm']):
+def init_pipelines_grid(pipeline_name = ['csp']):
     pipelines = {}
     if 'csp' in pipeline_name:
         pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC())])
@@ -142,64 +222,6 @@ def init_pipelines_grid(pipeline_name = ['csp'], gridsearch=['svm']):
         pipelines["tgsp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
     return pipelines  
 
-def pre_processing(segment,selected_electrodes_names,filters, sample_duration, freq_limits_names,z):
-    curr_segment = segment.transpose()
-    outlier=0
-    #TODO add notch filter 50Hz for Unicorn BCI experiments
-    # 1 OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
-    for i, j in curr_segment.iterrows():
-        if stats.kurtosis(j) > 4*np.std(j) or (abs(j) > 125000).any():
-            print('wow')
-            print(j)
-            outlier +=1
-    # 2 APPLY COMMON AVERAGE REFERENCE (CAR) per segment: 
-    # substracting mean of each colum (e.g each sample of all electrodes)                  
-    curr_segment -= curr_segment.mean()
-    # 3 FILTERING filter bank / bandpass
-    segment_filt, z = filter_1seg(curr_segment, selected_electrodes_names, filters, sample_duration, freq_limits_names, z)
-
-    segment_filt = segment_filt.transpose()
-    return segment_filt, outlier, z
-  
-def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names, z):
-    # filters dataframe with 1 segment of 1 sec for all given filters
-    # returns a dataframe with columns as electrode-filters
-    filter_results = {}
-    for electrode in selected_electrodes_names:
-        for f in range(len(filters)):
-            # TODO b,a,z are now generally initialized instead of per electrode which I think is needed!
-            # TODO change to sos filt as that is supposed to be more stable??
-            b, a = filters[f] 
-            zi = z[f]
-            filter_results[electrode + '_' + freq_limits_names[f]] = []
-            if segment.shape[0] == sample_duration:                
-                filt_result_temp, zi = apply_filter(segment[electrode],b,a,zi)            
-                for data_point in filt_result_temp:
-                    filter_results[electrode + '_' + freq_limits_names[f]].append(data_point) 
-                z[f] = zi #update z
-    filtered_dataset = pd.DataFrame.from_dict(filter_results)        
-    return filtered_dataset, z
-
-def state_space_filt(data, filters, selected_electrodes_names):
-    for electrode in selected_electrodes_names:
-        for f in range(len(filters)):
-            b, a = filters[f] 
-            z = np.zeros(b.size-1)
-
-
-
-
-
-
-def segmentation_all(dataset,sample_duration):
-    segments = []
-    labels = []
-    dataset_c = copy.deepcopy(dataset)
-    for _, segment in dataset_c.groupby(np.arange(len(dataset)) // sample_duration):
-        segments.append(segment.iloc[:,:-1].transpose())
-        labels.append(segment['label'].mode()) 
-    return segments, labels
-
 def grid_search_execution(X_np, y_np, chosen_pipelines, clf):
     start_time = time.time()
     preds = np.zeros(len(y_np))
@@ -211,7 +233,6 @@ def grid_search_execution(X_np, y_np, chosen_pipelines, clf):
     print("Classification accuracy: %f " % (acc))
     elapsed_time = time.time() - start_time
     return acc, elapsed_time, chosen_pipelines
-
 
 def plot_dataset(data_table, columns, match='like', display='line'):
     names = list(data_table.columns)
@@ -275,33 +296,3 @@ def plot_dataset(data_table, columns, match='like', display='line'):
     plt.setp([a.get_xticklabels() for a in f.axes[:-1]], visible=False)
     plt.xlabel('time')
     plt.show()
-
-
-
-'''
-
-def segmentation_for_ML(dataset,sample_duration):
-    segments = []
-    labels = []
-    dataset_c = copy.deepcopy(dataset)
-    for _, segment in dataset_c.groupby(np.arange(len(dataset)) // sample_duration):
-        segments.append(segment.iloc[:,:-1].transpose())
-        labels.append(segment['label'].mode()) 
-    return np.stack(segments), np.array(labels).ravel()
-
-def segmentation_and_filter(dataset, selected_electrodes_names,filters, sample_duration, freq_limits_names):
-    filter_results = {}
-    for electrode in selected_electrodes_names:
-        for f in range(len(filters)):
-            b, a = filters[f] 
-            filter_results[electrode + '_' + freq_limits_names[f]] = []
-            for _, segment in dataset[electrode].groupby(np.arange(len(dataset)) // sample_duration):
-                if segment.shape[0] == sample_duration:                     
-                    filt_result_relax = apply_filter(segment,b,a)                     
-                    for data_point in filt_result_relax:
-                        filter_results[electrode + '_' + freq_limits_names[f]].append(data_point)      
-    filtered_dataset = pd.DataFrame.from_dict(filter_results)        
-    return filtered_dataset
-
-
-'''

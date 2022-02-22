@@ -71,8 +71,7 @@ def main():
             dataset = pd.DataFrame(X, columns=all_electrode_names)
             labels = pd.DataFrame(y, columns=['label'])
             # IMPORTANT: DELETE! F3, C5, F4, C2 --> only used for eye artifact correction!
-            dataset.drop(deleted_electrodes_names, axis=1, inplace=True)
-            
+            dataset.drop(deleted_electrodes_names, axis=1, inplace=True)      
             data_relax = dataset.loc[labels['label'] == 402] 
             data_MI = dataset.loc[labels['label'] == 404]
             data_relax['label'] = 0
@@ -86,20 +85,18 @@ def main():
             freq_limits = np.asarray(list_of_freq_lim[freq_limit_instance]) 
             freq_limits_names = freq_limits_names_list[freq_limit_instance]
             filter_order = filt_orders[filt_ord]
-            # TODO init filter and z for each electrode?
-            #NOTE: see here that I added a z to keep track of current segment filter state
-            filters, z = utils.init_filters(freq_limits, sampling_frequency, filt_type = 'bandpass', order=filter_order)
+            filters, z = utils.init_filters(freq_limits, sampling_frequency, filt_type = 'bandpass', order=filter_order, 
+            state_space = FLAGS.s)
             X_all = []
             y_all = []  
             print(f'experimenting with filter order of {filter_order}, freq limits of {freq_limits_names}, and ws of {sample_duration}.')
             for df in dataset_full:
-                # TODO state space filters?
                 X_segmented, y = utils.segmentation_all(dataset_full[df],sample_duration)
                 outliers = 0           
                 for segment in range(len(X_segmented)):
-                    segment_filt, outlier, z = utils.pre_processing(X_segmented[segment], selected_electrodes_names, filters, 
-                    sample_duration, freq_limits_names, z)
-                    #print(f'this z should be the same: {z}')
+                    # apply pre-processing and update filter state space vector in filters
+                    segment_filt, outlier, filters = utils.pre_processing(X_segmented[segment], selected_electrodes_names, filters, 
+                    sample_duration, freq_limits_names, z, state_space = FLAGS.s)
                     outliers += outlier
                     X_all.append(segment_filt)
                     y_all.append(y[segment])           
@@ -111,7 +108,6 @@ def main():
 
             if 'deep' in FLAGS.p:
                 # deep learning pipeline
-                # set up train test set distribution: 0.8 - 0.2
                 start_time = time.time()
                 trainloader, valloader = utils_deep.data_setup(X_np, y_np, val_size=0.2)   
                 train_accuracy, val_accuracy = utils_deep.run_model(trainloader, valloader)
@@ -160,6 +156,8 @@ if __name__ == '__main__':
     parser.add_argument("--p", type=str, default=['csp'], help="The variant of pipelines used. \
     This variable is a list containing the name of the variants. Options are: 'csp', 'riemann', 'deep'")
     parser.add_argument("--g", type=bool, default=False, help="Option to experiment with gridsearch pipelines \
-    or without. This is a bool.")
+    or without. This is a boolean variable. Default is False.")
+    parser.add_argument("--s", type=bool, default=True, help="Option to experiment run filter with state space implemenation, \
+    or without (using filtfilt). This is a boolean variable. Default is True.")
     FLAGS, unparsed = parser.parse_known_args()
     main()
