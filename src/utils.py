@@ -22,11 +22,14 @@ from sklearn.svm import SVC
 
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2):
+    #TODO add a for loop for each electrode create dict with empty list
     filters = []
+    z = []
     for f in range(freq_lim.shape[0]):
         b, a = init_filt_coef(freq_lim[f], fs=sample_freq, filtype=filt_type, order=order)
+        z.append(signal.lfilter_zi(b, a))
         filters.append([b, a])
-    return filters
+    return filters, z
 
 def init_filt_coef(cuttoff, fs, filtype, order):
     if filtype == 'lowpass':
@@ -35,15 +38,26 @@ def init_filt_coef(cuttoff, fs, filtype, order):
         b,a = signal.butter(order, [cuttoff[0]/(fs/2), cuttoff[1]/(fs/2)], filtype)
     elif filtype == 'highpass':
         b,a = signal.butter(order, cuttoff[0]/(fs/2), filtype)
-    return b, a 
 
-def apply_filter(sig, b, a):
+    # getting matrices for the state-space form of the filter from scipy.
+    A, B, C, D = signal.tf2ss(b,a)
+    return A, B, C, D
+
+def apply_filter(sig, b, a, zi):
     # Substract mean and then scaling of signal to 0-1, as original signal is in range of -14000
     # as the signal has to be centered at zero before filtering.
     # https://stackoverflow.com/questions/69728320/setting-parameters-for-a-butterworth-filter
     sig -= sig.mean()
+    print(sig.mean())
     sig = min_max_scale(sig)
-    return signal.filtfilt(b, a, sig)
+    print(sig.mean())
+    #NOTE: when I want to change back to filfilt, only have to uncomment the line below and comment lfilter call
+    filt_sig = signal.filtfilt(b, a, sig)
+    #filt_sig, zi = signal.lfilter(b, a, sig, zi=zi)
+    plt.plot(sig)
+    plt.plot(filt_sig)
+    plt.show()
+    return filt_sig, zi
 
 def min_max_scale(x):
     x -= x.min()
@@ -128,8 +142,7 @@ def init_pipelines_grid(pipeline_name = ['csp'], gridsearch=['svm']):
         pipelines["tgsp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
     return pipelines  
 
-
-def pre_processing(segment,selected_electrodes_names,filters, sample_duration, freq_limits_names):
+def pre_processing(segment,selected_electrodes_names,filters, sample_duration, freq_limits_names,z):
     curr_segment = segment.transpose()
     outlier=0
     #TODO add notch filter 50Hz for Unicorn BCI experiments
@@ -143,26 +156,40 @@ def pre_processing(segment,selected_electrodes_names,filters, sample_duration, f
     # substracting mean of each colum (e.g each sample of all electrodes)                  
     curr_segment -= curr_segment.mean()
     # 3 FILTERING filter bank / bandpass
-    segment_filt = filter_1seg(curr_segment, selected_electrodes_names, filters, sample_duration, freq_limits_names)
-    segment_filt = segment_filt.transpose()
-    return segment_filt, outlier
-  
+    segment_filt, z = filter_1seg(curr_segment, selected_electrodes_names, filters, sample_duration, freq_limits_names, z)
 
-def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
+    segment_filt = segment_filt.transpose()
+    return segment_filt, outlier, z
+  
+def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names, z):
     # filters dataframe with 1 segment of 1 sec for all given filters
     # returns a dataframe with columns as electrode-filters
     filter_results = {}
     for electrode in selected_electrodes_names:
         for f in range(len(filters)):
+            # TODO b,a,z are now generally initialized instead of per electrode which I think is needed!
+            # TODO change to sos filt as that is supposed to be more stable??
             b, a = filters[f] 
+            zi = z[f]
             filter_results[electrode + '_' + freq_limits_names[f]] = []
             if segment.shape[0] == sample_duration:                
-                filt_result_temp = apply_filter(segment[electrode],b,a)                   
+                filt_result_temp, zi = apply_filter(segment[electrode],b,a,zi)            
                 for data_point in filt_result_temp:
                     filter_results[electrode + '_' + freq_limits_names[f]].append(data_point) 
-  
+                z[f] = zi #update z
     filtered_dataset = pd.DataFrame.from_dict(filter_results)        
-    return filtered_dataset
+    return filtered_dataset, z
+
+def state_space_filt(data, filters, selected_electrodes_names):
+    for electrode in selected_electrodes_names:
+        for f in range(len(filters)):
+            b, a = filters[f] 
+            z = np.zeros(b.size-1)
+
+
+
+
+
 
 def segmentation_all(dataset,sample_duration):
     segments = []

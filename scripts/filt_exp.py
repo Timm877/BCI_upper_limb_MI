@@ -6,6 +6,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import scipy.io
+from scipy import signal
 from sklearn.model_selection import KFold, cross_validate
 import matplotlib.pyplot as plt
 
@@ -55,10 +56,9 @@ def main():
         freq_limits_names_list = [['4_30Hz'], ['4_35Hz'], ['4-40Hz'], ['8-30Hz'], ['8-35Hz'], ['8-40hz']]
         filt_orders = [2,3,4]
     if 'deep' in FLAGS.p:
-        sample_duration = 200
         list_of_freq_lim = [[[4, 30]],[[4,40]], [[8,30]], [[8,40]], [[1,60]]]
         freq_limits_names_list = [['4_30Hz'], ['4-40Hz'], ['8-30Hz'], ['8-40hz'], ['1-60Hz']]
-        filt_orders = [2,4]
+        filt_orders = [2,3,4]
 
     dataset_full = {}
     # getting data of all trials
@@ -86,17 +86,20 @@ def main():
             freq_limits = np.asarray(list_of_freq_lim[freq_limit_instance]) 
             freq_limits_names = freq_limits_names_list[freq_limit_instance]
             filter_order = filt_orders[filt_ord]
-            filters = utils.init_filters(freq_limits, sampling_frequency, filt_type = 'bandpass', order=filter_order)
+            # TODO init filter and z for each electrode?
+            #NOTE: see here that I added a z to keep track of current segment filter state
+            filters, z = utils.init_filters(freq_limits, sampling_frequency, filt_type = 'bandpass', order=filter_order)
             X_all = []
-            y_all = []
+            y_all = []  
             print(f'experimenting with filter order of {filter_order}, freq limits of {freq_limits_names}, and ws of {sample_duration}.')
             for df in dataset_full:
-                # TODO maybe change to 10sec segments? or state space filters?
+                # TODO state space filters?
                 X_segmented, y = utils.segmentation_all(dataset_full[df],sample_duration)
-                outliers = 0
+                outliers = 0           
                 for segment in range(len(X_segmented)):
-                    segment_filt, outlier = utils.pre_processing(X_segmented[segment], selected_electrodes_names, filters, 
-                    sample_duration, freq_limits_names)
+                    segment_filt, outlier, z = utils.pre_processing(X_segmented[segment], selected_electrodes_names, filters, 
+                    sample_duration, freq_limits_names, z)
+                    #print(f'this z should be the same: {z}')
                     outliers += outlier
                     X_all.append(segment_filt)
                     y_all.append(y[segment])           

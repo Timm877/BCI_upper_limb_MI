@@ -90,7 +90,7 @@ def data_setup(X_np, y_np, val_size=0.2):
     validation = torch.utils.data.TensorDataset(validationX, validationY)
 
     trainloader = torch.utils.data.DataLoader(train, batch_size=16, shuffle=True)
-    valloader = torch.utils.data.DataLoader(validation, batch_size=1, shuffle=True)
+    valloader = torch.utils.data.DataLoader(validation, batch_size=16, shuffle=True)
 
     return trainloader, valloader
 
