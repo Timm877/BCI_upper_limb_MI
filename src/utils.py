@@ -3,6 +3,7 @@ import glob
 import os
 import shutil
 import time
+import math
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -81,17 +82,14 @@ def apply_filter_statespace(sig, A, B, C, D, Xnn):
     return filt_sig, Xnn
 
 def pre_processing(segment,selected_electrodes_names ,filters, sample_duration, freq_limits_names,z, state_space=True):
-    curr_segment = segment.transpose()
-    outlier=0
+    curr_segment = segment
+    outlier = 0
     #TODO add notch filter 50Hz for Unicorn BCI experiments??? --> is needed?
     # 1 OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
     for i, j in curr_segment.iterrows():
-        if stats.kurtosis(j) > 4*np.std(j) or (abs(j) > 125000).any():
-            print('wow')
-            print(j)
+        if stats.kurtosis(j) > 4*np.std(j) or (abs(j - np.mean(j)) > 125).any():
             outlier +=1
-    # 2 APPLY COMMON AVERAGE REFERENCE (CAR) per segment: 
-    # substracting mean of each colum (e.g each sample of all electrodes)                  
+    # 2 APPLY COMMON AVERAGE REFERENCE (CAR) per segment:    
     curr_segment -= curr_segment.mean()
     # 3 FILTERING filter bank / bandpass
     if state_space == True:
@@ -100,16 +98,18 @@ def pre_processing(segment,selected_electrodes_names ,filters, sample_duration, 
     else:
         segment_filt, z = filter_1seg(curr_segment, selected_electrodes_names, filters, sample_duration, freq_limits_names, z)
 
-    segment_filt = segment_filt.transpose()
-    return segment_filt, outlier, filters
+    if outlier > 0:
+        return 0, outlier, filters
+    else:
+        return segment_filt, outlier, filters
 
 def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
     # filters dataframe with 1 segment of 1 sec for all given filters
     # returns a dataframe with columns as electrode-filters
     filter_results = {}
+    segment = segment.transpose()
     for electrode in range(len(selected_electrodes_names)):
         for f in range(len(filters)):
-            # TODO change to sos filt as that is supposed to be more stable??
             A, B, C, D, Xnn = filters[f] 
             filter_results[selected_electrodes_names[electrode] + '_' + freq_limits_names[f]] = []
             if segment.shape[0] == sample_duration:      
@@ -121,7 +121,7 @@ def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_du
                     filter_results[selected_electrodes_names[electrode] + '_' + freq_limits_names[f]].append(data_point) 
             filters[f] = [A, B, C, D, Xnn]
             #print('made it to here')
-    filtered_dataset = pd.DataFrame.from_dict(filter_results)     
+    filtered_dataset = pd.DataFrame.from_dict(filter_results).transpose()    
     return filtered_dataset, filters
   
 def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names, z):
@@ -144,10 +144,34 @@ def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, fre
 def segmentation_all(dataset,sample_duration):
     segments = []
     labels = []
+    true = 0
+    false = 0
     dataset_c = copy.deepcopy(dataset)
+
     for _, segment in dataset_c.groupby(np.arange(len(dataset)) // sample_duration):
         segments.append(segment.iloc[:,:-1].transpose())
         labels.append(segment['label'].mode()) 
+        if segment['label'].mode()[0] == 1:
+            true +=1
+        else:
+            false +=1
+    print(f'true:{true}, false: {false}')
+    ''' #below is code for segmentation with overlap. But as I use state space filters 
+    # this doesnt work rn I think.
+    window_size = sample_duration
+    window_hop = 100
+    start_frame = sample_duration 
+    end_frame = window_hop * math.floor(float(dataset_c.shape[0]) / window_hop)
+
+    for frame_idx in range(start_frame, end_frame+window_hop, window_hop):
+        segments.append(dataset_c.iloc[frame_idx-window_size:frame_idx, :-1].transpose())
+        labels.append(dataset_c.iloc[frame_idx-window_size:frame_idx, -1].mode()[0]) 
+        if labels[-1] == 1:
+            true +=1
+        elif labels[-1] == 0:
+            false +=1
+    print(f'true:{true}, false: {false}')
+    '''
     return segments, labels
 
 def init_pipelines(pipeline_name = ['csp']):
