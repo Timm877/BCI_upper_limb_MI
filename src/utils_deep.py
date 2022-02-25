@@ -90,72 +90,82 @@ def data_setup(X_np, y_np, val_size=0.2):
     return trainloader, valloader
 
 def run_model(trainloader, valloader, lr):
-    net = CNN()
-    device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-    net = net.to(device)
-    optimizer = optim.Adam(net.parameters(), lr=lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
-    lr_scheduler = LRScheduler(optimizer)
-    early_stopping = EarlyStopping()
-    scheduler_is_used = False
-    val_accuracy = []
-    train_accuracy = []
-    training_loss = []
-    validation_loss = []
-    for epoch in range(50):
-        running_loss = 0
-        train_acc = 0
-        net.train()
-        for i, (inputs, labels) in enumerate(trainloader, 0):
-            inputs = inputs[:, np.newaxis, :, :]
-            inputs, labels = inputs.to(device, dtype=torch.float), labels.to(device, dtype=torch.long)
+    train_accuracy_iters = []
+    val_accuracy_iters = []
+    print(f'To get stable results we run DL network from scratch 5 times.')
+    for iteration in range(5):
+    # --> run DL 5 times as init is random and therefore results may differ per complete run
+    # then save average results
+        print(f'Running iteration {iteration+1}...')
+        net = CNN()
+        device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
+        net = net.to(device)
+        optimizer = optim.Adam(net.parameters(), lr=lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
+        lr_scheduler = LRScheduler(optimizer)
+        early_stopping = EarlyStopping()
+        print(early_stopping.best_loss)
+        scheduler_is_used = False
+        val_accuracy = []
+        train_accuracy = []
+        training_loss = []
+        validation_loss = []
 
-            optimizer.zero_grad()
-            output = net(inputs) 
-            loss = F.cross_entropy(output,labels)
-            '''
-            _, predicted = torch.max(output.data, 1)
-            total = labels.size(0)
-            correct = (predicted == labels).sum().item()
-            train_acc += (100 * correct / total)
-            '''  
-            loss.backward()
-            optimizer.step()
-            running_loss += loss.item()
 
-        net.eval()
-        #print(f'running train loss epoch {epoch + 1}: {round(running_loss,2)}')
-        running_loss = 0        
-        # Calculate train and val accuracy after each epoch
-        train_acc, train_loss = calculate_metrics(trainloader, device, net)
-        train_accuracy.append(train_acc)
-        training_loss.append(train_loss)
-        print(f'Current train acc after epoch {epoch+1}: {train_accuracy[-1]}')
-        print(f'Current train loss after epoch {epoch+1}: {training_loss[-1] / len(training_loss)}')
+        for epoch in range(50):
+            running_loss = 0
+            train_acc = 0
+            net.train()
+            for i, (inputs, labels) in enumerate(trainloader, 0):
+                inputs = inputs[:, np.newaxis, :, :]
+                inputs, labels = inputs.to(device, dtype=torch.float), labels.to(device, dtype=torch.long)
 
-        val_acc, val_loss = calculate_metrics(valloader, device, net)
-        val_accuracy.append(val_acc)
-        validation_loss.append(val_loss)
-        print('\n')
-        print(f'Current val acc after epoch {epoch+1}: {val_accuracy[-1]}')
-        print(f'Current val loss after epoch {epoch+1}: {validation_loss[-1] / len(validation_loss)}')
-        
-        # here I could very easily add early stopping  and LR scheduler code:
-        # Idea here is to apply LR scheduler once, and after that do early stopping.
-        if scheduler_is_used == False:
-            lr_scheduler(val_loss)
-            for param_group in optimizer.param_groups:
-                #print(param_group['lr'])
-                if param_group['lr'] - lr != 0: # thus lr has been decreased
-                    scheduler_is_used = True
-        else:
-            early_stopping(val_loss)
-            if early_stopping.early_stop:
-                break
+                optimizer.zero_grad()
+                output = net(inputs) 
+                loss = F.cross_entropy(output,labels)
+                '''
+                _, predicted = torch.max(output.data, 1)
+                total = labels.size(0)
+                correct = (predicted == labels).sum().item()
+                train_acc += (100 * correct / total)
+                '''  
+                loss.backward()
+                optimizer.step()
+                running_loss += loss.item()
 
-    print('Finished Training')
-    print(f'Final accuracy of the network on the training set: {train_accuracy[-1]}')
-    print(f'Final accuracy of the network on the validation set: {val_accuracy[-1]}')
-    return train_accuracy, val_accuracy
+            net.eval()
+            #print(f'running train loss epoch {epoch + 1}: {round(running_loss,2)}')
+            running_loss = 0        
+            # Calculate train and val accuracy after each epoch
+            train_acc, train_loss = calculate_metrics(trainloader, device, net)
+            train_accuracy.append(train_acc)
+            training_loss.append(train_loss)
+            print(f'Current train acc after epoch {epoch+1}: {train_accuracy[-1]}')
+            print(f'Current train loss after epoch {epoch+1}: {training_loss[-1]}\n')
+
+            val_acc, val_loss = calculate_metrics(valloader, device, net)
+            val_accuracy.append(val_acc)
+            validation_loss.append(val_loss)
+            print(f'Current val acc after epoch {epoch+1}: {val_accuracy[-1]}')
+            print(f'Current val loss after epoch {epoch+1}: {validation_loss[-1]}')
+            
+            # here I could very easily add early stopping  and LR scheduler code:
+            # Idea here is to apply LR scheduler once, and after that do early stopping.
+            if scheduler_is_used == False:
+                lr_scheduler(val_loss)
+                for param_group in optimizer.param_groups:
+                    if param_group['lr'] - lr != 0: # thus lr has been decreased
+                        scheduler_is_used = True
+            else:
+                early_stopping(val_loss)
+                if early_stopping.early_stop:
+                    break
+
+        print('Finished Training')
+        print(f'Final accuracy of the network on the training set: {train_accuracy[-1]}')
+        print(f'Final accuracy of the network on the validation set: {val_accuracy[-1]}')
+        train_accuracy_iters.append(train_accuracy[-1])
+        val_accuracy_iters.append(val_accuracy[-1])
+    return train_accuracy_iters, val_accuracy_iters
 
 def calculate_metrics(loader, device, net):
     correct = 0

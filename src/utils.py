@@ -23,17 +23,10 @@ from sklearn.svm import SVC
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2, state_space=True):
     filters = []
-    z = []
-    if state_space:
-        for f in range(freq_lim.shape[0]):
-            A, B, C, D, Xnn  = init_filt_coef_statespace(freq_lim[f], fs=sample_freq, filtype=filt_type, order=order)
-            filters.append([A, B, C, D, Xnn ])
-    else:
-        for f in range(freq_lim.shape[0]):
-            b, a = init_filt_coef(freq_lim[f], fs=sample_freq, filtype=filt_type, order=order)
-            filters.append([b, a])
-            # some z stuff
-    return filters, z
+    for f in range(freq_lim.shape[0]):
+        A, B, C, D, Xnn  = init_filt_coef_statespace(freq_lim[f], fs=sample_freq, filtype=filt_type, order=order)
+        filters.append([A, B, C, D, Xnn ])
+    return filters
 
 def init_filt_coef_statespace(cuttoff, fs, filtype, order,len_selected_electrodes=27):
     if filtype == 'lowpass':
@@ -45,63 +38,40 @@ def init_filt_coef_statespace(cuttoff, fs, filtype, order,len_selected_electrode
     # getting matrices for the state-space form of the filter from scipy and init state vector
     A, B, C, D = signal.tf2ss(b,a)
     Xnn = np.zeros((1,len_selected_electrodes,A.shape[0],1))
-    #print(Xnn[0,2])
-    #print('h')
     return A, B, C, D, Xnn 
-
-def init_filt_coef(cuttoff, fs, filtype, order):
-    if filtype == 'lowpass':
-        b,a = signal.butter(order, cuttoff[0]/(fs/2), filtype)
-    elif filtype == 'bandpass':
-        b,a = signal.butter(order, [cuttoff[0]/(fs/2), cuttoff[1]/(fs/2)], filtype)
-    elif filtype == 'highpass':
-        b,a = signal.butter(order, cuttoff[0]/(fs/2), filtype)
-    # getting matrices for the state-space form of the filter from scipy.
-    return b, a 
-
-def apply_filter(sig, b, a, zi):
-    # Substract mean as the signal has to be centered at zero before filtering.
-    # https://stackoverflow.com/questions/69728320/setting-parameters-for-a-butterworth-filter
-    sig -= sig.mean()
-    #NOTE: when I want to change back to filfilt or to lfilter, only have to comment/uncomment
-    filt_sig = signal.filtfilt(b, a, sig)
-    #filt_sig, zi = signal.lfilter(b, a, sig, zi=zi)
-    return filt_sig, zi
 
 def apply_filter_statespace(sig, A, B, C, D, Xnn):
     # Substract mean for centering around 0
     # as the signal has to be centered at zero before filtering (for better comparison in plots).
     # https://stackoverflow.com/questions/69728320/setting-parameters-for-a-butterworth-filter
     sig -= sig.mean()
-    # sig = min_max_scale(sig)
     # State space with scipy's matrices
     filt_sig = np.array([])
     for sample in sig: 
-        filt_sig = np.append(filt_sig, C.dot(Xnn) + D * sample)
+        filt_sig = np.append(filt_sig, C@Xnn + D * sample)
         Xnn = A@Xnn + B * sample
     return filt_sig, Xnn
 
-def pre_processing(segment,selected_electrodes_names ,filters, sample_duration, freq_limits_names,z, state_space=True):
+def pre_processing(segment,selected_electrodes_names ,filters, sample_duration, freq_limits_names, pipeline_type):
     curr_segment = segment
     outlier = 0
-    #TODO add notch filter 50Hz for Unicorn BCI experiments??? --> is needed?
+    # TODO add notch filter 50Hz for Unicorn BCI experiments??? --> is needed?
+
     # 1 OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
     for i, j in curr_segment.iterrows():
         if stats.kurtosis(j) > 4*np.std(j) or (abs(j - np.mean(j)) > 125).any():
+            if stats.kurtosis(j) > 4*np.std(j):
+                print('due to kurtosis')
             outlier +=1
-    # 2 APPLY COMMON AVERAGE REFERENCE (CAR) per segment:    
-    curr_segment -= curr_segment.mean()
+    # 2 APPLY COMMON AVERAGE REFERENCE (CAR) per segment only for deep learning pipeline   
+    #CAR doesnt work for csp, for riemann gives worse results, so only use for deep
+    if 'deep' in pipeline_type: 
+        curr_segment -= curr_segment.mean()
     # 3 FILTERING filter bank / bandpass
-    if state_space == True:
-        segment_filt, filters = filter_1seg_statespace(curr_segment, selected_electrodes_names, filters, sample_duration, 
-        freq_limits_names)
-    else:
-        segment_filt, z = filter_1seg(curr_segment, selected_electrodes_names, filters, sample_duration, freq_limits_names, z)
+    segment_filt, filters = filter_1seg_statespace(curr_segment, selected_electrodes_names, filters, sample_duration, 
+    freq_limits_names)
 
-    if outlier > 0:
-        return 0, outlier, filters
-    else:
-        return segment_filt, outlier, filters
+    return segment_filt, outlier, filters
 
 def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
     # filters dataframe with 1 segment of 1 sec for all given filters
@@ -114,32 +84,13 @@ def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_du
             filter_results[selected_electrodes_names[electrode] + '_' + freq_limits_names[f]] = []
             if segment.shape[0] == sample_duration:      
                 # apply filter ánd update Xnn state vector       
-                # print(f'this should be a vector of size len(A): {Xnn[0,electrode]}. Boem.') 
                 filt_result_temp, Xnn[0,electrode] = apply_filter_statespace(segment[selected_electrodes_names[electrode]], 
                 A, B, C, D, Xnn[0,electrode])         
                 for data_point in filt_result_temp:
                     filter_results[selected_electrodes_names[electrode] + '_' + freq_limits_names[f]].append(data_point) 
             filters[f] = [A, B, C, D, Xnn]
-            #print('made it to here')
     filtered_dataset = pd.DataFrame.from_dict(filter_results).transpose()    
     return filtered_dataset, filters
-  
-def filter_1seg(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names, z):
-    # filters dataframe with 1 segment of 1 sec for all given filters
-    # returns a dataframe with columns as electrode-filters
-    filter_results = {}
-    for electrode in selected_electrodes_names:
-        for f in range(len(filters)):
-            b, a = filters[f] 
-            zi = z[f]
-            filter_results[electrode + '_' + freq_limits_names[f]] = []
-            if segment.shape[0] == sample_duration:                
-                filt_result_temp, zi = apply_filter(segment[electrode],b,a,zi)            
-                for data_point in filt_result_temp:
-                    filter_results[electrode + '_' + freq_limits_names[f]].append(data_point) 
-                z[f] = zi #update z
-    filtered_dataset = pd.DataFrame.from_dict(filter_results)        
-    return filtered_dataset, z
     
 def segmentation_all(dataset,sample_duration):
     segments = []
@@ -155,7 +106,8 @@ def segmentation_all(dataset,sample_duration):
             true +=1
         else:
             false +=1
-    print(f'true:{true}, false: {false}')
+    # print(f'true:{true}, false: {false}')
+
     ''' #below is code for segmentation with overlap. But as I use state space filters 
     # this doesnt work rn I think.
     window_size = sample_duration
@@ -178,16 +130,16 @@ def init_pipelines(pipeline_name = ['csp']):
     pipelines = {}
     if 'csp' in pipeline_name:
     # standard / Laura's approach + variations
-        for n_comp in [8, 10, 11, 12, 13]:
-            pipelines["csp+lda_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
-                                            ('lda', LDA())])
+        for n_comp in [10, 12]:
+            #pipelines["csp+lda_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
+             #                               ('lda', LDA())])
                                             
             # Using Ledoit-Wolf lemma shrinkage, which is said to outperform standard LDA
             pipelines["csp+s_lda_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                             ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
             
             pipelines["csp+svm_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
-                                                ('svm', SVC())])
+                                                ('svm', SVC(gamma = 0.05, C=10))])
 
             pipelines["csp+rf_n" + str(n_comp)] = Pipeline(steps=[('csp', CSP(n_components=n_comp)), 
                                                 ('rf', RFC(random_state=42))])
@@ -213,21 +165,28 @@ def init_pipelines(pipeline_name = ['csp']):
 def init_pipelines_grid(pipeline_name = ['csp']):
     pipelines = {}
     if 'csp' in pipeline_name:
+        pipelines["csp+s_lda_n" + str(12)] = Pipeline(steps=[('csp', CSP(n_components=12)), 
+                                            ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
+
         pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC())])
-        param_grid = {"csp__n_components": [10,11,12],
+        param_grid = {
+            "csp__n_components" :[10,12],
             "svm__C": [1, 10],
             "svm__gamma": [0.1, 0.01, 0.001]
                 }
         pipelines["csp+svm"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
 
-        pipe = Pipeline(steps=[('csp', CSP()), ('rf', RFC(random_state=42))])
-        param_grid = {"csp__n_components": [10,11,12],
+        pipe = Pipeline(steps=[('csp', CSP(n_components=12)), ('rf', RFC(random_state=42))])
+        param_grid = {
             "rf__min_samples_leaf": [1, 2],
             "rf__n_estimators": [50, 100, 200],
             "rf__criterion": ['gini', 'entropy']}
         pipelines["csp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
 
     if 'riemann' in pipeline_name:  
+        pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                    ('mdm', FgMDM(metric="riemann"))])
+                          
         pipe = Pipeline(steps=[('cov', Covariances("oas")), 
                                             ('tg', TangentSpace(metric="riemann")),
                                             ('svm', SVC())])
@@ -244,6 +203,7 @@ def init_pipelines_grid(pipeline_name = ['csp']):
             "rf__n_estimators": [10, 50, 100, 200],
             "rf__criterion": ['gini', 'entropy']}
         pipelines["tgsp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
+
     return pipelines  
 
 def grid_search_execution(X_np, y_np, chosen_pipelines, clf):
@@ -251,7 +211,7 @@ def grid_search_execution(X_np, y_np, chosen_pipelines, clf):
     preds = np.zeros(len(y_np))
     X_train, X_test, y_train, y_test = train_test_split(X_np, y_np, test_size=0.2, shuffle=True, random_state=42)
     chosen_pipelines[clf].fit(X_train, y_train)
-    print(chosen_pipelines[clf].best_params_)
+    #print(chosen_pipelines[clf].best_params_)
     preds = chosen_pipelines[clf].predict(X_test)
     acc = np.mean(preds == y_test)
     print("Classification accuracy: %f " % (acc))
