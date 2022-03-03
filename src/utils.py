@@ -20,6 +20,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
+from sklearn.metrics import f1_score, confusion_matrix
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2, state_space=True):
     filters = []
@@ -44,9 +45,10 @@ def apply_filter_statespace(sig, A, B, C, D, Xnn):
     # Substract mean for centering around 0
     # as the signal has to be centered at zero before filtering (for better comparison in plots).
     # https://stackoverflow.com/questions/69728320/setting-parameters-for-a-butterworth-filter
-    sig -= sig.mean()
+    #sig -= sig.mean()
     # State space with scipy's matrices
     filt_sig = np.array([])
+
     for sample in sig: 
         filt_sig = np.append(filt_sig, C@Xnn + D * sample)
         Xnn = A@Xnn + B * sample
@@ -98,7 +100,6 @@ def segmentation_all(dataset,sample_duration):
     true = 0
     false = 0
     dataset_c = copy.deepcopy(dataset)
-
     for _, segment in dataset_c.groupby(np.arange(len(dataset)) // sample_duration):
         segments.append(segment.iloc[:,:-1].transpose())
         labels.append(segment['label'].mode()) 
@@ -107,23 +108,54 @@ def segmentation_all(dataset,sample_duration):
         else:
             false +=1
     # print(f'true:{true}, false: {false}')
+    return segments, labels
 
-    ''' #below is code for segmentation with overlap. But as I use state space filters 
-    # this doesnt work rn I think.
-    window_size = sample_duration
-    window_hop = 100
-    start_frame = sample_duration 
-    end_frame = window_hop * math.floor(float(dataset_c.shape[0]) / window_hop)
-
-    for frame_idx in range(start_frame, end_frame+window_hop, window_hop):
-        segments.append(dataset_c.iloc[frame_idx-window_size:frame_idx, :-1].transpose())
-        labels.append(dataset_c.iloc[frame_idx-window_size:frame_idx, -1].mode()[0]) 
-        if labels[-1] == 1:
-            true +=1
-        elif labels[-1] == 0:
-            false +=1
+def segmentation_overlap_withfilt(dataset, sample_duration, filters, selected_electrodes_names, freq_limits_names, 
+    pipeline_type, window_hop=100):
+    segments = []
+    labels = []
+    dataset_c = copy.deepcopy(dataset)
+    true = 0
+    false = 0
+    i = 0
+    outliers = 0
+    for frame_idx in range(sample_duration, dataset_c.shape[0], window_hop):
+        if i == 0:
+            temp_dataset = dataset_c.iloc[frame_idx-sample_duration:frame_idx, :-1].transpose()   
+            # here apply filtering
+            segment_filt, outlier, filters = pre_processing(temp_dataset, selected_electrodes_names, filters, 
+                        sample_duration, freq_limits_names, pipeline_type)
+        else:
+            # here only get 0.5 seconds extra, filter only that part, than concat with new part
+            temp_dataset = dataset_c.iloc[frame_idx-window_hop:frame_idx, :-1].transpose()  
+            # here apply filtering   
+            segment_filt_new, outlier, filters = pre_processing(temp_dataset, selected_electrodes_names, filters, 
+                        window_hop, freq_limits_names, pipeline_type)
+            if window_hop == sample_duration:
+                segment_filt = segment_filt_new
+            else:
+                segment_filt = pd.concat([segment_filt.iloc[:,-(sample_duration-window_hop):], segment_filt_new], axis=1, 
+                ignore_index=True)
+            #plt.plot(np.arange(100,300), segment_filt.iloc[5, :])
+            #plt.show()
+        if outlier > 0 or i == 0: 
+            #when i ==0, filters are initiated so signal is destroyed. Dont use.
+            print(f'A segment was considered as an outlier due to bad signal in {outlier} channels')
+            outliers +=1
+        else:
+            label_row = dataset_c.iloc[frame_idx-sample_duration:frame_idx, -1]
+            label = label_row.sum() / len(label_row)
+            #print(f'shape of segment filtered: {segment_filt.shape}')
+            # transition from MI state to relax --> signal timestamp differs so don't use that segment as well.
+            if (label == 1 or label == 0) and segment_filt.shape[1] == sample_duration:
+                segments.append(segment_filt)
+                labels.append(label) 
+                if labels[-1] == 1:
+                    true +=1
+                elif labels[-1] == 0:
+                    false +=1
+        i += 1
     print(f'true:{true}, false: {false}')
-    '''
     return segments, labels
 
 def init_pipelines(pipeline_name = ['csp']):
@@ -165,8 +197,11 @@ def init_pipelines(pipeline_name = ['csp']):
 def init_pipelines_grid(pipeline_name = ['csp']):
     pipelines = {}
     if 'csp' in pipeline_name:
-        pipelines["csp+s_lda_n" + str(12)] = Pipeline(steps=[('csp', CSP(n_components=12)), 
+        pipelines["csp_12+s_lda_n"] = Pipeline(steps=[('csp', CSP(n_components=12)), 
                                             ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
+
+        #pipelines["csp_12+xgboost"] = Pipeline(steps=[('csp', CSP(n_components=12)), 
+        #                            ('xgboost', XGBClassifier(random_state=2))])
 
         pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC())])
         param_grid = {
@@ -186,7 +221,13 @@ def init_pipelines_grid(pipeline_name = ['csp']):
     if 'riemann' in pipeline_name:  
         pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
                                     ('mdm', FgMDM(metric="riemann"))])
-                          
+
+        #pipelines["tgsp+xgboost"] = Pipeline(steps=[('cov', Covariances("oas")), 
+        #                            ('xgboost', XGBClassifier(random_state=2))])
+        pipelines["tgsp+slda"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                ('tg', TangentSpace(metric="riemann")),
+                ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])     
+
         pipe = Pipeline(steps=[('cov', Covariances("oas")), 
                                             ('tg', TangentSpace(metric="riemann")),
                                             ('svm', SVC())])
@@ -206,17 +247,24 @@ def init_pipelines_grid(pipeline_name = ['csp']):
 
     return pipelines  
 
-def grid_search_execution(X_np, y_np, chosen_pipelines, clf):
+def grid_search_execution(X_train, y_train, X_val, y_val, chosen_pipelines, clf):
     start_time = time.time()
-    preds = np.zeros(len(y_np))
-    X_train, X_test, y_train, y_test = train_test_split(X_np, y_np, test_size=0.2, shuffle=True, random_state=42)
+    preds = np.zeros(len(y_val))
+    #this ain't the best method but works reasonably well to select the last trial for testing
+    #plt.plot(y_test) 
+    #plt.show()
     chosen_pipelines[clf].fit(X_train, y_train)
     #print(chosen_pipelines[clf].best_params_)
-    preds = chosen_pipelines[clf].predict(X_test)
-    acc = np.mean(preds == y_test)
-    print("Classification accuracy: %f " % (acc))
+    preds = chosen_pipelines[clf].predict(X_val)
+
+    acc = np.mean(preds == y_val)
+    f1 = f1_score(y_val, preds)
+
+    acc_classes = confusion_matrix(y_val, preds, normalize="true").diagonal()
+    print(f"Classification accuracy: {acc} and per class: {acc_classes}")
     elapsed_time = time.time() - start_time
-    return acc, elapsed_time, chosen_pipelines
+
+    return acc, acc_classes, f1, elapsed_time, chosen_pipelines
 
 def plot_dataset(data_table, columns, match='like', display='line'):
     names = list(data_table.columns)

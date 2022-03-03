@@ -7,13 +7,10 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from sklearn.model_selection import  train_test_split
+from sklearn.metrics import f1_score, confusion_matrix
+import matplotlib.pyplot as plt
 
-input_size = 200 #Laura: 200Hz 1 sec, us: 1 sec with 250Hz
-receptive_field_1 = 36 # chosen randomly. In paper1, they use 65, but also collect more samples (3seconds)
-receptive_field_2 = 22 # chosen randomly. In paper1, they use 65, but also collect more samples (3seconds)
-channels = 27 #eeg channels
-filters = 40 # Chosen randomly. Depth of conv layers
-mean_pool = 15 # value of 15 was used in both papers
+
 classes = 2 # first, binary task.
 
 class Flatten(nn.Module):
@@ -21,42 +18,23 @@ class Flatten(nn.Module):
         return input.view(input.size(0), -1)
 
 class CNN(nn.Module):
-    # init size Laura: 27x200, us: 8 channels x 250 samples 
-    def __init__(self):
+    def __init__(self, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool):
         super(CNN,self).__init__()
         self.temporal=nn.Sequential(
-            nn.Conv2d(1,filters,kernel_size=[1,receptive_field_1],stride=1, padding=0), 
-            nn.BatchNorm2d(filters),
+            nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, padding=0), 
+            nn.BatchNorm2d(filter_sizing),
             nn.ELU(True),
         )
-        # due to this conv step data reduces from 250 samples to [(W−K+2P)/S]+1 = (250 - 25+0)/1 +1 = 226
-        # with filter of 40, size here becomes 27 channels x 226 samples x 40 filters
         self.spatial=nn.Sequential(
-            nn.Conv2d(filters,filters,kernel_size=[channels,1],padding=0),
-            nn.BatchNorm2d(filters),
+            nn.Conv2d(filter_sizing,filter_sizing,kernel_size=[channel_amount,1],padding=0),
+            nn.BatchNorm2d(filter_sizing),
             nn.ELU(True),
         )
-        #added a 3rd conv layer as done in paper1
-
-        self.temporal2=nn.Sequential(
-            nn.Conv2d(filters,filters,kernel_size=[1,receptive_field_2],padding=0),
-            nn.BatchNorm2d(filters),
-            nn.ELU(True)
-        )
-
-        # here data is 1 channel x 226 samples x 40 filters
-        # they have here size of 210x36 which they pool w 15 making it 14x36 
-        # this they than flatten to 14x36 = 504
-        # if my data here would be 225 samples it would be perfect for 15 size avg pool
-        # e.g. I would end up with 40x15 after pooling
         self.avgpool = nn.AvgPool2d([1, mean_pool], stride=[1, mean_pool], padding=0)
         self.dropout = nn.Dropout(0.3)
-
         self.view = nn.Sequential(Flatten())
-        # flattening gives filtxlength column vect
+        self.fc=nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), classes)
 
-        self.fc=nn.Linear(filters*((input_size-receptive_field_1+1)//mean_pool), classes)
-        # final output is 2: binary task
     
     def forward(self,x):
         #print(f'shape x at start. Expected 1x27x200. True: {x.shape}')
@@ -74,9 +52,11 @@ class CNN(nn.Module):
         #print(f'shape x after linear+softmax. Expected 2. True: {prediction.shape}')
         return prediction
 
-def data_setup(X_np, y_np, val_size=0.2):
-    X_train, X_val, y_train, y_val = train_test_split(X_np, y_np, test_size=val_size, shuffle=True, random_state=4)
-
+def data_setup(X_train, y_train, X_val, y_val):
+    #X_train, X_val, y_train, y_val = train_test_split(X_np, y_np, test_size=val_size, shuffle=False, random_state=4)
+    #this ain't the best method but works reasonably well to select the last trial for testing
+    #plt.plot(y_val)
+    #plt.show()
     trainX = torch.from_numpy(X_train)
     trainY = torch.from_numpy(y_train)
     validationX = torch.from_numpy(X_val)
@@ -89,27 +69,38 @@ def data_setup(X_np, y_np, val_size=0.2):
     valloader = torch.utils.data.DataLoader(validation, batch_size=32, shuffle=True)
     return trainloader, valloader
 
-def run_model(trainloader, valloader, lr):
+def run_model(trainloader, valloader, lr, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool):
     train_accuracy_iters = []
     val_accuracy_iters = []
-    print(f'To get stable results we run DL network from scratch 5 times.')
-    for iteration in range(5):
-    # --> run DL 5 times as init is random and therefore results may differ per complete run
+    train_f1_iters = []
+    val_f1_iters = []
+    val_classacc_iters = []
+    train_classacc_iters = []
+    print(f'To get stable results we run DL network from scratch 3 times.')
+    for iteration in range(3):
+    # --> run DL 3 times as init is random and therefore results may differ per complete run
     # then save average results
         print(f'Running iteration {iteration+1}...')
-        net = CNN()
+        net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
+        filter_sizing = filter_sizing, mean_pool=mean_pool)
+
+        #net.load_state_dict(torch.load('static_714_DL_model'))
+
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         net = net.to(device)
         optimizer = optim.Adam(net.parameters(), lr=lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
         lr_scheduler = LRScheduler(optimizer)
         early_stopping = EarlyStopping()
-        print(early_stopping.best_loss)
+
         scheduler_is_used = False
         val_accuracy = []
         train_accuracy = []
         training_loss = []
         validation_loss = []
-
+        training_f1 = []
+        validation_f1 = []
+        val_acc_classes = []
+        train_acc_classes=[]
 
         for epoch in range(50):
             running_loss = 0
@@ -136,24 +127,29 @@ def run_model(trainloader, valloader, lr):
             #print(f'running train loss epoch {epoch + 1}: {round(running_loss,2)}')
             running_loss = 0        
             # Calculate train and val accuracy after each epoch
-            train_acc, train_loss = calculate_metrics(trainloader, device, net)
+            train_acc, train_loss, train_f1_score, train_acc_class = calculate_metrics(trainloader, device, net)
             train_accuracy.append(train_acc)
             training_loss.append(train_loss)
+            training_f1.append(train_f1_score)
+            train_acc_classes.append(train_acc_class)
             print(f'Current train acc after epoch {epoch+1}: {train_accuracy[-1]}')
-            print(f'Current train loss after epoch {epoch+1}: {training_loss[-1]}\n')
+            print(f'Current train loss after epoch {epoch+1}: {training_loss[-1]}')
 
-            val_acc, val_loss = calculate_metrics(valloader, device, net)
+            val_acc, val_loss, val_f1_score, val_acc_class = calculate_metrics(valloader, device, net)
             val_accuracy.append(val_acc)
             validation_loss.append(val_loss)
+            validation_f1.append(val_f1_score)
+            val_acc_classes.append(val_acc_class)
             print(f'Current val acc after epoch {epoch+1}: {val_accuracy[-1]}')
-            print(f'Current val loss after epoch {epoch+1}: {validation_loss[-1]}')
+            print(f'Current val loss after epoch {epoch+1}: {validation_loss[-1]}\n')
             
-            # here I could very easily add early stopping  and LR scheduler code:
-            # Idea here is to apply LR scheduler once, and after that do early stopping.
+            # here I can very easily add early stopping  and LR scheduler code:
+            # Idea here is to apply LR scheduler twice with patience 5, 
+            # and after that do early stopping with patience 2.
             if scheduler_is_used == False:
                 lr_scheduler(val_loss)
                 for param_group in optimizer.param_groups:
-                    if param_group['lr'] - lr != 0: # thus lr has been decreased
+                    if param_group['lr'] <  0.00022 : # thus lr has been decreased 2x
                         scheduler_is_used = True
             else:
                 early_stopping(val_loss)
@@ -163,9 +159,18 @@ def run_model(trainloader, valloader, lr):
         print('Finished Training')
         print(f'Final accuracy of the network on the training set: {train_accuracy[-1]}')
         print(f'Final accuracy of the network on the validation set: {val_accuracy[-1]}')
+
         train_accuracy_iters.append(train_accuracy[-1])
         val_accuracy_iters.append(val_accuracy[-1])
-    return train_accuracy_iters, val_accuracy_iters
+        train_f1_iters.append(training_f1[-1])
+        val_f1_iters.append(validation_f1[-1])
+        train_classacc_iters.append(train_acc_classes[-1])
+        val_classacc_iters.append(val_acc_classes[-1])
+
+        # save model for TL experiment
+        #torch.save(net.state_dict(), 'static_714_DL_model')
+
+    return train_accuracy_iters, val_accuracy_iters, train_f1_iters, val_f1_iters, train_classacc_iters, val_classacc_iters
 
 def calculate_metrics(loader, device, net):
     correct = 0
@@ -180,7 +185,9 @@ def calculate_metrics(loader, device, net):
         _, predicted = torch.max(output.data, 1)
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
-    return round(100 * correct / total, 3), round(running_loss,3)
+        f1 = f1_score(labels.data, predicted)
+        acc_classes = confusion_matrix(labels.data, predicted, normalize="true").diagonal()
+    return round(100 * correct / total, 3), round(running_loss,3), f1, acc_classes
 
 
 class EarlyStopping():
@@ -188,7 +195,7 @@ class EarlyStopping():
     Early stopping to stop the training when the loss does not improve after
     certain epochs.
     """
-    def __init__(self, patience=5, min_delta=0):
+    def __init__(self, patience=4, min_delta=1e-4):
         """
         :param patience: how many epochs to wait before stopping when loss is
                not improving
@@ -222,7 +229,7 @@ class LRScheduler():
     by given `factor`.
     """
     def __init__(
-        self, optimizer, patience=5, min_lr=1e-6, factor=0.5
+        self, optimizer, patience=4, min_lr=1e-6, factor=0.5
     ):
         """
         new_lr = old_lr * factor
