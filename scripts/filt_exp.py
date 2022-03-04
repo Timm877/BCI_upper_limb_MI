@@ -24,9 +24,9 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
         'FC5', 'FC3','C5','C3','CP5','CP3','P3','PZ','F4','FC2','FC4','FC6','C2',
         'C4','CP2','CP4','C6','CP6','P4','HR' ,'HL', 'VU', 'VD']
     if FLAGS.less:
-        #NOTE testing here for less electrodes:
+        # testing here for 8 electrodes:
         selected_electrodes_names = ['FZ', 'C3', 'CZ', 'C4', 'CPZ', 'P3', 'PZ', 'P4'] 
-        # somewhat similar to ours: ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
+        # somewhat similar to Unicorn: ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
         n_electrodes = len(selected_electrodes_names)
     else:
         # IMPORTANT: DELETE! F3, C5, F4, C2 --> only used for eye artifact correction!
@@ -36,13 +36,12 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
 
     folder_path = Path('./data/offline/20210715_MI_atencion_online_static/')
     subject = '20210715_MI_atencion_online_static'   
-    result_path = Path('./data/offline/intermediate_datafiles/deeplearn_experiments/')
+    result_path = Path('./data/offline/intermediate_datafiles/transfer_learn/')
     result_path.mkdir(exist_ok=True, parents=True)
     results_fname = f'{pipeline_type}_{time.time()}_filtering_experiments_{subject}.csv'
 
     dataset_full = {}
     trials_amount = 0
-    # getting data of all trials
     for instance in os.scandir(folder_path):
         if instance.path.endswith('.mat'): 
             trials_amount +=1
@@ -74,41 +73,34 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
                 y_val = []
                 df_num = 0
                 overlap = FLAGS.overlap
-                print(f'experimenting with filter order of {filter_order}, freq limits of {freq_limits_names}, and ws of {sample_duration}.')
+                print(f'experimenting with filter order of {filter_order}, freq limits of {freq_limits_names}, \
+                and ws of {sample_duration}.')
                 for df in dataset_full:
-                    #TODO add here some lines to way more easily make an accurate train_test split
-                    # e.g. choose trial 4 as validation instead of always the last trial
-                    # easily by changing x_all to x_train and x_val and later x_np to x_train_np etc
                     if overlap:
                         X_temp, y_temp = utils.segmentation_overlap_withfilt(dataset_full[df], sample_duration, filters,
                         selected_electrodes_names, freq_limits_names, pipeline_type, window_hop=100)
                         for segment in range(len(X_temp)): 
-                            if df_num == 4: #select trial 4 for validation set
-                                # add to x_all without initiating lists into lists
+                            # add to x_all without initiating lists into lists
+                            if df_num == 4:# > 0 and df_num % 5 == 0: 
                                 X_val.append(X_temp[segment])
                                 y_val.append(y_temp[segment]) 
-                            else: #select trial 4 for validation set
-                                # add to x_all without initiating lists into lists
+                            else:
                                 X_train.append(X_temp[segment])
                                 y_train.append(y_temp[segment]) 
                     else:
                         X_segmented, y = utils.segmentation_all(dataset_full[df],sample_duration) 
                         i=0    
                         for segment in range(len(X_segmented)):
-                            # print(X_segmented[segment].shape)     
-                            # plt.plot(np.arange(0,200), X_segmented[segment].iloc[5, :])
-                            # plt.show()
                             # apply pre-processing and update filter state space vector in filters
                             segment_filt, outlier, filters = utils.pre_processing(X_segmented[segment], selected_electrodes_names, 
                             filters, sample_duration, freq_limits_names, pipeline_type)
                             if outlier > 0 or i == 0: 
-                                # when i ==0, filters are (re-)initiated so signal is destroyed. Dont use.
-                                # this is at the start of each new df in data_set_full
-                                # NOTE could make this higher than 0 to not exclude segments with e.g. only 1 bad channel
+                                # when i ==0, state space filters are (re-)initiated so signal is destroyed, 
+                                # so segment is considered as outlier; this is at the start of each new df in data_set_full
+                                # When outlier > 0, we have 1 or more 1 bad channel so segment is outlier.
                                 print(f'A segment was considered as an outlier due to bad signal in {outlier} channels')
                             else:
-                                if df_num == 4: 
-                                    # select trial 4 for validation set
+                                if df_num > 0 and df_num % 5 == 0: 
                                     X_val.append(segment_filt)
                                     y_val.append(y[segment]) 
                                 else: 
@@ -117,6 +109,8 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
                             i+=1
                     df_num += 1
                     print(f'Current length of X train: {len(X_train)}.')
+                    print(f'Current length of X val: {len(X_val)}.')
+
                 # transform to np for use in ML-pipeline
                 X_train_np = np.stack(X_train)
                 X_val_np = np.stack(X_val)
@@ -126,11 +120,10 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
                 else:
                     y_train_np = np.array(y_train).ravel()
                     y_val_np = np.array(y_val).ravel()
-
                 print(f"shape training set: {X_train_np.shape}")
                 print(f"shape validation set: {X_val_np.shape}")
 
-                # NOTE check continuity of signals
+                # check continuity of signals
                 #X_concat = np.concatenate((X_np[5, 5, :],X_np[6, 5, :]))
                 #plt.plot(np.arange(0,100), X_np[0, 5, 100:])
                 #plt.plot(np.arange(100,300), X_np[1, 5, :])
@@ -140,18 +133,19 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
                 if 'deep' in pipeline_type:
                     # deep learning pipeline
                     start_time = time.time()
-                    # only choose the last trial as validation test set by 1/trials_amount
                     trainloader, valloader = utils_deep.data_setup(X_train_np, y_train_np, X_val_np, y_val_np) 
                     lr = 0.0005
                     receptive_field = 65 # chosen by experimentation (see deeplearn_experiment folder) 
                     # In paper1, they also use 65, but also collect more samples (3seconds)
                     filter_sizing = 10 # Chosen by experimentation. Depth of conv layers; 40 was used in appers
                     mean_pool = 15 # Chosen by experimentation. 15 was used in papers
+
                     train_accuracy, val_accuracy, train_f1, val_f1, train_classacc_iters, val_classacc_iters = utils_deep.run_model(
                         trainloader, valloader, lr, sample_duration, n_electrodes, receptive_field, filter_sizing, mean_pool)
                     print(f'trainacc: {train_accuracy}')
                     print(f'valacc: {val_accuracy}')
                     elapsed_time = time.time() - start_time
+
                     results[f"DL_rf{receptive_field}_filtersize{filter_sizing}_meanpool{mean_pool}"] = {'final_train_accuracy': np.array(train_accuracy).mean(),
                     'test_accuracy': np.array(val_accuracy).mean(), 'final_train_f1': np.array(train_f1).mean(),
                     'test_f1': np.array(val_f1).mean(), 'train_classacc': train_classacc_iters, 'val_classacc': val_classacc_iters, 
@@ -165,12 +159,12 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
                             print(f'applying {clf} with gridsearch...')
                             acc, acc_classes, f1, elapsed_time, chosen_pipelines = utils.grid_search_execution(X_train_np, y_train_np, 
                             X_val_np, y_val_np, chosen_pipelines, clf)
-                            results[f"grid_search_{clf}_{filter_order}_{freq_limits_names}_{sample_duration}"] = {'clf': clf, 'filter_order' : filter_order, 
-                            'freq_limits' : freq_limits_names, 'windowsize' : sample_duration, 
-                                'test_accuracy': acc, 'acc_classes': acc_classes, 'test_f1' : f1, 'time (seconds)': elapsed_time}#, 'bestParams': chosen_pipelines[clf].best_params_ }                         
+
+                            results[f"grid_search_{clf}_{filter_order}_{freq_limits_names}_{sample_duration}"] = {
+                            'clf': clf, 'filter_order' : filter_order, 'freq_limits' : freq_limits_names, 
+                            'windowsize' : sample_duration, 'test_accuracy': acc, 'acc_classes': acc_classes, 
+                            'test_f1' : f1, 'time (seconds)': elapsed_time}#, 'bestParams': chosen_pipelines[clf].best_params_ }                         
                     else: 
-                        # no gridsearch but with cross val
-                        # data leakage due to double cross val w/ gridsearch and here --> watch out
                         chosen_pipelines = utils.init_pipelines(pipeline_type)
                         cv = KFold(n_splits=5, shuffle=True, random_state=42)
                         scoring = {'f1': 'f1', 'acc': 'accuracy','prec_macro': 'precision_macro','rec_macro': 'recall_macro'}
@@ -179,8 +173,8 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
                             start_time = time.time()
                             scores = cross_validate(chosen_pipelines[clf], X_np, y_np, cv=cv, n_jobs=-1, scoring=scoring, return_train_score=True)
                             elapsed_time = time.time() - start_time
-                            results[f"{clf}_{filter_order}_{freq_limits_names}_{sample_duration}"] = {'clf': clf, 'filter_order' : filter_order, 
-                            'freq_limits' : freq_limits_names, 'windowsize' : sample_duration, 
+                            results[f"{clf}_{filter_order}_{freq_limits_names}_{sample_duration}"] = {'clf': clf, 
+                            'filter_order' : filter_order, 'freq_limits' : freq_limits_names, 'windowsize' : sample_duration, 
                                 'test_accuracy': scores['test_acc'].mean(),'test_f1': scores['test_f1'].mean(),
                                 'test_prec': scores['test_prec_macro'].mean(), 'test_rec': scores['test_rec_macro'].mean(), 
                                 'time (seconds)': elapsed_time, 'train_accuracy': scores['train_acc'].mean() }  

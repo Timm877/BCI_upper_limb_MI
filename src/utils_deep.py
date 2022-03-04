@@ -10,7 +10,6 @@ from sklearn.model_selection import  train_test_split
 from sklearn.metrics import f1_score, confusion_matrix
 import matplotlib.pyplot as plt
 
-
 classes = 2 # first, binary task.
 
 class Flatten(nn.Module):
@@ -37,26 +36,15 @@ class CNN(nn.Module):
 
     
     def forward(self,x):
-        #print(f'shape x at start. Expected 1x27x200. True: {x.shape}')
         out = self.temporal(x)
-        #print(f'shape x after temporal conv. Receptive field: {receptive_field}. Expected 40x27x180. True: {out.shape}')
         out = self.spatial(out)
-        #out = self.temporal2(out)
-        #print(f'shape x after spatial conv. Expected 40x1x180. True: {out.shape}')
         out = self.avgpool(out)
         out = self.dropout(out)
-        #print(f'shape x after avgpool. Expected 40x1x12. True: {out.shape}')
         out = out.view(out.size(0), -1)
-        #print(f'shape x after flattening. Expected {40*12}. True: {out.shape}')
         prediction = self.fc(out)
-        #print(f'shape x after linear+softmax. Expected 2. True: {prediction.shape}')
         return prediction
 
 def data_setup(X_train, y_train, X_val, y_val):
-    #X_train, X_val, y_train, y_val = train_test_split(X_np, y_np, test_size=val_size, shuffle=False, random_state=4)
-    #this ain't the best method but works reasonably well to select the last trial for testing
-    #plt.plot(y_val)
-    #plt.show()
     trainX = torch.from_numpy(X_train)
     trainY = torch.from_numpy(y_train)
     validationX = torch.from_numpy(X_val)
@@ -78,13 +66,17 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
     train_classacc_iters = []
     print(f'To get stable results we run DL network from scratch 3 times.')
     for iteration in range(3):
-    # --> run DL 3 times as init is random and therefore results may differ per complete run
-    # then save average results
+    # --> run DL 3 times as init is random and therefore results may differ per complete run, save average of results
         print(f'Running iteration {iteration+1}...')
         net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
         filter_sizing = filter_sizing, mean_pool=mean_pool)
 
-        #net.load_state_dict(torch.load('static_714_DL_model'))
+        #net.load_state_dict(torch.load('7_static_13_14_16_22'))
+        '''
+        for param in net.parameters():
+            param.requires_grad = False
+        net.fc = nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), classes)
+        '''
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         net = net.to(device)
@@ -109,22 +101,14 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
             for i, (inputs, labels) in enumerate(trainloader, 0):
                 inputs = inputs[:, np.newaxis, :, :]
                 inputs, labels = inputs.to(device, dtype=torch.float), labels.to(device, dtype=torch.long)
-
                 optimizer.zero_grad()
                 output = net(inputs) 
                 loss = F.cross_entropy(output,labels)
-                '''
-                _, predicted = torch.max(output.data, 1)
-                total = labels.size(0)
-                correct = (predicted == labels).sum().item()
-                train_acc += (100 * correct / total)
-                '''  
                 loss.backward()
                 optimizer.step()
                 running_loss += loss.item()
 
             net.eval()
-            #print(f'running train loss epoch {epoch + 1}: {round(running_loss,2)}')
             running_loss = 0        
             # Calculate train and val accuracy after each epoch
             train_acc, train_loss, train_f1_score, train_acc_class = calculate_metrics(trainloader, device, net)
@@ -143,9 +127,8 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
             print(f'Current val acc after epoch {epoch+1}: {val_accuracy[-1]}')
             print(f'Current val loss after epoch {epoch+1}: {validation_loss[-1]}\n')
             
-            # here I can very easily add early stopping  and LR scheduler code:
-            # Idea here is to apply LR scheduler twice with patience 5, 
-            # and after that do early stopping with patience 2.
+            # Apply LR scheduler halvign twice with patience 4, 
+            # and after that do early stopping with patience 4.
             if scheduler_is_used == False:
                 lr_scheduler(val_loss)
                 for param_group in optimizer.param_groups:
@@ -168,7 +151,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
         val_classacc_iters.append(val_acc_classes[-1])
 
         # save model for TL experiment
-        #torch.save(net.state_dict(), 'static_714_DL_model')
+        #torch.save(net.state_dict(), '7_static_13_14_16_22')
 
     return train_accuracy_iters, val_accuracy_iters, train_f1_iters, val_f1_iters, train_classacc_iters, val_classacc_iters
 

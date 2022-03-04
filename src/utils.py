@@ -200,9 +200,6 @@ def init_pipelines_grid(pipeline_name = ['csp']):
         pipelines["csp_12+s_lda_n"] = Pipeline(steps=[('csp', CSP(n_components=12)), 
                                             ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
 
-        #pipelines["csp_12+xgboost"] = Pipeline(steps=[('csp', CSP(n_components=12)), 
-        #                            ('xgboost', XGBClassifier(random_state=2))])
-
         pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC())])
         param_grid = {
             "csp__n_components" :[10,12],
@@ -222,11 +219,9 @@ def init_pipelines_grid(pipeline_name = ['csp']):
         pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
                                     ('mdm', FgMDM(metric="riemann"))])
 
-        #pipelines["tgsp+xgboost"] = Pipeline(steps=[('cov', Covariances("oas")), 
-        #                            ('xgboost', XGBClassifier(random_state=2))])
         pipelines["tgsp+slda"] = Pipeline(steps=[('cov', Covariances("oas")), 
                 ('tg', TangentSpace(metric="riemann")),
-                ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])     
+                ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])   
 
         pipe = Pipeline(steps=[('cov', Covariances("oas")), 
                                             ('tg', TangentSpace(metric="riemann")),
@@ -250,20 +245,15 @@ def init_pipelines_grid(pipeline_name = ['csp']):
 def grid_search_execution(X_train, y_train, X_val, y_val, chosen_pipelines, clf):
     start_time = time.time()
     preds = np.zeros(len(y_val))
-    #this ain't the best method but works reasonably well to select the last trial for testing
-    #plt.plot(y_test) 
-    #plt.show()
     chosen_pipelines[clf].fit(X_train, y_train)
-    #print(chosen_pipelines[clf].best_params_)
     preds = chosen_pipelines[clf].predict(X_val)
 
     acc = np.mean(preds == y_val)
     f1 = f1_score(y_val, preds)
-
     acc_classes = confusion_matrix(y_val, preds, normalize="true").diagonal()
     print(f"Classification accuracy: {acc} and per class: {acc_classes}")
     elapsed_time = time.time() - start_time
-
+    
     return acc, acc_classes, f1, elapsed_time, chosen_pipelines
 
 def plot_dataset(data_table, columns, match='like', display='line'):
