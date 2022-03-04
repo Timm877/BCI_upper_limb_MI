@@ -34,8 +34,8 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
         selected_electrodes_names = [x for x in all_electrode_names if x not in deleted_electrodes_names]
         n_electrodes = len(selected_electrodes_names)
 
-    folder_path = Path('./data/offline/20210715_MI_atencion_online_static/')
-    subject = '20210715_MI_atencion_online_static'   
+    folder_path = Path('./data/offline/202100722_MI_atencion_online/')
+    subject = '202100722_MI_atencion_online'   
     result_path = Path('./data/offline/intermediate_datafiles/transfer_learn/')
     result_path.mkdir(exist_ok=True, parents=True)
     results_fname = f'{pipeline_type}_{time.time()}_filtering_experiments_{subject}.csv'
@@ -81,7 +81,7 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
                         selected_electrodes_names, freq_limits_names, pipeline_type, window_hop=100)
                         for segment in range(len(X_temp)): 
                             # add to x_all without initiating lists into lists
-                            if df_num == 4:# > 0 and df_num % 5 == 0: 
+                            if df_num >1:# > 0 and df_num % 5 == 0: 
                                 X_val.append(X_temp[segment])
                                 y_val.append(y_temp[segment]) 
                             else:

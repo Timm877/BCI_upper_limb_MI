@@ -71,12 +71,12 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
         net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
         filter_sizing = filter_sizing, mean_pool=mean_pool)
 
-        #net.load_state_dict(torch.load('7_static_13_14_16_22'))
-        '''
-        for param in net.parameters():
-            param.requires_grad = False
-        net.fc = nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), classes)
-        '''
+        net.load_state_dict(torch.load('7_static_13_14_16_22'))
+        
+        #for param in net.parameters():
+        #    param.requires_grad = False
+        #net.fc = nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), classes)
+
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         net = net.to(device)
