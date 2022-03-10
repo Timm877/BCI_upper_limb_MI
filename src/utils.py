@@ -4,6 +4,7 @@ import os
 import shutil
 import time
 import math
+from collections import Counter
 
 import matplotlib.pyplot as plt
 import numpy as np
@@ -49,26 +50,36 @@ def apply_filter_statespace(sig, A, B, C, D, Xnn):
     # State space with scipy's matrices
     filt_sig = np.array([])
 
+    #TODO here add the Artifact subspace reduction as well!
     for sample in sig: 
         filt_sig = np.append(filt_sig, C@Xnn + D * sample)
         Xnn = A@Xnn + B * sample
     return filt_sig, Xnn
 
-def pre_processing(segment,selected_electrodes_names ,filters, sample_duration, freq_limits_names, pipeline_type):
-    curr_segment = segment
+def pre_processing(curr_segment,selected_electrodes_names ,filters, sample_duration, freq_limits_names, pipeline_type, 
+sampling_frequency=250):
     outlier = 0
     # TODO add notch filter 50Hz for Unicorn BCI experiments??? --> is needed?
-
+    # apply notch and ASR detection
+    b_notch, a_notch = signal.iirnotch(50, 30, sampling_frequency)
+    for column in curr_segment.columns:
+        curr_segment.loc[:,column] = signal.filtfilt(b_notch, a_notch, curr_segment.loc[:,column])
+    
+    curr_segment = curr_segment.T
+    
     # 1 OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
+    
     for i, j in curr_segment.iterrows():
         if stats.kurtosis(j) > 4*np.std(j) or (abs(j - np.mean(j)) > 125).any():
             if stats.kurtosis(j) > 4*np.std(j):
                 print('due to kurtosis')
             outlier +=1
+
     # 2 APPLY COMMON AVERAGE REFERENCE (CAR) per segment only for deep learning pipeline   
     #CAR doesnt work for csp, for riemann gives worse results, so only use for deep
     if 'deep' in pipeline_type: 
         curr_segment -= curr_segment.mean()
+
     # 3 FILTERING filter bank / bandpass
     segment_filt, filters = filter_1seg_statespace(curr_segment, selected_electrodes_names, filters, sample_duration, 
     freq_limits_names)
@@ -108,6 +119,56 @@ def segmentation_all(dataset,sample_duration):
         else:
             false +=1
     # print(f'true:{true}, false: {false}')
+    return segments, labels
+
+def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, selected_electrodes_names, freq_limits_names, 
+    pipeline_type, sampling_frequency):
+    window_hop = sampling_frequency/2
+    segments = []
+    labels = []
+    dataset_c = copy.deepcopy(dataset)
+    i = 0
+    outliers = 0
+    for frame_idx in range(sample_duration, dataset_c.shape[0], window_hop):
+        if i == 0:
+            temp_dataset = dataset_c.iloc[frame_idx-sample_duration:frame_idx, :-1] 
+            # here apply filtering
+            segment_filt, outlier, filters = pre_processing(temp_dataset, selected_electrodes_names, filters, 
+                        sample_duration, freq_limits_names, pipeline_type, sampling_frequency)
+        else:
+            # here only get 0.5 seconds extra, filter only that part, than concat with new part
+            temp_dataset = dataset_c.iloc[frame_idx-window_hop:frame_idx, :-1] 
+            # here apply filtering   
+            segment_filt_new, outlier, filters = pre_processing(temp_dataset, selected_electrodes_names, filters, 
+                        window_hop, freq_limits_names, pipeline_type)
+            if window_hop == sample_duration:
+                segment_filt = segment_filt_new
+            else:
+                segment_filt = pd.concat([segment_filt.iloc[:,-(sample_duration-window_hop):], segment_filt_new], axis=1, 
+                ignore_index=True)
+            #plt.plot(np.arange(100,300), segment_filt.iloc[5, :])
+            #plt.show()
+        if outlier > 0 or i == 0: 
+            #NOTE outlier amount here changed to more than 1 instead of more than 0
+            #when i ==0, filters are initiated so signal is destroyed. Dont use.
+            print(f'A segment was considered as an outlier due to bad signal in {outlier} channels')
+            outliers +=1
+        else:
+            label_row = dataset_c.iloc[frame_idx-sample_duration:frame_idx, -1]
+            label = label_row.value_counts()[:1]
+            if (label[0] == 500) and (label.index.tolist()[0] in ['2', '3']): 
+                # 1 relax 2 right arm 3 left arm 4 legs
+                segments.append(segment_filt)
+                if label.index.tolist()[0] == '2':
+                    labels.append(0) 
+                elif label.index.tolist()[0] == '3':
+                    labels.append(1)
+                #plt.plot(segment_filt.iloc[0,:])
+                #plt.show()
+        i += 1
+    label_amounts = Counter(labels)
+    print(f'amount of good segments: {len(labels)}')
+    print(f"relax: {label_amounts[0]}, rightarm: {label_amounts[1]}, leftarm: {label_amounts[2]}, legs: {label_amounts[3]}")
     return segments, labels
 
 def segmentation_overlap_withfilt(dataset, sample_duration, filters, selected_electrodes_names, freq_limits_names, 

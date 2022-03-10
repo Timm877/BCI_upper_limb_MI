@@ -17,7 +17,7 @@ class Flatten(nn.Module):
         return input.view(input.size(0), -1)
 
 class CNN(nn.Module):
-    def __init__(self, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool):
+    def __init__(self, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool, num_classes):
         super(CNN,self).__init__()
         self.temporal=nn.Sequential(
             nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, padding=0), 
@@ -32,7 +32,7 @@ class CNN(nn.Module):
         self.avgpool = nn.AvgPool2d([1, mean_pool], stride=[1, mean_pool], padding=0)
         self.dropout = nn.Dropout(0.3)
         self.view = nn.Sequential(Flatten())
-        self.fc=nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), classes)
+        self.fc=nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), num_classes)
 
     
     def forward(self,x):
@@ -57,7 +57,7 @@ def data_setup(X_train, y_train, X_val, y_val):
     valloader = torch.utils.data.DataLoader(validation, batch_size=32, shuffle=True)
     return trainloader, valloader
 
-def run_model(trainloader, valloader, lr, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool):
+def run_model(trainloader, valloader, lr, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool, num_classes):
     train_accuracy_iters = []
     val_accuracy_iters = []
     train_f1_iters = []
@@ -65,18 +65,16 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
     val_classacc_iters = []
     train_classacc_iters = []
     print(f'To get stable results we run DL network from scratch 3 times.')
-    for iteration in range(3):
+    for iteration in range(2):
     # --> run DL 3 times as init is random and therefore results may differ per complete run, save average of results
         print(f'Running iteration {iteration+1}...')
         net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
-        filter_sizing = filter_sizing, mean_pool=mean_pool)
+        filter_sizing = filter_sizing, mean_pool=mean_pool, num_classes=num_classes)
 
-        net.load_state_dict(torch.load('7_static_13_14_16_22'))
-        
+        #net.load_state_dict(torch.load('7_static_13_14_16_22'))
         #for param in net.parameters():
         #    param.requires_grad = False
         #net.fc = nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), classes)
-
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         net = net.to(device)

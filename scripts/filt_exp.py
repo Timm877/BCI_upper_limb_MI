@@ -59,6 +59,7 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
             dataset_full[str(instance)] = pd.concat([data_relax,data_MI], axis=0)
             dataset_full[str(instance)].reset_index(drop=True, inplace=True)
 
+
     results = {}
     for sample_duration in window_sizes:
         for filt_ord in range(len(filt_orders)):

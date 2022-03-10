@@ -124,7 +124,7 @@ val_erp_labels = one_hot_labels(y_val_np)
 
 #%%  TRAINING
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
-train = False
+train = True
 if train:
     # Create model
     model = EEGInception(
