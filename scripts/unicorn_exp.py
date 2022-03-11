@@ -30,9 +30,9 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_ord,
     folder_path = Path(f'./data/unicorn/pilots/expdata/Subjects/{subject}/openloop')
     print(folder_path)
     env_noise_path = Path(f'./data/unicorn/pilots/expdata/Subjects/{subject}/Envdata')
-    result_path = Path(f'./data/intermediate_datafiles/pilots/{subject}')
+    result_path = Path(f'./results/intermediate_datafiles/pilots/{subject}')
     result_path.mkdir(exist_ok=True, parents=True)
-    results_fname = f'leftarmrightarm_{pipeline_type}_{time.time()}_filtering_experiments_{subject}.csv'
+    results_fname = f'multiclass_{pipeline_type}_{time.time()}_filtering_experiments_{subject}.csv'
     num_classes = 3
     
     dataset_full = {}
@@ -71,6 +71,7 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_ord,
         for df in dataset_full:
             X_temp, y_temp = utils.unicorn_segmentation_overlap_withfilt(dataset_full[df], window_size, filters,
             electrode_names, freq_limits_names, pipeline_type, sampling_frequency, asr)
+
             for segment in range(len(X_temp)): 
                 if df_num == 3 or df_num == 7: # > 0 and df_num % 5 == 0: 
                     X_val.append(X_temp[segment])

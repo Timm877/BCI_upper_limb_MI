@@ -141,6 +141,7 @@ def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, sel
             else:
                 segment_filt = pd.concat([segment_filt.iloc[:,-(sample_duration-window_hop):].reset_index(drop=True), 
                 segment_filt_new.reset_index(drop=True)], axis=1, ignore_index=True)
+                #print(segment_filt.shape)
             #plt.plot(np.arange(100,300), segment_filt.iloc[5, :])
             #plt.show()
         if outlier > 0 or i == 0: 
@@ -151,23 +152,24 @@ def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, sel
         else:
             label_row = dataset_c.iloc[frame_idx-sample_duration:frame_idx, -1]
             label = label_row.value_counts()[:1]
-            if (label[0] == 500) and (label.index.tolist()[0] in ['1', '2', '3']): 
+            if (label[0] == sample_duration) and (label.index.tolist()[0] in ['1', '2', '3']): 
                 # 1 relax 2 right arm 3 left arm 4 legs
                 segments.append(segment_filt)
-                labels.append(int(label.index.tolist()[0])) 
+                labels.append(int(label.index.tolist()[0]) - 1) 
+                #NOTE we do minus 1 to get class 1 as class 0 for deepL pipeline
                 #plt.plot(segment_filt.iloc[0,:])
                 #plt.show()
         i += 1
     label_amounts = Counter(labels)
     print(f'amount of good segments: {len(labels)}')
-    print(f"relax: {label_amounts[1]}, rightarm: {label_amounts[2]}, leftarm: {label_amounts[3]}, legs: {label_amounts[4]}")
+    print(f"relax: {label_amounts[0]}, rightarm: {label_amounts[1]}, leftarm: {label_amounts[2]}, legs: {label_amounts[3]}")
     return segments, labels
 
 def init_pipelines_grid(pipeline_name = ['csp']):
     pipelines = {}
     if 'csp' in pipeline_name:
-        pipelines["csp_12+s_lda_n"] = Pipeline(steps=[('csp', CSP(n_components=12)), 
-                                            ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
+        #pipelines["csp_12+s_lda_n"] = Pipeline(steps=[('csp', CSP(n_components=12)), 
+        #                                    ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
 
         pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC(decision_function_shape='ovo'))])
         param_grid = {
@@ -177,37 +179,37 @@ def init_pipelines_grid(pipeline_name = ['csp']):
                 }
         pipelines["csp+svm"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
 
-        pipe = Pipeline(steps=[('csp', CSP(n_components=12)), ('rf', RFC(random_state=42))])
-        param_grid = {
-            "rf__min_samples_leaf": [1, 2, 3],
-            "rf__n_estimators": [50, 100, 200],
-            "rf__criterion": ['gini', 'entropy']}
-        pipelines["csp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
+        #pipe = Pipeline(steps=[('csp', CSP(n_components=12)), ('rf', RFC(random_state=42))])
+        #param_grid = {
+        #    "rf__min_samples_leaf": [1, 2, 3],
+        #    "rf__n_estimators": [50, 100, 200],
+        #    "rf__criterion": ['gini', 'entropy']}
+        #pipelines["csp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
 
     if 'riemann' in pipeline_name:  
-        pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
-                                    ('mdm', FgMDM(metric="riemann"))])
+        #pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
+        #                            ('mdm', FgMDM(metric="riemann"))])
 
-        pipelines["tgsp+slda"] = Pipeline(steps=[('cov', Covariances("oas")), 
-                ('tg', TangentSpace(metric="riemann")),
-                ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])   
+        #pipelines["tgsp+slda"] = Pipeline(steps=[('cov', Covariances("oas")), 
+        #        ('tg', TangentSpace(metric="riemann")),
+        #        ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])   
 
         pipe = Pipeline(steps=[('cov', Covariances("oas")), 
                                             ('tg', TangentSpace(metric="riemann")),
-                                            ('svm', SVC())])
+                                            ('svm', SVC(decision_function_shape='ovo'))])
         param_grid = {"svm__C": [0.1, 1, 10, 100],
             "svm__gamma": [0.1, 0.01, 0.001],
             "svm__kernel": ['rbf', 'linear']
                 }
         pipelines["tgsp+svm"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)  
 
-        pipe = Pipeline(steps=[('cov', Covariances("oas")), 
-                                            ('tg', TangentSpace(metric="riemann")),
-                                            ('rf', RFC(random_state=42))])
-        param_grid = {"rf__min_samples_leaf": [1, 2, 50, 100],
-            "rf__n_estimators": [10, 50, 100, 200],
-            "rf__criterion": ['gini', 'entropy']}
-        pipelines["tgsp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
+        #pipe = Pipeline(steps=[('cov', Covariances("oas")), 
+        #                                    ('tg', TangentSpace(metric="riemann")),
+        #                                    ('rf', RFC(random_state=42))])
+        #param_grid = {"rf__min_samples_leaf": [1, 2, 50, 100],
+        #    "rf__n_estimators": [10, 50, 100, 200],
+        #    "rf__criterion": ['gini', 'entropy']}
+        #pipelines["tgsp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
 
     return pipelines  
 
@@ -218,8 +220,7 @@ def grid_search_execution(X_train, y_train, X_val, y_val, chosen_pipelines, clf)
     preds = chosen_pipelines[clf].predict(X_val)
 
     acc = np.mean(preds == y_val)
-    f1=0
-    #f1 = f1_score(y_val, preds)
+    f1 = f1_score(y_val, preds, average='macro')
     acc_classes = confusion_matrix(y_val, preds, normalize="true").diagonal()
     print(f"Classification accuracy: {acc} and per class: {acc_classes}")
     elapsed_time = time.time() - start_time

@@ -65,7 +65,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
     val_classacc_iters = []
     train_classacc_iters = []
     print(f'To get stable results we run DL network from scratch 3 times.')
-    for iteration in range(2):
+    for iteration in range(1):
     # --> run DL 3 times as init is random and therefore results may differ per complete run, save average of results
         print(f'Running iteration {iteration+1}...')
         net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
@@ -92,7 +92,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
         val_acc_classes = []
         train_acc_classes=[]
 
-        for epoch in range(50):
+        for epoch in range(1):
             running_loss = 0
             train_acc = 0
             net.train()
@@ -109,7 +109,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
             net.eval()
             running_loss = 0        
             # Calculate train and val accuracy after each epoch
-            train_acc, train_loss, train_f1_score, train_acc_class = calculate_metrics(trainloader, device, net)
+            train_acc, train_loss, train_f1_score, train_acc_class = calculate_metrics(trainloader, device, net, num_classes)
             train_accuracy.append(train_acc)
             training_loss.append(train_loss)
             training_f1.append(train_f1_score)
@@ -117,7 +117,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
             print(f'Current train acc after epoch {epoch+1}: {train_accuracy[-1]}')
             print(f'Current train loss after epoch {epoch+1}: {training_loss[-1]}')
 
-            val_acc, val_loss, val_f1_score, val_acc_class = calculate_metrics(valloader, device, net)
+            val_acc, val_loss, val_f1_score, val_acc_class = calculate_metrics(valloader, device, net, num_classes)
             val_accuracy.append(val_acc)
             validation_loss.append(val_loss)
             validation_f1.append(val_f1_score)
@@ -153,10 +153,12 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
 
     return train_accuracy_iters, val_accuracy_iters, train_f1_iters, val_f1_iters, train_classacc_iters, val_classacc_iters
 
-def calculate_metrics(loader, device, net):
+def calculate_metrics(loader, device, net, num_classes):
     correct = 0
     total = 0
     running_loss = 0
+    f1 = 0
+    acc_classes = np.zeros(num_classes)
     for i, (inputs, labels) in enumerate(loader, 0):
         inputs = inputs[:, np.newaxis, :, :]
         inputs, labels = inputs.to(device, dtype=torch.float), labels.to(device, dtype=torch.long)
@@ -166,9 +168,9 @@ def calculate_metrics(loader, device, net):
         _, predicted = torch.max(output.data, 1)
         total += labels.size(0)
         correct += (predicted == labels).sum().item()
-        f1 = f1_score(labels.data, predicted)
-        acc_classes = confusion_matrix(labels.data, predicted, normalize="true").diagonal()
-    return round(100 * correct / total, 3), round(running_loss,3), f1, acc_classes
+        f1 += f1_score(labels.data, predicted, average='macro') * 32
+        #acc_classes += confusion_matrix(labels.data, predicted, normalize="true").diagonal() * 32
+    return round(100 * correct / total, 3), round(running_loss,3), round(100 * f1 / total, 3), 100 * acc_classes / total
 
 
 class EarlyStopping():
