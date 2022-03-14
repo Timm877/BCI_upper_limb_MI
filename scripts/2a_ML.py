@@ -24,16 +24,14 @@ def execution(pipeline_type, subject):
     sampling_frequency = 250 
     # testing here for 8 electrodes:
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
-    #file_elec_names = ['EEG1', 'EEG2', 'EEG3', 'EEG4', 'EEG5', 'EEG6', 'EEG7', 'EEG8']
     n_electrodes = len(electrode_names)
-
-
-    folder_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}')
-    result_path = Path(f'./results/intermediate_datafiles/pilots/{subject}')
+    folder_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}_leftA_rightA')
+    result_path = Path(f'./results/intermediate_datafiles/pilots/{subject}_leftA_rightA') 
     result_path.mkdir(exist_ok=True, parents=True)
-    results_fname = f'{pipeline_type}_UL_multiclass.csv'
+    results_fname = f'{pipeline_type}_UL_leftA_rightA.csv'
     num_classes = 3
     results = {}
+
     for instance in os.scandir(folder_path):
         if pipeline_type in instance.path: 
             print(f'Running for {instance.path}...')
@@ -43,7 +41,6 @@ def execution(pipeline_type, subject):
             y = data_dict['labels']
             window_size = int(instance.path.split("ws",1)[1][:3]) 
             train_acc_cv, val_acc_cv, train_f1_cv, val_f1_cv, acc_classes_cv = [], [], [], [], []
-
             for cross_val in range(list(X)[-1] + 1):
                 X_train, y_train, X_val, y_val = [], [], [], []
                 for df in X: 
@@ -58,6 +55,7 @@ def execution(pipeline_type, subject):
                     print(f'Current length of X val: {len(X_val)}.')
                 X_train_np = np.stack(X_train)
                 X_val_np = np.stack(X_val)
+                onehot = True
                 y_train_np = np.array(y_train)
                 y_val_np = np.array(y_val)
                 print(f"shape training set: {X_train_np.shape}")

@@ -11,17 +11,16 @@ import src.unicorn_utils as utils
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
-def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes):
+def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes, subject):
     print(f'Preprocessing for {pipeline_type} experimentation...')
     # INIT
     sampling_frequency = 250 
     # testing here for 8 electrodes:
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
     asr = False
-    subject = 'X01_wet'  
     folder_path = Path(f'./data/pilots/{subject}/openloop')
     env_noise_path = Path(f'./data/pilots/{subject}/Envdata')
-    result_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}')
+    result_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}_leftA_rightA')
     result_path.mkdir(exist_ok=True, parents=True)  
     dataset_full = {}
     trials_amount = 0
@@ -76,26 +75,31 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
                 print('Finished a preprocess pipeline.')
 
 def main():
-    if 'csp' in FLAGS.pline:
-        # filterbank
-        list_of_freq_lim = [[[4, 8], [8, 12], [12, 16], [16, 20], [20,24], [24,28], [28,32], [32,36], [36,40]],
-        [[5, 10], [10, 15], [15, 20], [20, 25]], [[5, 10], [10, 15], [15, 20], [20, 25], [25, 30], [30, 35]]]
-        freq_limits_names_list = [['4_8Hz', '8_12Hz','12_16Hz','16_20Hz', '20_24Hz','24_28Hz', '28_32Hz', '32_36Hz', '36_40Hz'],
-        ['5_10Hz', '10_15Hz','15_20Hz','20_25Hz'], ['5_10Hz', '10_15Hz','15_20Hz','20_25Hz', '25_30Hz', '30_35Hz']]
-        filt_orders = [2,3,4]
-        window_sizes = [250,375,500]
-        execution('csp', list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes)
-    if 'deep' in FLAGS.pline or 'riemann' in FLAGS.pline:
-        list_of_freq_lim = [[[4,35]], [[8, 35]], [[4,40]], [[8,40]]]
-        freq_limits_names_list = [['4-35Hz'], ['8_35Hz'], ['4-40Hz'], ['8-40Hz']]
-        filt_orders = [2,3,4]
-        window_sizes = [250,375, 500]
-        execution('deep_or_riemann', list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes)
+    for subj in FLAGS.subjects:
+        print(subj)
+        if 'csp' in FLAGS.pline:
+            # filterbank
+            list_of_freq_lim = [[[5, 10], [10, 15], [15, 20], [20, 25]], [[5, 10], [10, 15], [15, 20], [20, 25], [25, 30], [30, 35]]]
+            #[[4, 8], [8, 12], [12, 16], [16, 20], [20,24], [24,28], [28,32], [32,36], [36,40]],
+            freq_limits_names_list = [['5_10Hz', '10_15Hz','15_20Hz','20_25Hz'], 
+            ['5_10Hz', '10_15Hz','15_20Hz','20_25Hz', '25_30Hz', '30_35Hz']]
+            # ['4_8Hz', '8_12Hz','12_16Hz','16_20Hz', '20_24Hz','24_28Hz', '28_32Hz', '32_36Hz', '36_40Hz'],
+            filt_orders = [4]
+            window_sizes = [500]
+            execution('csp', list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes, subj)
+        if 'deep' in FLAGS.pline or 'riemann' in FLAGS.pline:
+            list_of_freq_lim = [[[8, 35]], [[8,40]]] #[[4,35]],  [[4,40]],
+            freq_limits_names_list = [['8_35Hz'], ['8-40Hz']] #['4-35Hz'], ['4-40Hz'], 
+            filt_orders = [4]
+            window_sizes = [500]
+            execution('deep_or_riemann', list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes, subj)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run offline BCI analysis experiments.")
     parser.add_argument("--pline", nargs='+', default=['csp'], help="The variant of pipelines used for after preprocessing. \
     This variable is a list containing the name of the variants. Options are: 'csp', 'riemann', 'deep'")
+    parser.add_argument("--subjects", nargs='+', default=['X02_wet'], help="The variant of pipelines used. \
+    This variable is a list containing the name of the variants. Options are in the data folder.")
     FLAGS, unparsed = parser.parse_known_args()
     main()
 

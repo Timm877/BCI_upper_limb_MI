@@ -22,6 +22,7 @@ from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
 from sklearn.metrics import f1_score, confusion_matrix
+from sklearn.preprocessing import OneHotEncoder
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2, state_space=True):
     filters = []
@@ -51,49 +52,48 @@ def apply_filter_statespace(sig, A, B, C, D, Xnn):
     return filt_sig, Xnn
 
 noASR = 0
+total_seg = 0
 def pre_processing(curr_segment,selected_electrodes_names ,filters, sample_duration, freq_limits_names, pipeline_type, 
                     sampling_frequency=250, asr=None):
     outlier = 0
-    global noASR
+    global noASR, total_seg
+    total_seg +=1
     # 1. notch filt
     b_notch, a_notch = signal.iirnotch(50, 30, sampling_frequency)
     for column in curr_segment.columns:
         curr_segment.loc[:,column] = signal.filtfilt(b_notch, a_notch, curr_segment.loc[:,column])
     
     curr_segment = curr_segment.T
-
-    # OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
+    '''
+    # 2. Artifact Subspace Reconstruction
+    if asr != None:
+        try:
+            #print('applying ASR...')
+            curr_segment = asr.transform(curr_segment.to_numpy())
+            curr_segment = pd.DataFrame(curr_segment.T, columns = selected_electrodes_names)
+            curr_segment = curr_segment.T
+            #print(segment_filt.shape)
+        except:
+            noASR += 1
+            #print(segment_filt.shape)
+            print(f'didnt apply ASR for {noASR} times out of total of {total_seg} segments.')
+    '''
+    # 3 OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
     for i, j in curr_segment.iterrows():
         if stats.kurtosis(j) > 4*np.std(j) or (abs(j - np.mean(j)) > 125).any():
             if stats.kurtosis(j) > 4*np.std(j):
                 print('due to kurtosis')
             outlier +=1
 
-    # 2 APPLY COMMON AVERAGE REFERENCE (CAR) per segment only for deep learning pipeline   
-    #CAR doesnt work for csp, for riemann gives worse results, so only use for deep
+    # 4 APPLY COMMON AVERAGE REFERENCE (CAR) per segment only for deep learning pipeline   
+    # CAR doesnt work for csp, for riemann gives worse results, so only use for deep
     if 'deep' in pipeline_type: 
         curr_segment -= curr_segment.mean()
 
-    # 3 FILTERING filter bank / bandpass
+    # 5 FILTERING filter bank / bandpass
     segment_filt, filters = filter_1seg_statespace(curr_segment, selected_electrodes_names, filters, sample_duration, 
     freq_limits_names)
 
-    # 4. Artifact Subspace Reconstruction
-    # TODO gives errors: AttributeError: 'NoneType' object has no attribute 'reshape'
-    # after: Geometric median could converge in 500 iterations with a tolerance of 1e-05
-    '''
-    if asr != None:
-        try:
-            #print('applying ASR...')
-            segment_filt = asr.transform(segment_filt.to_numpy())
-            segment_filt = pd.DataFrame(segment_filt.T, columns = selected_electrodes_names)
-            segment_filt = segment_filt.T
-            #print(segment_filt.shape)
-        except:
-            noASR += 1
-            #print(segment_filt.shape)
-            print(f'didnt apply ASR for {noASR} times.')
-    '''
     return segment_filt, outlier, filters
 
 def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
@@ -120,6 +120,7 @@ def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, sel
     window_hop = sampling_frequency//2
     segments = []
     labels = []
+    outlier_labels = []
     dataset_c = copy.deepcopy(dataset)
     i = 0
     outliers = 0
@@ -141,28 +142,37 @@ def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, sel
             else:
                 segment_filt = pd.concat([segment_filt.iloc[:,-(sample_duration-window_hop):].reset_index(drop=True), 
                 segment_filt_new.reset_index(drop=True)], axis=1, ignore_index=True)
-                #print(segment_filt.shape)
-            #plt.plot(np.arange(100,300), segment_filt.iloc[5, :])
-            #plt.show()
+
         if outlier > 0 or i == 0: 
-            #NOTE outlier amount here changed to more than 1 instead of more than 0
             #when i ==0, filters are initiated so signal is destroyed. Dont use.
             print(f'A segment was considered as an outlier due to bad signal in {outlier} channels')
             outliers +=1
-        else:
             label_row = dataset_c.iloc[frame_idx-sample_duration:frame_idx, -1]
             label = label_row.value_counts()[:1]
             if (label[0] == sample_duration) and (label.index.tolist()[0] in ['1', '2', '3']): 
-                # 1 relax 2 right arm 3 left arm 4 legs
+                # 1 relax 2 right arm 3 left arm
+                outlier_labels.append(int(label.index.tolist()[0]) - 1) 
+        else:
+            label_row = dataset_c.iloc[frame_idx-sample_duration:frame_idx, -1]
+            label = label_row.value_counts()[:1]
+            if (label[0] == sample_duration) and (label.index.tolist()[0] in ['2', '3']): 
+                # 1 relax 2 right arm 3 left arm
                 segments.append(segment_filt)
-                labels.append(int(label.index.tolist()[0]) - 1) 
-                #NOTE we do minus 1 to get class 1 as class 0 for deepL pipeline
-                #plt.plot(segment_filt.iloc[0,:])
-                #plt.show()
+                labels.append(int(label.index.tolist()[0]) - 2) 
+                #NOTE we need to have first class to be 0 for deepl pipeline
         i += 1
     label_amounts = Counter(labels)
+    outlier_amounts = Counter(outlier_labels)
     print(f'amount of good segments: {len(labels)}')
-    print(f"relax: {label_amounts[0]}, rightarm: {label_amounts[1]}, leftarm: {label_amounts[2]}, legs: {label_amounts[3]}")
+    print(f"Good - relax: {label_amounts[0]}, rightarm: {label_amounts[1]}, leftarm: {label_amounts[2]}")
+    print(f"Outliers - relax: {outlier_amounts[0]}, rightarm: {outlier_amounts[1]}, leftarm: {outlier_amounts[2]}")
+
+    # save output:
+    print(f"Good - relax: {label_amounts[0]}, rightarm: {label_amounts[1]}, leftarm: {label_amounts[2]}", 
+    file=open(f"{freq_limits_names}_{sample_duration}_outliers.txt", "a"))
+    print(f"Outliers - relax: {outlier_amounts[0]}, rightarm: {outlier_amounts[1]}, leftarm: {outlier_amounts[2]}", 
+    file=open(f"{freq_limits_names}_{sample_duration}_outliers.txt", "a"))
+
     return segments, labels
 
 def init_pipelines_grid(pipeline_name = ['csp']):

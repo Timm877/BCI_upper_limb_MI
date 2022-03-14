@@ -65,7 +65,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
     val_classacc_iters = []
     train_classacc_iters = []
     print(f'To get stable results we run DL network from scratch 3 times.')
-    for iteration in range(1):
+    for iteration in range(3):
     # --> run DL 3 times as init is random and therefore results may differ per complete run, save average of results
         print(f'Running iteration {iteration+1}...')
         net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
@@ -92,7 +92,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
         val_acc_classes = []
         train_acc_classes=[]
 
-        for epoch in range(1):
+        for epoch in range(100):
             running_loss = 0
             train_acc = 0
             net.train()
