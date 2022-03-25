@@ -7,10 +7,8 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 from sklearn.model_selection import  train_test_split
-from sklearn.metrics import f1_score, confusion_matrix
+from sklearn.metrics import f1_score, confusion_matrix, precision_score, recall_score, roc_auc_score
 import matplotlib.pyplot as plt
-
-classes = 2 # first, binary task.
 
 class Flatten(nn.Module):
     def forward(self, input):
@@ -64,17 +62,23 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
     val_f1_iters = []
     val_classacc_iters = []
     train_classacc_iters = []
+    training_precision_iters = []
+    training_recall_iters = []
+    validation_precision_iters = []
+    validation_recall_iters = []
+    validation_roc_auc_iters = []
+
     print(f'To get stable results we run DL network from scratch 3 times.')
-    for iteration in range(3):
+    for iteration in range(1):
     # --> run DL 3 times as init is random and therefore results may differ per complete run, save average of results
         print(f'Running iteration {iteration+1}...')
         net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
         filter_sizing = filter_sizing, mean_pool=mean_pool, num_classes=num_classes)
 
-        #net.load_state_dict(torch.load('7_static_13_14_16_22'))
+        net.load_state_dict(torch.load('X02_multiclass'))
         #for param in net.parameters():
         #    param.requires_grad = False
-        #net.fc = nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), classes)
+        #net.fc = nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), num_classes)
 
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         net = net.to(device)
@@ -89,6 +93,12 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
         validation_loss = []
         training_f1 = []
         validation_f1 = []
+        training_precision = []
+        training_recall = []
+        validation_precision = []
+        validation_recall = []
+        validation_roc_auc = []
+        training_roc_auc = []
         val_acc_classes = []
         train_acc_classes=[]
 
@@ -98,6 +108,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
             net.train()
             for i, (inputs, labels) in enumerate(trainloader, 0):
                 inputs = inputs[:, np.newaxis, :, :]
+                print(inputs.shape)
                 inputs, labels = inputs.to(device, dtype=torch.float), labels.to(device, dtype=torch.long)
                 optimizer.zero_grad()
                 output = net(inputs) 
@@ -108,25 +119,35 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
 
             net.eval()
             running_loss = 0        
+
             # Calculate train and val accuracy after each epoch
-            train_acc, train_loss, train_f1_score, train_acc_class = calculate_metrics(trainloader, device, net, num_classes)
+            train_acc, train_loss, train_f1_score, train_acc_class, train_precision, train_recall, train_roc_auc = calculate_metrics(
+                trainloader, device, net, num_classes)
+
             train_accuracy.append(train_acc)
             training_loss.append(train_loss)
             training_f1.append(train_f1_score)
             train_acc_classes.append(train_acc_class)
+            training_precision.append(train_precision)
+            training_recall.append(train_recall)
+            training_roc_auc.append(train_roc_auc)
             print(f'Current train acc after epoch {epoch+1}: {train_accuracy[-1]}')
             print(f'Current train loss after epoch {epoch+1}: {training_loss[-1]}')
 
-            val_acc, val_loss, val_f1_score, val_acc_class = calculate_metrics(valloader, device, net, num_classes)
+            val_acc, val_loss, val_f1_score, val_acc_class, val_precision, val_recall, val_roc_auc = calculate_metrics(
+                valloader, device, net, num_classes)
+
             val_accuracy.append(val_acc)
             validation_loss.append(val_loss)
             validation_f1.append(val_f1_score)
             val_acc_classes.append(val_acc_class)
+            validation_precision.append(val_precision)
+            validation_recall.append(val_recall)
+            validation_roc_auc.append(val_roc_auc)
             print(f'Current val acc after epoch {epoch+1}: {val_accuracy[-1]}')
             print(f'Current val loss after epoch {epoch+1}: {validation_loss[-1]}\n')
             
-            # Apply LR scheduler halvign twice with patience 4, 
-            # and after that do early stopping with patience 4.
+            # Apply LR scheduler halving twice with patience 4, and after that do early stopping with patience 4.
             if scheduler_is_used == False:
                 lr_scheduler(val_loss)
                 for param_group in optimizer.param_groups:
@@ -147,18 +168,27 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
         val_f1_iters.append(validation_f1[-1])
         train_classacc_iters.append(train_acc_classes[-1])
         val_classacc_iters.append(val_acc_classes[-1])
+        
+        training_precision_iters.append(training_precision[-1])
+        training_recall_iters.append(training_recall[-1])
+        validation_precision_iters.append(validation_precision[-1])
+        validation_recall_iters.append(validation_recall[-1])
 
+        validation_roc_auc_iters.append(validation_roc_auc[-1])
         # save model for TL experiment
-        #torch.save(net.state_dict(), '7_static_13_14_16_22')
+        #torch.save(net.state_dict(), 'X01_multiclass')
 
-    return train_accuracy_iters, val_accuracy_iters, train_f1_iters, val_f1_iters, train_classacc_iters, val_classacc_iters
+    return train_accuracy_iters, val_accuracy_iters, train_f1_iters, val_f1_iters, train_classacc_iters, val_classacc_iters, \
+    training_precision_iters, training_recall_iters, validation_precision_iters, validation_recall_iters, validation_roc_auc_iters
 
 def calculate_metrics(loader, device, net, num_classes):
     correct = 0
     total = 0
     running_loss = 0
     f1 = 0
+    prec, rec, roc_auc = 0, 0, 0
     acc_classes = np.zeros(num_classes)
+    batches = 0
     for i, (inputs, labels) in enumerate(loader, 0):
         inputs = inputs[:, np.newaxis, :, :]
         inputs, labels = inputs.to(device, dtype=torch.float), labels.to(device, dtype=torch.long)
@@ -167,10 +197,22 @@ def calculate_metrics(loader, device, net, num_classes):
         running_loss += loss.item()
         _, predicted = torch.max(output.data, 1)
         total += labels.size(0)
+        batches += 1
         correct += (predicted == labels).sum().item()
-        f1 += f1_score(labels.data, predicted, average='macro') * 32
+        f1 += f1_score(labels.data, predicted, average='macro') 
+        prec += precision_score(labels.data, predicted, average='macro')
+        rec += recall_score(labels.data, predicted, average='macro')
+        #roc_auc += roc_auc_score(labels.data, predicted, average='macro')
         #acc_classes += confusion_matrix(labels.data, predicted, normalize="true").diagonal() * 32
-    return round(100 * correct / total, 3), round(running_loss,3), round(100 * f1 / total, 3), 100 * acc_classes / total
+    
+    correct =  correct / total
+    prec =  prec / batches
+    rec = rec / batches
+    roc_auc =  roc_auc / batches
+    f1 =  f1 / batches
+    acc_classes =  acc_classes / total
+
+    return correct, running_loss, f1, acc_classes, prec, rec, roc_auc
 
 
 class EarlyStopping():
@@ -178,7 +220,7 @@ class EarlyStopping():
     Early stopping to stop the training when the loss does not improve after
     certain epochs.
     """
-    def __init__(self, patience=4, min_delta=1e-4):
+    def __init__(self, patience=3, min_delta=1e-4):
         """
         :param patience: how many epochs to wait before stopping when loss is
                not improving

@@ -21,7 +21,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import GridSearchCV, train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
-from sklearn.metrics import f1_score, confusion_matrix
+from sklearn.metrics import f1_score, precision_score, recall_score, confusion_matrix, roc_auc_score
 from sklearn.preprocessing import OneHotEncoder
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2, state_space=True):
@@ -64,7 +64,7 @@ def pre_processing(curr_segment,selected_electrodes_names ,filters, sample_durat
         curr_segment.loc[:,column] = signal.filtfilt(b_notch, a_notch, curr_segment.loc[:,column])
     
     curr_segment = curr_segment.T
-    '''
+
     # 2. Artifact Subspace Reconstruction
     if asr != None:
         try:
@@ -77,7 +77,7 @@ def pre_processing(curr_segment,selected_electrodes_names ,filters, sample_durat
             noASR += 1
             #print(segment_filt.shape)
             print(f'didnt apply ASR for {noASR} times out of total of {total_seg} segments.')
-    '''
+
     # 3 OUTLIER DETECTION --> https://www.mdpi.com/1999-5903/13/5/103/html#B34-futureinternet-13-00103
     for i, j in curr_segment.iterrows():
         if stats.kurtosis(j) > 4*np.std(j) or (abs(j - np.mean(j)) > 125).any():
@@ -169,9 +169,9 @@ def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, sel
 
     # save output:
     print(f"Good - relax: {label_amounts[0]}, rightarm: {label_amounts[1]}, leftarm: {label_amounts[2]}", 
-    file=open(f"{freq_limits_names}_{sample_duration}_outliers.txt", "a"))
+    file=open(f"{pipeline_type}_{freq_limits_names}_outliers.txt", "a"))
     print(f"Outliers - relax: {outlier_amounts[0]}, rightarm: {outlier_amounts[1]}, leftarm: {outlier_amounts[2]}", 
-    file=open(f"{freq_limits_names}_{sample_duration}_outliers.txt", "a"))
+    file=open(f"{pipeline_type}_{freq_limits_names}_outliers.txt", "a"))
 
     return segments, labels
 
@@ -225,17 +225,21 @@ def init_pipelines_grid(pipeline_name = ['csp']):
 
 def grid_search_execution(X_train, y_train, X_val, y_val, chosen_pipelines, clf):
     start_time = time.time()
-    preds = np.zeros(len(y_val))
     chosen_pipelines[clf].fit(X_train, y_train)
     preds = chosen_pipelines[clf].predict(X_val)
 
     acc = np.mean(preds == y_val)
     f1 = f1_score(y_val, preds, average='macro')
+    precision = precision_score(y_val, preds, average='macro')
+    recall = recall_score(y_val, preds, average='macro')
     acc_classes = confusion_matrix(y_val, preds, normalize="true").diagonal()
+
+    #roc_auc = roc_auc_score(y_val, preds, average='macro')
+    roc_auc = 0
     print(f"Classification accuracy: {acc} and per class: {acc_classes}")
     elapsed_time = time.time() - start_time
-    
-    return acc, acc_classes, f1, elapsed_time, chosen_pipelines
+
+    return acc, precision, recall, roc_auc, acc_classes, f1, elapsed_time, chosen_pipelines
 
 def plot_dataset(data_table, columns, match='like', display='line'):
     names = list(data_table.columns)

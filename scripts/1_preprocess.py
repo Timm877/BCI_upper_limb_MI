@@ -20,7 +20,7 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
     asr = False
     folder_path = Path(f'./data/pilots/{subject}/openloop')
     env_noise_path = Path(f'./data/pilots/{subject}/Envdata')
-    result_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}_leftA_rightA')
+    result_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}_ASR_leftA_rightA')
     result_path.mkdir(exist_ok=True, parents=True)  
     dataset_full = {}
     trials_amount = 0
