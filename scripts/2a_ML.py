@@ -30,13 +30,13 @@ def execution(pipeline_type, subject, type):
         folder_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}_leftA_rightA')
         result_path = Path(f'./results/intermediate_datafiles/pilots/{subject}_leftA_rightA')
         result_path.mkdir(exist_ok=True, parents=True)
-        results_fname = f'finetune_{pipeline_type}_UL_{type}.csv'
+        results_fname = f'inceptionPytorch_{pipeline_type}_UL_{type}.csv'
         num_classes = 2
     elif type == 'multiclass':
         folder_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}')
         result_path = Path(f'./results/intermediate_datafiles/pilots/{subject}')
         result_path.mkdir(exist_ok=True, parents=True)
-        results_fname = f'transferlearn_{pipeline_type}_UL_{type}.csv'
+        results_fname = f'ft_1dcnn_weibo_multiclass_{pipeline_type}_UL_{type}.csv'
         num_classes = 3
     results = {}
 
@@ -69,13 +69,27 @@ def execution(pipeline_type, subject, type):
                 print(f"shape training set: {X_train_np.shape}")
                 print(f"shape validation set: {X_val_np.shape}")
 
+
                 if 'deep' in pipeline_type:
+                    onedcnn = True
+                    if onedcnn:                      
+                        X1 = X_train_np[:,[1,3],:]
+                        X2 = X_train_np[:,[2,4],:]
+                        X_train_np = np.concatenate((X1, X2))
+                        y_train_np = np.concatenate((y_train_np, y_train_np))
+
+                        X1 = X_val_np[:,[1,3],:]
+                        X2 = X_val_np[:,[2,4],:]
+                        X_val_np = np.concatenate((X1, X2))
+                        y_val_np = np.concatenate((y_val_np, y_val_np))
+                        print(f"shape training set: {X_train_np.shape}")
+                        print(f"shape validation set: {X_val_np.shape}")
                     # deep learning pipeline
                     trainloader, valloader = utils_deep.data_setup(X_train_np, y_train_np, X_val_np, y_val_np) 
-                    lr = 0.0005
-                    receptive_field = 65 # chosen by experimentation (see deeplearn_experiment folder) 
+                    lr = 0.0001
+                    receptive_field = 50 # chosen by experimentation (see deeplearn_experiment folder) 
                     # In paper1, they also use 65, but also collect more samples (3seconds)
-                    filter_sizing = 10 # Chosen by experimentation. Depth of conv layers; 40 was used in appers
+                    filter_sizing = 40 # Chosen by experimentation. Depth of conv layers; 40 was used in appers
                     mean_pool = 15 # Chosen by experimentation. 15 was used in papers
 
                     train_accuracy, val_accuracy, train_f1, val_f1, train_classacc, val_classacc, \

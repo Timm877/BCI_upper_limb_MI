@@ -6,6 +6,7 @@ from tensorflow.keras.constraints import max_norm
 from tensorflow import keras
 
 
+
 def EEGInception(input_time=1000, fs=128, ncha=8, filters_per_branch=8,
                  scales_time=(500, 250, 125), dropout_rate=0.25,
                  activation='elu', n_classes=2, learning_rate=0.001):
@@ -41,7 +42,8 @@ def EEGInception(input_time=1000, fs=128, ncha=8, filters_per_branch=8,
 
     # ============================= CALCULATIONS ============================= #
     input_samples = input_time
-    scales_samples = [int(s * fs / 1000) for s in scales_time]
+    scales_samples = [250, 125, 75]
+    #[int(s * fs / 1000) for s in scales_time]
 
     # ================================ INPUT ================================= #
     input_layer = Input((input_samples, ncha, 1))
