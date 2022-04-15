@@ -25,23 +25,26 @@ def execution(pipeline_type, subject, type):
     # testing here for 8 electrodes:
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
     n_electrodes = len(electrode_names)
+    folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/{subject}_WithNormalFilt2')
+    result_path = Path(f'./results/intermediate_datafiles/openloop/{subject}_WithNormalFilt2')
+    result_path.mkdir(exist_ok=True, parents=True)
 
     if type == 'arms':
-        folder_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}_leftA_rightA')
-        result_path = Path(f'./results/intermediate_datafiles/pilots/{subject}_leftA_rightA')
-        result_path.mkdir(exist_ok=True, parents=True)
-        results_fname = f'inceptionPytorch_{pipeline_type}_UL_{type}.csv'
+        results_fname = f'arms_{pipeline_type}_UL_{type}.csv'
+        num_classes = 2
+    elif type == 'binary':
+        results_fname = f'binary_{pipeline_type}_UL_{type}.csv'
         num_classes = 2
     elif type == 'multiclass':
-        folder_path = Path(f'./data/pilots/intermediate_datafiles/preprocess/{subject}')
-        result_path = Path(f'./results/intermediate_datafiles/pilots/{subject}')
-        result_path.mkdir(exist_ok=True, parents=True)
-        results_fname = f'ft_1dcnn_weibo_multiclass_{pipeline_type}_UL_{type}.csv'
+        results_fname = f'multiclass_{pipeline_type}_{type}.csv'
         num_classes = 3
+    elif type == 'all':
+        results_fname = f'all_{pipeline_type}_{type}.csv'
+        num_classes = 4
     results = {}
 
     for instance in os.scandir(folder_path):
-        if pipeline_type in instance.path: 
+        if pipeline_type[:4] in instance.path: 
             print(f'Running for {instance.path}...')
             a_file = open(instance.path, "rb")
             data_dict = pickle.load(a_file)
@@ -50,16 +53,58 @@ def execution(pipeline_type, subject, type):
             window_size = int(instance.path.split("ws",1)[1][:3]) 
             train_acc_cv, val_acc_cv, val_prec_cv, val_rec_cv, train_f1_cv, val_f1_cv, \
             val_roc_auc_cv, acc_classes_cv = [], [], [], [], [], [], [], []
+            samp_num = 0
             for cross_val in range(list(X)[-1] + 1):
                 X_train, y_train, X_val, y_val = [], [], [], []
                 for df in X: 
                     for segment in range(len(X[df])): 
-                        if df == cross_val:
-                            X_val.append(X[df][segment])
-                            y_val.append(y[df][segment]) 
-                        else:
-                            X_train.append(X[df][segment])
-                            y_train.append(y[df][segment]) 
+                        samp_num +=1
+                        if type == 'arms':
+                            # only arms
+                            if y[df][segment] == 1 or y[df][segment] == 2:
+                                if df == cross_val:
+                                    X_val.append(X[df][segment])
+                                    y_val.append(y[df][segment] -1) 
+                                else:
+                                    X_train.append(X[df][segment])
+                                    y_train.append(y[df][segment] -1) 
+                        elif type == 'binary':
+                            if (y[df][segment] == 1 or y[df][segment] == 2) and samp_num % 2 > 0:
+                                #print(samp_num)
+                                # only select half of the samples for left arm / right arm
+                                # and make label just 1
+                                # to have balanced MI vs relax
+                                if df == cross_val:
+                                    X_val.append(X[df][segment])
+                                    y_val.append(1) 
+                                else:
+                                    X_train.append(X[df][segment])
+                                    y_train.append(1) 
+                            elif y[df][segment] == 0:
+                                if df == cross_val:
+                                    X_val.append(X[df][segment])
+                                    y_val.append(0) 
+                                else:
+                                    X_train.append(X[df][segment])
+                                    y_train.append(0)
+                        elif type == 'multiclass':
+                            # only upperlimb
+                            if y[df][segment] == 0 or y[df][segment] == 1 or y[df][segment] == 2:
+                                if df == cross_val:
+                                        X_val.append(X[df][segment])
+                                        y_val.append(y[df][segment]) 
+                                else:
+                                    X_train.append(X[df][segment])
+                                    y_train.append(y[df][segment])      
+                        elif type == 'all':
+                            # classify everything (relax, left arm, right arm, legs)
+                            if df == cross_val:
+                                X_val.append(X[df][segment])
+                                y_val.append(y[df][segment]) 
+                            else:
+                                X_train.append(X[df][segment])
+                                y_train.append(y[df][segment]) 
+
                     print(f'Current length of X train: {len(X_train)}.')
                     print(f'Current length of X val: {len(X_val)}.')
                 X_train_np = np.stack(X_train)
@@ -69,33 +114,24 @@ def execution(pipeline_type, subject, type):
                 print(f"shape training set: {X_train_np.shape}")
                 print(f"shape validation set: {X_val_np.shape}")
 
-
                 if 'deep' in pipeline_type:
-                    onedcnn = True
-                    if onedcnn:                      
-                        X1 = X_train_np[:,[1,3],:]
-                        X2 = X_train_np[:,[2,4],:]
-                        X_train_np = np.concatenate((X1, X2))
-                        y_train_np = np.concatenate((y_train_np, y_train_np))
-
-                        X1 = X_val_np[:,[1,3],:]
-                        X2 = X_val_np[:,[2,4],:]
-                        X_val_np = np.concatenate((X1, X2))
-                        y_val_np = np.concatenate((y_val_np, y_val_np))
-                        print(f"shape training set: {X_train_np.shape}")
-                        print(f"shape validation set: {X_val_np.shape}")
                     # deep learning pipeline
                     trainloader, valloader = utils_deep.data_setup(X_train_np, y_train_np, X_val_np, y_val_np) 
-                    lr = 0.0001
-                    receptive_field = 50 # chosen by experimentation (see deeplearn_experiment folder) 
-                    # In paper1, they also use 65, but also collect more samples (3seconds)
-                    filter_sizing = 40 # Chosen by experimentation. Depth of conv layers; 40 was used in appers
-                    mean_pool = 15 # Chosen by experimentation. 15 was used in papers
+
+                    lr = 0.0005
+                    if pipeline_type == 'deep':
+                        receptive_field = [100, 75, 50, 25]
+                        filter_sizing = [10,20,30,40] 
+                        mean_pool = [5,15,25,35]                 
+                                            
+                    receptive_field = 50 
+                    filter_sizing = 20 
+                    mean_pool = 15 
 
                     train_accuracy, val_accuracy, train_f1, val_f1, train_classacc, val_classacc, \
                     training_precision, training_recall, validation_precision, validation_recall, validation_roc_auc = \
                         utils_deep.run_model(trainloader, valloader, lr, window_size, n_electrodes, receptive_field, 
-                        filter_sizing, mean_pool, num_classes)
+                        filter_sizing, mean_pool, num_classes, pipeline_type)
 
                     print(f'trainacc: {train_accuracy}')
                     print(f'valacc: {val_accuracy}')
@@ -120,8 +156,8 @@ def execution(pipeline_type, subject, type):
                         val_roc_auc_cv.append(np.array(roc_auc).mean()) 
                         acc_classes_cv.append(acc_classes)
                         #print(acc_classes_cv)
-
-            if 'deep' in pipeline_type:    
+            print(pipeline_type)
+            if 'deep' in pipeline_type or 'deep_inception' in pipeline_type or 'deep_1dcnn' in pipeline_type:    
                 results[f"crossval_{instance.path}"] = {'final_val_accuracy': np.around(np.array(val_acc_cv).mean(),3),
                 'train_accuracy': np.around(np.array(train_acc_cv).mean(),3), 'train_f1': np.around(np.array(train_f1_cv).mean(),3),
                 'val_f1': np.around(np.array(val_f1_cv).mean(),3), 'val_prec': np.around(np.array(val_prec_cv).mean(),3), 
@@ -145,33 +181,16 @@ def main():
             for pline in FLAGS.pline:
                 print(pline)
                 execution(pline, subj, type)
-'''
-        if 'multiclass' in FLAGS.type:
-            print(f'For upper limb multiclass')
-            if 'csp' in FLAGS.pline:
-                execution('csp', subj, 'multiclass')
-            if 'riemann' in FLAGS.pline:
-                execution('riemann', subj)
-            if 'deep' in FLAGS.pline:
-                execution('deep', subj)
-        elif 'arms' in FLAGS.type:
-            print(f'For binary arms')
-            if 'csp' in FLAGS.pline:
-                execution('csp', subj)
-            if 'riemann' in FLAGS.pline:
-                execution('riemann', subj)
-            if 'deep' in FLAGS.pline:
-                execution('deep', subj)
-'''
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run offline BCI analysis experiments.")
     parser.add_argument("--pline", nargs='+', default=['csp'], help="The variant of pipelines used. \
-    This variable is a list containing the name of the variants. Options are: 'csp', 'riemann', 'deep'")
+    This variable is a list containing the name of the variants. Options are: 'csp', 'riemann', 'deep', \
+    'deep_1dcnn, 'deep_inception'")
     parser.add_argument("--subjects", nargs='+', default=['X02_wet'], help="The variant of pipelines used. \
     This variable is a list containing the name of the variants. Options are in the data folder.")
     parser.add_argument("--type", nargs='+', default=['multiclass'], help="The variant of pipelines used. \
-    This variable is a list containing the name of the variants. Options are: 'multiclass', 'arms'")
+    This variable is a list containing the name of the variants. Options are: 'all', 'multiclass', 'arms', 'binary'")
     FLAGS, unparsed = parser.parse_known_args()
     main()
 

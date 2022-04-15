@@ -1,6 +1,3 @@
-# Rebuild the CNN approach of paper1 https://github.com/ByeonghooLee-ku/ICASSP2020-2020-code
-# although I look more here https://arxiv.org/pdf/2002.01122v1.pdf which is an older paper of them
-# paper2 = Deep Learning-Based Classification of Fine Hand Movements from Low Frequency EEG  https://www.mdpi.com/1999-5903/13/5/103/html
 import numpy as np
 import torch
 import torch.nn as nn
@@ -14,76 +11,16 @@ class Flatten(nn.Module):
     def forward(self, input):
         return input.view(input.size(0), -1)
 
-class HopefullNet(nn.Module):
-    """
-    Original HopeFullNet
-    """
-    def __init__(self, sample_duration = 500, fs = 250, channel_amount = 8, filter_sizing = 8, 
-    kernel_sizes=[250, 175, 125, 50, 25], dropout_rate = 0.25, num_classes = 3):
-        super(HopefullNet,self).__init__()
-
-        self.inp_shape = (2,500)
-        self.kernel_size_0 = 20
-        self.kernel_size_1 = 6
-        self.drop_rate = 0.5
-
-        self.temporal1=nn.Sequential(
-            nn.Conv1d(2,32,kernel_size=self.kernel_size_0,stride=1, padding="same"), 
-            nn.BatchNorm1d(32),
-            nn.ReLU(),
-        )
-        self.temporal2=nn.Sequential(
-            nn.Conv1d(32,32,kernel_size=self.kernel_size_0,stride=1, padding=0), 
-            nn.BatchNorm1d(32),
-            nn.ReLU(),
-            nn.Dropout2d(self.drop_rate)
-        )
-        self.temporal3=nn.Sequential(
-            nn.Conv1d(32,32,kernel_size=self.kernel_size_1,stride=1, padding=0), 
-            nn.BatchNorm1d(32),
-            nn.ReLU(),
-            nn.AvgPool2d([1, 2], stride=[1, 2], padding=0)
-        )
-        self.temporal4=nn.Sequential(
-            nn.Conv1d(32,32,kernel_size=self.kernel_size_1,stride=1, padding=0), 
-            nn.BatchNorm1d(32),
-            nn.ReLU(),
-            nn.Dropout2d(self.drop_rate)
-        )
-
-        self.flat = nn.Sequential(Flatten())
-        self.linear1=nn.Sequential(nn.Linear(7456, 296), nn.ReLU(), nn.Dropout(self.drop_rate))
-        self.linear2=nn.Sequential(nn.Linear(296, 148), nn.ReLU(), nn.Dropout(self.drop_rate))
-        self.linear3=nn.Sequential(nn.Linear(148, 74), nn.ReLU(), nn.Dropout(self.drop_rate))
-        self.pred = nn.Linear(74, num_classes)
-
-    def forward(self, x):
-        out = self.temporal1(x)
-        #print(out.shape)
-        out = self.temporal2(out)
-        #print(out.shape)
-        out = self.temporal3(out)
-        #print(out.shape)
-        out = self.temporal4(out)
-        #print(out.shape)
-        out = self.flat(out)
-        #print(out.shape)
-        out = self.linear1(out)
-        out = self.linear2(out)
-        out = self.linear3(out)
-        prediction = self.pred(out)
-        return prediction
-
 class Inception(nn.Module):
     def __init__(self, sample_duration = 500, fs = 250, channel_amount = 8, filter_sizing = 8, 
-    kernel_sizes=[250, 175, 125, 50, 25], dropout_rate = 0.25, num_classes = 3):
+    kernel_sizes=[256, 128, 64], dropout_rate = 0.25, num_classes = 3):
         super(Inception,self).__init__()
 
+        # Layer 1
+        # ------------------------------
         self.temporal0 = nn.Conv2d(1,filter_sizing,kernel_size=[1,kernel_sizes[0]],stride=1, padding="same")
         self.temporal1 = nn.Conv2d(1,filter_sizing,kernel_size=[1,kernel_sizes[1]],stride=1, padding="same") 
         self.temporal2 = nn.Conv2d(1,filter_sizing,kernel_size=[1,kernel_sizes[2]],stride=1, padding="same")
-        self.temporal3 = nn.Conv2d(1,filter_sizing,kernel_size=[1,kernel_sizes[3]],stride=1, padding="same") 
-        self.temporal4 = nn.Conv2d(1,filter_sizing,kernel_size=[1,kernel_sizes[4]],stride=1, padding="same")
 
         self.after_temporal= nn.Sequential(
                 nn.BatchNorm2d(filter_sizing),
@@ -97,37 +34,47 @@ class Inception(nn.Module):
                 nn.Dropout(dropout_rate)
         )
         self.avgpool1 = nn.AvgPool2d([1, 4], stride=[1, 4], padding=0)
+        # ------------------------------
 
-        self.temporal10 = nn.Conv2d(80,filter_sizing,kernel_size=[1,int(kernel_sizes[0]/4)],stride=1, padding="same")
-        self.temporal11 = nn.Conv2d(80,filter_sizing,kernel_size=[1,int(kernel_sizes[1]/4)],stride=1, padding="same") 
-        self.temporal12 = nn.Conv2d(80,filter_sizing,kernel_size=[1,int(kernel_sizes[2]/4)],stride=1, padding="same")
-        self.temporal13 = nn.Conv2d(80,filter_sizing,kernel_size=[1,int(kernel_sizes[3]/4)],stride=1, padding="same") 
-        self.temporal14 = nn.Conv2d(80,filter_sizing,kernel_size=[1,int(kernel_sizes[4]/4)],stride=1, padding="same")
+        # Layer 2
+        # ------------------------------
+        self.temporal10 = nn.Conv2d(48,filter_sizing,kernel_size=[1,int(kernel_sizes[0]/4)],stride=1, padding="same")
+        self.temporal11 = nn.Conv2d(48,filter_sizing,kernel_size=[1,int(kernel_sizes[1]/4)],stride=1, padding="same") 
+        self.temporal12 = nn.Conv2d(48,filter_sizing,kernel_size=[1,int(kernel_sizes[2]/4)],stride=1, padding="same")
         self.avgpool2 = nn.AvgPool2d([1, 2], stride=[1, 2], padding=0)
+        # ------------------------------
 
-        self.temporal20 = nn.Conv2d(40,20,kernel_size=[1,8],stride=1, padding="same")
+        # Layer 3
+        # ------------------------------
+        self.temporal20 = nn.Conv2d(24,12,kernel_size=[1,8],stride=1, padding="same")
         self.after_temporal20 = nn.Sequential(
-                nn.BatchNorm2d(20),
+                nn.BatchNorm2d(12),
                 nn.ELU(True),
                 nn.Dropout(dropout_rate)
         ) 
-        self.temporal30 = nn.Conv2d(20,10,kernel_size=[1,4],stride=1, padding="same")
-        self.after_temporal30 = nn.Sequential(
-                nn.BatchNorm2d(10),
-                nn.ELU(True),
-                nn.Dropout(dropout_rate)
-        ) 
+        # ------------------------------
 
+        # Layer 4
+        # ------------------------------
+        self.temporal30 = nn.Conv2d(12,6,kernel_size=[1,4],stride=1, padding="same")
+        self.after_temporal30 = nn.Sequential(
+                nn.BatchNorm2d(6),
+                nn.ELU(True),
+                nn.Dropout(dropout_rate)
+        ) 
+        # ------------------------------
+
+        # Layer 5
+        # ------------------------------
         self.view = nn.Sequential(Flatten())
-        self.fc= nn.Linear(150, num_classes)
+        self.fc= nn.Linear(90, num_classes)
+        
 
     def forward(self,x):
         # 1ST INCEPTION
         out1_block = [self.spatial(self.after_temporal(self.temporal0(x))), 
                     self.spatial(self.after_temporal(self.temporal1(x))),
-                    self.spatial(self.after_temporal(self.temporal2(x))),
-                    self.spatial(self.after_temporal(self.temporal3(x))),
-                    self.spatial(self.after_temporal(self.temporal4(x))),
+                    self.spatial(self.after_temporal(self.temporal2(x)))
         ]
         out1 = torch.cat(out1_block, axis=1)
         #print(out1.shape)
@@ -135,9 +82,7 @@ class Inception(nn.Module):
         # 2ND INCEPTION
         out2_block = [self.after_temporal(self.temporal10(out1)), 
                     self.after_temporal(self.temporal11(out1)),
-                    self.after_temporal(self.temporal12(out1)),
-                    self.after_temporal(self.temporal13(out1)),
-                    self.after_temporal(self.temporal14(out1)),
+                    self.after_temporal(self.temporal12(out1))
         ]
         out2 = torch.cat(out2_block, axis=1)
         #print(out2.shape)
@@ -160,10 +105,6 @@ class Inception(nn.Module):
 class CNN(nn.Module):
     def __init__(self, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool, num_classes):
         super(CNN,self).__init__()
-
-        #TODO change earlier dropouts into spatial dropouts?
-        #TODO maybe add 1 inception block?
-        #TODO made add 1 more linear layer at the end?
         self.temporal=nn.Sequential(
             nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, padding=0), 
             nn.BatchNorm2d(filter_sizing),
@@ -175,9 +116,13 @@ class CNN(nn.Module):
             nn.ELU(True),
         )
         self.avgpool = nn.AvgPool2d([1, mean_pool], stride=[1, mean_pool], padding=0)
-        self.dropout = nn.Dropout(0.3)
+        self.dropout = nn.Dropout(0.25)
         self.view = nn.Sequential(Flatten())
-        self.fc=nn.Linear(filter_sizing*((sample_duration-receptive_field+1)//mean_pool), num_classes)
+
+        endsize = filter_sizing*((sample_duration-receptive_field+1)//mean_pool)
+        print(endsize)
+        #self.fc1= nn.Sequential(nn.Linear(endsize, 100), nn.ReLU())
+        self.fc2= nn.Linear(endsize, num_classes)
 
     def forward(self,x):
         out = self.temporal(x)
@@ -185,9 +130,9 @@ class CNN(nn.Module):
         out = self.spatial(out)
         out = self.dropout(out)
         out = self.avgpool(out)
-        #out = self.dropout(out)
         out = out.view(out.size(0), -1)
-        prediction = self.fc(out)
+        #out = self.fc1(out)
+        prediction = self.fc2(out)
         return prediction
 
 def data_setup(X_train, y_train, X_val, y_val):
@@ -199,11 +144,12 @@ def data_setup(X_train, y_train, X_val, y_val):
     train = torch.utils.data.TensorDataset(trainX, trainY)
     validation = torch.utils.data.TensorDataset(validationX, validationY)
 
-    trainloader = torch.utils.data.DataLoader(train, batch_size=32, shuffle=True)
-    valloader = torch.utils.data.DataLoader(validation, batch_size=32, shuffle=True)
+    trainloader = torch.utils.data.DataLoader(train, batch_size=128, shuffle=True)
+    valloader = torch.utils.data.DataLoader(validation, batch_size=128, shuffle=True)
     return trainloader, valloader
 
-def run_model(trainloader, valloader, lr, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool, num_classes):
+def run_model(trainloader, valloader, lr, sample_duration, channel_amount, receptive_field, filter_sizing, 
+mean_pool, num_classes, pipeline_type):
     train_accuracy_iters = []
     val_accuracy_iters = []
     train_f1_iters = []
@@ -218,17 +164,21 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
 
     print(f'To get stable results we run DL network from scratch 3 times.')
     for iteration in range(1):
-    # --> run DL 3 times as init is random and therefore results may differ per complete run, save average of results
         print(f'Running iteration {iteration+1}...')
-        #net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
-        #filter_sizing = filter_sizing, mean_pool=mean_pool, num_classes=num_classes)
-        
-        #net = Inception(sample_duration = 500, fs = 250, channel_amount = 8, filter_sizing = 8, 
-        #    kernel_sizes=[250, 175, 125, 50, 25], dropout_rate = 0.1, num_classes = 3)
-        
-        net = HopefullNet(sample_duration = 500, fs = 250, channel_amount = 8, filter_sizing = 8, 
-            kernel_sizes=[250, 175, 125, 50, 25], dropout_rate = 0.1, num_classes = 3)
-        
+
+        if pipeline_type == 'deep':
+            net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
+            filter_sizing = filter_sizing, mean_pool=mean_pool, num_classes=num_classes)
+        elif pipeline_type == 'deep_inception':
+            net = Inception(sample_duration = sample_duration, fs = 250, channel_amount = 8, filter_sizing = 8, 
+                kernel_sizes=[256, 128, 64], dropout_rate = 0.25, num_classes = num_classes)
+        pytorch_total_params = sum(p.numel() for p in net.parameters())
+        pytorch_total_params_train = sum(p.numel() for p in net.parameters() if p.requires_grad)
+        print(pytorch_total_params)
+        print(pytorch_total_params_train)
+        for name, param in net.named_parameters():
+            print(f"{name}: {param.numel()}")
+        '''
         net.load_state_dict(torch.load('Weibo_1dcnn_multiclass'))
         for param in net.parameters():
             param.requires_grad = False
@@ -242,7 +192,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
         net.linear2=nn.Sequential(nn.Linear(296, 148), nn.ReLU(), nn.Dropout(0.5))
         net.linear3=nn.Sequential(nn.Linear(148, 74), nn.ReLU(), nn.Dropout(0.5))
         net.pred = nn.Linear(74, num_classes)
-
+        '''
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         net = net.to(device)
         optimizer = optim.Adam(net.parameters(), lr=lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
@@ -270,7 +220,8 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
             train_acc = 0
             net.train()
             for i, (inputs, labels) in enumerate(trainloader, 0):
-                #NOTE inputs = inputs[:, np.newaxis, :, :]
+                #if pipeline_type != 'deep_1dcnn':
+                inputs = inputs[:, np.newaxis, :, :]
                 #print(inputs.shape)
                 inputs, labels = inputs.to(device, dtype=torch.float), labels.to(device, dtype=torch.long)
                 optimizer.zero_grad()
@@ -284,8 +235,8 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
             running_loss = 0        
 
             # Calculate train and val accuracy after each epoch
-            train_acc, train_loss, train_f1_score, train_acc_class, train_precision, train_recall, train_roc_auc = calculate_metrics(
-                trainloader, device, net, num_classes)
+            train_acc, train_loss, train_f1_score, train_acc_class, train_precision, train_recall, train_roc_auc = \
+            calculate_metrics(trainloader, device, net, num_classes, pipeline_type)
 
             train_accuracy.append(train_acc)
             training_loss.append(train_loss)
@@ -298,7 +249,7 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
             print(f'Current train loss after epoch {epoch+1}: {training_loss[-1]}')
 
             val_acc, val_loss, val_f1_score, val_acc_class, val_precision, val_recall, val_roc_auc = calculate_metrics(
-                valloader, device, net, num_classes)
+                valloader, device, net, num_classes, pipeline_type)
 
             val_accuracy.append(val_acc)
             validation_loss.append(val_loss)
@@ -336,16 +287,16 @@ def run_model(trainloader, valloader, lr, sample_duration, channel_amount, recep
         training_recall_iters.append(training_recall[-1])
         validation_precision_iters.append(validation_precision[-1])
         validation_recall_iters.append(validation_recall[-1])
-
         validation_roc_auc_iters.append(validation_roc_auc[-1])
+
         # save model for TL experiment
-        #torch.save(net.state_dict(), 'Weibo_1dcnn_multiclass')
+        #torch.save(net.state_dict(), 'Weibo_1dcnn_all_electrodes_multiclass')
         #torch.save(net.state_dict(), 'Weibo_deep_multiclass')
 
     return train_accuracy_iters, val_accuracy_iters, train_f1_iters, val_f1_iters, train_classacc_iters, val_classacc_iters, \
     training_precision_iters, training_recall_iters, validation_precision_iters, validation_recall_iters, validation_roc_auc_iters
 
-def calculate_metrics(loader, device, net, num_classes):
+def calculate_metrics(loader, device, net, num_classes, pipeline_type):
     correct = 0
     total = 0
     running_loss = 0
@@ -354,12 +305,11 @@ def calculate_metrics(loader, device, net, num_classes):
     acc_classes = np.zeros(num_classes)
     batches = 0
     for i, (inputs, labels) in enumerate(loader, 0):
-        #NOTE inputs = inputs[:, np.newaxis, :, :]
+        inputs = inputs[:, np.newaxis, :, :]
         inputs, labels = inputs.to(device, dtype=torch.float), labels.to(device, dtype=torch.long)
         output = net(inputs)
         loss = F.cross_entropy(output,labels)
         running_loss += loss.item()
-        #print(output.data)
         _, predicted = torch.max(output.data, 1)
         total += labels.size(0)
         batches += 1
@@ -376,16 +326,14 @@ def calculate_metrics(loader, device, net, num_classes):
     roc_auc =  roc_auc / batches
     f1 =  f1 / batches
     acc_classes =  acc_classes / total
-
     return correct, running_loss, f1, acc_classes, prec, rec, roc_auc
-
 
 class EarlyStopping():
     """
     Early stopping to stop the training when the loss does not improve after
     certain epochs.
     """
-    def __init__(self, patience=10, min_delta=1e-4):
+    def __init__(self, patience=5, min_delta=1e-4):
         """
         :param patience: how many epochs to wait before stopping when loss is
                not improving
@@ -419,7 +367,7 @@ class LRScheduler():
     by given `factor`.
     """
     def __init__(
-        self, optimizer, patience=20, min_lr=1e-6, factor=0.5
+        self, optimizer, patience=5, min_lr=1e-6, factor=0.5
     ):
         """
         new_lr = old_lr * factor
