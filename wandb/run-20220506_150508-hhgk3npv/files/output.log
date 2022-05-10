@@ -1,0 +1,30 @@
+{'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.25, 'epochs': 1, 'filter_sizing': 10, 'learning_rate': 0.01, 'mean_pool': 15, 'network': 'CNN', 'receptive_field': 50, 'seed': 42, 'val_subjects': ['X04', 'X06']}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X01_deep.pkl...
+Current length of X train: 780.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X02_deep.pkl...
+Current length of X train: 1556.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X03_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X04_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 779.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X05_deep.pkl...
+Current length of X train: 3109.
+Current length of X val: 779.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X06_deep.pkl...
+Current length of X train: 3109.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X07_deep.pkl...
+Current length of X train: 3887.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X08_deep.pkl...
+Current length of X train: 4667.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X09_deep.pkl...
+Current length of X train: 5447.
+Current length of X val: 1559.
+trainable parameters: 2263
+acc: 0.38486209108402825, f1: 0.4010072550853057

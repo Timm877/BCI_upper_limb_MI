@@ -1,0 +1,454 @@
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Tim de Boer\.config\wandb\settings
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'realsweep2-EEGNET_valsubject5_6', 'entity': 'timm877', 'root_dir': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI', 'run_id': 'vjlmzk04', 'sweep_param_path': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\sweep-rwczmmms\\config-vjlmzk04.yaml', 'sweep_id': 'rwczmmms'}
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'scripts\\3_TL.py', 'program': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\scripts\\3_TL.py'}
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [wandb_init.py:_log_setup():428] Logging user logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_154337-vjlmzk04\logs\debug.log
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [wandb_init.py:_log_setup():429] Logging internal logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_154337-vjlmzk04\logs\debug-internal.log
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [wandb_init.py:init():462] calling init triggers
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [wandb_init.py:init():465] wandb.init called with sweep_config: {'D': 2, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.4, 'epochs': 40, 'filter_sizing': 16, 'learning_rate': 0.001, 'mean_pool': 8, 'network': 'EEGNET', 'receptive_field': 64, 'seed': 42, 'val_subjects': ['X05', 'X06']}
+config: {}
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [wandb_init.py:init():515] starting backend
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-05-09 15:43:37,043 INFO    Thread-228:9636 [backend.py:ensure_launched():217] starting backend process...
+2022-05-09 15:43:37,151 INFO    Thread-228:9636 [backend.py:ensure_launched():222] started backend process with pid: 13016
+2022-05-09 15:43:37,151 INFO    Thread-228:9636 [wandb_init.py:init():525] backend started and connected
+2022-05-09 15:43:37,151 INFO    Thread-228:9636 [wandb_init.py:init():596] updated telemetry
+2022-05-09 15:43:37,216 INFO    Thread-228:9636 [wandb_init.py:init():627] communicating run to backend with 30 second timeout
+2022-05-09 15:43:38,905 INFO    Thread-228:9636 [wandb_run.py:_on_init():1924] communicating current version
+2022-05-09 15:43:39,112 INFO    Thread-228:9636 [wandb_run.py:_on_init():1928] got version response 
+2022-05-09 15:43:39,113 INFO    Thread-228:9636 [wandb_init.py:init():662] starting run threads in backend
+2022-05-09 15:43:44,125 INFO    Thread-228:9636 [wandb_run.py:_config_callback():1136] config_cb None None {'D': 2, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.4, 'epochs': 40, 'filter_sizing': 16, 'learning_rate': 0.001, 'mean_pool': 8, 'network': 'EEGNET', 'receptive_field': 64, 'seed': 42, 'val_subjects': ['X05', 'X06']}
+2022-05-09 15:43:44,149 INFO    Thread-228:9636 [wandb_run.py:_console_start():1898] atexit reg
+2022-05-09 15:43:44,149 INFO    Thread-228:9636 [wandb_run.py:_redirect():1771] redirect: SettingsConsole.WRAP
+2022-05-09 15:43:44,150 INFO    Thread-228:9636 [wandb_run.py:_redirect():1808] Wrapping output streams.
+2022-05-09 15:43:44,154 INFO    Thread-228:9636 [wandb_run.py:_redirect():1832] Redirects installed.
+2022-05-09 15:43:44,154 INFO    Thread-228:9636 [wandb_init.py:init():688] run started, returning control to user process
+2022-05-09 15:43:46,984 INFO    Thread-228:9636 [wandb_watch.py:watch():47] Watching
+2022-05-09 15:52:40,599 ERROR   Thread-7  :9636 [internal_api.py:execute():143] 500 response executing GraphQL.
+2022-05-09 15:52:40,599 ERROR   Thread-7  :9636 [internal_api.py:execute():144] {"errors":[{"message":"Error 1040: Too many connections","path":["agentHeartbeat"]}],"data":{"agentHeartbeat":null}}
+2022-05-09 15:52:57,761 ERROR   Thread-7  :9636 [internal_api.py:execute():143] 500 response executing GraphQL.
+2022-05-09 15:52:57,761 ERROR   Thread-7  :9636 [internal_api.py:execute():144] {"errors":[{"message":"Error 1040: Too many connections","path":["agentHeartbeat"]}],"data":{"agentHeartbeat":null}}
+2022-05-09 15:53:05,113 ERROR   Thread-7  :9636 [internal_api.py:execute():143] 500 response executing GraphQL.
+2022-05-09 15:53:05,113 ERROR   Thread-7  :9636 [internal_api.py:execute():144] {"errors":[{"message":"Error 1040: Too many connections","path":["agentHeartbeat"]}],"data":{"agentHeartbeat":null}}
+2022-05-09 15:53:05,113 ERROR   Thread-7  :9636 [retry.py:__call__():126] Retry attempt failed:
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\lib\retry.py", line 102, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\internal\internal_api.py", line 140, in execute
+    return self.client.execute(*args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\transport\requests.py", line 39, in execute
+    request.raise_for_status()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\models.py", line 940, in raise_for_status
+    raise HTTPError(http_error_msg, response=self)
+requests.exceptions.HTTPError: 500 Server Error: Internal Server Error for url: https://api.wandb.ai/graphql
+2022-05-09 15:53:10,204 ERROR   Thread-7  :9636 [internal_api.py:execute():143] 500 response executing GraphQL.
+2022-05-09 15:53:10,204 ERROR   Thread-7  :9636 [internal_api.py:execute():144] {"error":"Error 1040: Too many connections"}
+2022-05-09 15:56:56,472 ERROR   Thread-7  :9636 [retry.py:__call__():126] Retry attempt failed:
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connection.py", line 158, in _new_conn
+    conn = connection.create_connection(
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\util\connection.py", line 57, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\socket.py", line 954, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connectionpool.py", line 597, in urlopen
+    httplib_response = self._make_request(conn, method, url,
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connectionpool.py", line 343, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connectionpool.py", line 839, in _validate_conn
+    conn.connect()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connection.py", line 301, in connect
+    conn = self._new_conn()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connection.py", line 167, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x000001833920DEE0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connectionpool.py", line 637, in urlopen
+    retries = retries.increment(method, url, error=e, _pool=self,
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\util\retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x000001833920DEE0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\lib\retry.py", line 102, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\internal\internal_api.py", line 140, in execute
+    return self.client.execute(*args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\transport\requests.py", line 38, in execute
+    request = requests.post(self.url, **post_args)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x000001833920DEE0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+2022-05-09 15:57:16,709 INFO    Thread-228:9636 [wandb_run.py:_finish():1685] finishing run timm877/realsweep2-EEGNET_valsubject5_6/vjlmzk04
+2022-05-09 15:57:16,709 INFO    Thread-228:9636 [wandb_run.py:_atexit_cleanup():1867] got exitcode: 0
+2022-05-09 15:57:16,709 INFO    Thread-228:9636 [wandb_run.py:_restore():1839] restore
+2022-05-09 15:57:22,321 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:57:27,445 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:57:32,568 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:57:37,682 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:57:42,798 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:57:47,916 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:57:53,029 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:57:58,141 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:03,251 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:08,361 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:13,478 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:18,606 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:23,731 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:28,853 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:33,971 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:39,090 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:44,222 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:49,331 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:54,451 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:58:59,581 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:04,718 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:09,824 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:14,945 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:20,055 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:25,172 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:30,296 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:35,410 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:40,515 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:45,639 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:50,761 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 15:59:55,877 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:01,003 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:06,129 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:11,243 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:16,344 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:21,465 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:26,586 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:31,713 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:36,821 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:41,936 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:47,054 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:52,162 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:00:57,273 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:02,389 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:07,508 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:12,617 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:17,748 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:22,879 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:27,995 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:33,097 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:38,203 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:43,317 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:48,437 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:53,559 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:01:58,671 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:03,786 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:08,911 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:14,035 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:19,162 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:24,290 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:29,420 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:34,545 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:39,668 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:44,778 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:49,908 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:02:55,046 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:00,159 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:05,268 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:10,390 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:15,510 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:20,626 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:25,734 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:30,846 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:35,965 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:41,107 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:46,233 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:51,345 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:03:56,453 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:01,567 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:06,698 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:11,815 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:16,941 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:22,065 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:27,178 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:32,300 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:37,415 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:42,521 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:47,629 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:52,746 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:04:57,867 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:02,983 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:08,089 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:13,205 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:18,320 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:23,422 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:28,539 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:33,669 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:38,782 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:43,913 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:49,031 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:54,153 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:05:59,285 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:04,400 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:09,510 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:14,620 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:19,731 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:24,865 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:29,981 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:35,103 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:40,222 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:45,340 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:50,448 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:06:55,560 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:00,676 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:05,782 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:10,924 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:16,058 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:21,177 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:26,303 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:31,423 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:36,563 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:41,675 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:46,796 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:51,912 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:07:57,025 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:02,140 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:07,251 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:12,376 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:17,508 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:22,616 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:27,735 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:32,844 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:37,951 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:43,055 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:48,180 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:53,283 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:08:58,412 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:03,525 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:08,644 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:13,763 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:18,881 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:23,998 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:29,123 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:34,261 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:39,384 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:44,515 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:49,627 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:54,740 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:09:59,853 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:04,972 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:10,086 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:15,206 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:20,327 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:25,445 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:30,560 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:35,685 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:40,794 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:45,913 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:51,022 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:10:56,145 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:01,269 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:06,379 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:11,489 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:16,613 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:21,723 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:26,832 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:31,946 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:37,066 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:42,184 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:47,287 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:52,397 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:11:57,517 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:02,645 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:07,770 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:12,894 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:18,012 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:23,131 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:28,253 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:33,379 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:38,490 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:43,614 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:48,741 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-09 16:12:53,615 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 1000
+}
+
+2022-05-09 16:12:54,523 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 1000
+}
+
+2022-05-09 16:12:54,820 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 10674
+}
+
+2022-05-09 16:12:54,938 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:55,055 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:55,172 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 27020
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:55,289 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 31425
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:55,406 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 31425
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:55,522 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 31425
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:55,638 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 31425
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:55,756 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 31425
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:55,871 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 33692
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:55,975 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 33692
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:56,087 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 33692
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:56,203 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 33692
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:56,320 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 33692
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:56,438 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 33692
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:57,701 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 33692
+  total_bytes: 33692
+}
+
+2022-05-09 16:12:58,226 INFO    Thread-228:9636 [wandb_run.py:_on_finish():1996] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 33692
+  total_bytes: 33692
+}
+local_info {
+}
+
+2022-05-09 16:12:59,695 INFO    Thread-228:9636 [wandb_run.py:_footer_history_summary_info():3104] rendering history
+2022-05-09 16:12:59,695 INFO    Thread-228:9636 [wandb_run.py:_footer_history_summary_info():3136] rendering summary
+2022-05-09 16:12:59,722 INFO    Thread-228:9636 [wandb_run.py:_footer_sync_info():3060] logging synced files

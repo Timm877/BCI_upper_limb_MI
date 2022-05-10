@@ -1,0 +1,138 @@
+{'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.2, 'epochs': 3, 'filter_sizing': 10, 'learning_rate': 0.001, 'mean_pool': 15, 'receptive_field': 50, 'seed': 42}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X01_deep.pkl...
+Current length of X train: 702.
+Current length of X val: 78.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X02_deep.pkl...
+Current length of X train: 1400.
+Current length of X val: 156.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X03_deep.pkl...
+Current length of X train: 2095.
+Current length of X val: 234.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X04_deep.pkl...
+Current length of X train: 2796.
+Current length of X val: 312.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X05_deep.pkl...
+Current length of X train: 3498.
+Current length of X val: 390.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X06_deep.pkl...
+Current length of X train: 4200.
+Current length of X val: 468.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X07_deep.pkl...
+Current length of X train: 4900.
+Current length of X val: 546.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X08_deep.pkl...
+Current length of X train: 5602.
+Current length of X val: 624.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X09_deep.pkl...
+Current length of X train: 6304.
+Current length of X val: 702.
+acc: 0.32905982905982906, f1: 0.32839562838425557
+acc: 0.3646723646723647, f1: 0.36438944000987833
+Finished
+Exception in thread Thread-8:
+Traceback (most recent call last):
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 229, in train
+    train_loss, train_acc, train_f1 = train_epoch(net, trainloader, optimizer)
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 260, in train_epoch
+    wandb.log({"batch loss": loss.item()})
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 256, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 222, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 1548, in log
+    self._log(data=data, step=step, commit=commit)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 1339, in _log
+    self._partial_history_callback(data, step, commit)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 1228, in _partial_history_callback
+    self._backend.interface.publish_partial_history(
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface.py", line 553, in publish_partial_history
+    self._publish_partial_history(partial_history)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 62, in _publish_partial_history
+    self._publish(rec)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_queue.py", line 49, in _publish
+    raise Exception("The wandb backend process has shutdown")
+Exception: The wandb backend process has shutdown
+During handling of the above exception, another exception occurred:
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\agents\pyagent.py", line 300, in _run_job
+    self._function()
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 231, in train
+    wandb.log({"epoch": epoch,
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 2686, in __exit__
+    self._finish(exit_code)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 1684, in _finish
+    tel.feature.finish = True
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\lib\telemetry.py", line 41, in __exit__
+    self._run._telemetry_callback(self._obj)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 577, in _telemetry_callback
+    self._telemetry_flush()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 588, in _telemetry_flush
+    self._backend.interface._publish_telemetry(self._telemetry_obj)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 74, in _publish_telemetry
+    self._publish(rec)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_queue.py", line 49, in _publish
+    raise Exception("The wandb backend process has shutdown")
+Exception: The wandb backend process has shutdown
+During handling of the above exception, another exception occurred:
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\threading.py", line 973, in _bootstrap_inner
+    self.run()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\threading.py", line 910, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\agents\pyagent.py", line 305, in _run_job
+    wandb.finish(exit_code=1)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 3324, in finish
+    wandb.run.finish(exit_code=exit_code, quiet=quiet)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 256, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 222, in wrapper
+    return func(self, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 1678, in finish
+    return self._finish(exit_code, quiet)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 1684, in _finish
+    tel.feature.finish = True
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\lib\telemetry.py", line 41, in __exit__
+    self._run._telemetry_callback(self._obj)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 577, in _telemetry_callback
+    self._telemetry_flush()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 588, in _telemetry_flush
+    self._backend.interface._publish_telemetry(self._telemetry_obj)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 74, in _publish_telemetry
+    self._publish(rec)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_queue.py", line 49, in _publish
+    raise Exception("The wandb backend process has shutdown")
+Exception: The wandb backend process has shutdown
+wandb: Ctrl + C detected. Stopping sweep.
+Exception in thread ChkStopThr:
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\threading.py", line 973, in _bootstrap_inner
+    self.run()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\threading.py", line 910, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 170, in check_status
+    status_response = self._interface.communicate_stop_status()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface.py", line 127, in communicate_stop_status
+    resp = self._communicate_stop_status(status)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 395, in _communicate_stop_status
+    resp = self._communicate(req, local=True)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 226, in _communicate
+    return self._communicate_async(rec, local=local).get(timeout=timeout)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 231, in _communicate_async
+    raise Exception("The wandb backend process has shutdown")
+Exception: The wandb backend process has shutdown
+Exception in thread NetStatThr:
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\threading.py", line 973, in _bootstrap_inner
+    self.run()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\threading.py", line 910, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_run.py", line 152, in check_network_status
+    status_response = self._interface.communicate_network_status()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface.py", line 138, in communicate_network_status
+    resp = self._communicate_network_status(status)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 405, in _communicate_network_status
+    resp = self._communicate(req, local=True)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 226, in _communicate
+    return self._communicate_async(rec, local=local).get(timeout=timeout)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 231, in _communicate_async
+    raise Exception("The wandb backend process has shutdown")

@@ -1,0 +1,22 @@
+wandb_version: 1
+
+D:
+  value: 2
+activation_type:
+  value: elu
+batch_size:
+  value: 256
+dropout:
+  value: 0.25
+epochs:
+  value: 1
+filter_sizing:
+  value: 16
+learning_rate:
+  value: 0.001
+mean_pool:
+  value: 8
+receptive_field:
+  value: 64
+seed:
+  value: 42

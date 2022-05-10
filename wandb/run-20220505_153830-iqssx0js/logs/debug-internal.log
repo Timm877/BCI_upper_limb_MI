@@ -1,0 +1,151 @@
+2022-05-05 15:38:31,926 INFO    MainThread:11592 [internal.py:wandb_internal():90] W&B internal server running at pid: 11592, started at: 2022-05-05 15:38:31.926687
+2022-05-05 15:38:31,928 INFO    WriterThread:11592 [datastore.py:open_for_write():75] open: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\run-iqssx0js.wandb
+2022-05-05 15:38:31,933 DEBUG   SenderThread:11592 [sender.py:send():232] send: header
+2022-05-05 15:38:31,933 DEBUG   SenderThread:11592 [sender.py:send():232] send: run
+2022-05-05 15:38:32,236 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: check_version
+2022-05-05 15:38:32,236 INFO    SenderThread:11592 [dir_watcher.py:__init__():197] watching files in: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files
+2022-05-05 15:38:32,236 INFO    SenderThread:11592 [sender.py:_start_run_threads():811] run started: iqssx0js with start time 1651757910
+2022-05-05 15:38:32,236 DEBUG   SenderThread:11592 [sender.py:send():232] send: summary
+2022-05-05 15:38:32,236 INFO    SenderThread:11592 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-05 15:38:32,236 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: check_version
+2022-05-05 15:38:32,443 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: run_start
+2022-05-05 15:38:33,255 INFO    Thread-11 :11592 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\wandb-summary.json
+2022-05-05 15:38:35,723 DEBUG   HandlerThread:11592 [meta.py:__init__():35] meta init
+2022-05-05 15:38:35,723 DEBUG   HandlerThread:11592 [meta.py:__init__():49] meta init done
+2022-05-05 15:38:35,723 DEBUG   HandlerThread:11592 [meta.py:probe():209] probe
+2022-05-05 15:38:35,770 DEBUG   HandlerThread:11592 [meta.py:_setup_git():199] setup git
+2022-05-05 15:38:35,848 DEBUG   HandlerThread:11592 [meta.py:_setup_git():206] setup git done
+2022-05-05 15:38:35,848 DEBUG   HandlerThread:11592 [meta.py:_save_pip():53] save pip
+2022-05-05 15:38:35,848 DEBUG   HandlerThread:11592 [meta.py:_save_pip():67] save pip done
+2022-05-05 15:38:35,864 DEBUG   HandlerThread:11592 [meta.py:_save_conda():74] save conda
+2022-05-05 15:38:36,272 INFO    Thread-11 :11592 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\conda-environment.yaml
+2022-05-05 15:38:36,272 INFO    Thread-11 :11592 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\requirements.txt
+2022-05-05 15:38:38,286 INFO    Thread-11 :11592 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\output.log
+2022-05-05 15:38:39,298 INFO    Thread-11 :11592 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\conda-environment.yaml
+2022-05-05 15:38:39,345 DEBUG   HandlerThread:11592 [meta.py:_save_conda():84] save conda done
+2022-05-05 15:38:39,345 DEBUG   HandlerThread:11592 [meta.py:probe():247] probe done
+2022-05-05 15:38:39,345 DEBUG   SenderThread:11592 [sender.py:send():232] send: config
+2022-05-05 15:38:39,345 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-05 15:38:39,345 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: stop_status
+2022-05-05 15:38:39,345 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:39,581 DEBUG   SenderThread:11592 [sender.py:send():232] send: telemetry
+2022-05-05 15:38:39,581 DEBUG   SenderThread:11592 [sender.py:send():232] send: telemetry
+2022-05-05 15:38:39,581 DEBUG   SenderThread:11592 [sender.py:send():232] send: telemetry
+2022-05-05 15:38:39,581 DEBUG   SenderThread:11592 [sender.py:send():232] send: exit
+2022-05-05 15:38:39,581 INFO    SenderThread:11592 [sender.py:send_exit():368] handling exit code: 0
+2022-05-05 15:38:39,581 INFO    SenderThread:11592 [sender.py:send_exit():370] handling runtime: 6
+2022-05-05 15:38:39,581 INFO    SenderThread:11592 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-05 15:38:39,581 INFO    SenderThread:11592 [sender.py:send_exit():376] send defer
+2022-05-05 15:38:39,581 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:39,581 DEBUG   SenderThread:11592 [sender.py:send():232] send: files
+2022-05-05 15:38:39,581 INFO    SenderThread:11592 [sender.py:_save_file():948] saving file wandb-metadata.json with policy now
+2022-05-05 15:38:39,581 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:39,581 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 0
+2022-05-05 15:38:39,581 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:39,581 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 0
+2022-05-05 15:38:39,581 INFO    SenderThread:11592 [sender.py:transition_state():389] send defer: 1
+2022-05-05 15:38:39,595 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:39,595 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 1
+2022-05-05 15:38:39,684 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:39,684 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 1
+2022-05-05 15:38:39,684 INFO    SenderThread:11592 [sender.py:transition_state():389] send defer: 2
+2022-05-05 15:38:39,685 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:39,685 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 2
+2022-05-05 15:38:39,685 DEBUG   SenderThread:11592 [sender.py:send():232] send: stats
+2022-05-05 15:38:39,686 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:39,686 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 2
+2022-05-05 15:38:39,686 INFO    SenderThread:11592 [sender.py:transition_state():389] send defer: 3
+2022-05-05 15:38:39,686 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:39,686 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 3
+2022-05-05 15:38:39,686 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:39,686 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 3
+2022-05-05 15:38:39,686 INFO    SenderThread:11592 [sender.py:transition_state():389] send defer: 4
+2022-05-05 15:38:39,687 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:39,687 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 4
+2022-05-05 15:38:39,687 DEBUG   SenderThread:11592 [sender.py:send():232] send: summary
+2022-05-05 15:38:39,688 INFO    SenderThread:11592 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-05 15:38:39,688 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:39,688 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 4
+2022-05-05 15:38:39,688 INFO    SenderThread:11592 [sender.py:transition_state():389] send defer: 5
+2022-05-05 15:38:39,689 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:39,689 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 5
+2022-05-05 15:38:39,689 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:39,689 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 5
+2022-05-05 15:38:39,713 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:39,934 INFO    SenderThread:11592 [sender.py:transition_state():389] send defer: 6
+2022-05-05 15:38:39,934 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:39,934 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:39,934 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 6
+2022-05-05 15:38:39,934 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:39,934 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 6
+2022-05-05 15:38:39,934 INFO    SenderThread:11592 [dir_watcher.py:finish():312] shutting down directory watcher
+2022-05-05 15:38:40,064 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:40,245 INFO    Thread-17 :11592 [upload_job.py:push():132] Uploaded file C:\Users\TIMDEB~1\AppData\Local\Temp\tmp_syolb53wandb\endn9lbq-wandb-metadata.json
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\wandb-summary.json
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\config.yaml
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\wandb-metadata.json
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:finish():342] scan: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\conda-environment.yaml conda-environment.yaml
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\config.yaml config.yaml
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\output.log output.log
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\requirements.txt requirements.txt
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\wandb-metadata.json wandb-metadata.json
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\wandb-summary.json wandb-summary.json
+2022-05-05 15:38:40,311 INFO    SenderThread:11592 [sender.py:transition_state():389] send defer: 7
+2022-05-05 15:38:40,327 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:40,335 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:40,335 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 7
+2022-05-05 15:38:40,335 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:40,336 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 7
+2022-05-05 15:38:40,336 INFO    SenderThread:11592 [file_pusher.py:finish():145] shutting down file pusher
+2022-05-05 15:38:40,446 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:40,446 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:40,563 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:40,563 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:40,673 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:40,673 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:40,780 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:40,780 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:40,896 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:40,896 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:40,988 INFO    Thread-21 :11592 [upload_job.py:push():132] Uploaded file C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\wandb-summary.json
+2022-05-05 15:38:41,012 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:41,013 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:41,043 INFO    Thread-19 :11592 [upload_job.py:push():132] Uploaded file C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\config.yaml
+2022-05-05 15:38:41,075 INFO    Thread-20 :11592 [upload_job.py:push():132] Uploaded file C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\requirements.txt
+2022-05-05 15:38:41,086 INFO    Thread-18 :11592 [upload_job.py:push():132] Uploaded file C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\files\conda-environment.yaml
+2022-05-05 15:38:41,123 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:41,123 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:41,234 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:41,234 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:41,298 INFO    Thread-10 :11592 [sender.py:transition_state():389] send defer: 8
+2022-05-05 15:38:41,298 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:41,299 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 8
+2022-05-05 15:38:41,299 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:41,299 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 8
+2022-05-05 15:38:41,346 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:41,884 INFO    SenderThread:11592 [sender.py:transition_state():389] send defer: 9
+2022-05-05 15:38:41,884 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:41,884 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:41,884 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 9
+2022-05-05 15:38:41,884 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:41,884 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 9
+2022-05-05 15:38:41,884 INFO    SenderThread:11592 [sender.py:transition_state():389] send defer: 10
+2022-05-05 15:38:41,884 DEBUG   SenderThread:11592 [sender.py:send():232] send: final
+2022-05-05 15:38:41,884 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: defer
+2022-05-05 15:38:41,888 INFO    HandlerThread:11592 [handler.py:handle_request_defer():164] handle defer: 10
+2022-05-05 15:38:41,888 DEBUG   SenderThread:11592 [sender.py:send():232] send: footer
+2022-05-05 15:38:41,888 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: defer
+2022-05-05 15:38:41,888 INFO    SenderThread:11592 [sender.py:send_request_defer():385] handle sender defer: 10
+2022-05-05 15:38:41,993 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-05 15:38:41,993 DEBUG   SenderThread:11592 [sender.py:send_request():246] send_request: poll_exit
+2022-05-05 15:38:41,994 INFO    SenderThread:11592 [file_pusher.py:join():150] waiting for file pusher
+2022-05-05 15:38:42,529 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: sampled_history
+2022-05-05 15:38:42,530 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: get_summary
+2022-05-05 15:38:42,532 DEBUG   HandlerThread:11592 [handler.py:handle_request():141] handle_request: shutdown
+2022-05-05 15:38:42,532 INFO    HandlerThread:11592 [handler.py:finish():806] shutting down handler
+2022-05-05 15:38:42,893 INFO    WriterThread:11592 [datastore.py:close():279] close: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_153830-iqssx0js\run-iqssx0js.wandb
+2022-05-05 15:38:43,418 INFO    SenderThread:11592 [sender.py:finish():1110] shutting down sender
+2022-05-05 15:38:43,418 INFO    SenderThread:11592 [file_pusher.py:finish():145] shutting down file pusher
+2022-05-05 15:38:43,420 INFO    SenderThread:11592 [file_pusher.py:join():150] waiting for file pusher
+2022-05-05 15:38:43,427 INFO    MainThread:11592 [internal.py:handle_exit():80] Internal process exited

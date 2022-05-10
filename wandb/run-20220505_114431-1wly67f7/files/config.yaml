@@ -1,0 +1,80 @@
+wandb_version: 1
+
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.16
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: true
+    python_version: 3.9.7
+    start_time: 1651743871
+    t:
+      1:
+      - 1
+      - 5
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 53
+      - 55
+      3:
+      - 2
+      - 16
+      4: 3.9.7
+      5: 0.12.16
+      8:
+      - 2
+      - 3
+      - 5
+method:
+  desc: null
+  value: random
+metric:
+  desc: null
+  value:
+    goal: minimize
+    name: val/val_loss
+parameters:
+  desc: null
+  value:
+    activation_type:
+      values:
+      - relu
+      - elu
+    batch_size:
+      values:
+      - 32
+      - 64
+      - 128
+    dropout:
+      values:
+      - 0.1
+      - 0.2
+      - 0.3
+    epochs:
+      value: 3
+    filter_sizings:
+      values:
+      - 10
+      - 20
+      - 30
+      - 40
+    learning_rate:
+      values:
+      - 0.0001
+      - 0.001
+      - 0.005
+      - 0.01
+    mean_pools:
+      values:
+      - 15
+      - 25
+      - 50
+    receptive_fields:
+      values:
+      - 75
+      - 50
+      - 25

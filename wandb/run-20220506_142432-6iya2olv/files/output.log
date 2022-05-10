@@ -1,0 +1,2 @@
+
+{'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.4, 'epochs': 1, 'filter_sizing': 10, 'learning_rate': 0.001, 'mean_pool': 15, 'network': 'CNN', 'receptive_field': 50, 'seed': 42, 'val_subjects': ['X04, X06']}

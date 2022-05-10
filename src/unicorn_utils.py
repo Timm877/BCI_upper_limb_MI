@@ -84,10 +84,14 @@ def pre_processing(curr_segment,selected_electrodes_names ,filters, sample_durat
     #                              ['like', 'like', 'like','like', 'like', 'like','like', 'like'],
     #                              ['line','line', 'line','line','line', 'line','line','line'])
 
-
     # 4 FILTERING filter bank / bandpass
     segment_filt, filters = filter_1seg_statespace(curr_segment, selected_electrodes_names, filters, sample_duration, 
     freq_limits_names)
+    
+    #normalizing the signals
+    #segment_filt = segment_filt.T
+    #segment_filt=(segment_filt-segment_filt.mean())/segment_filt.std()
+    #segment_filt = segment_filt.T
     return segment_filt, outlier, filters
 
 def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
@@ -181,7 +185,7 @@ def init_pipelines_grid(pipeline_name = ['csp']):
             "csp__n_components" :[8,10,12]
                 }
         pipelines["csp+s_lda"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
-        
+
         pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC(decision_function_shape='ovo'))])
         param_grid = {
             "csp__n_components" :[8,10,12],
@@ -198,15 +202,13 @@ def init_pipelines_grid(pipeline_name = ['csp']):
             "rf__criterion": ['gini', 'entropy']}
         pipelines["csp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
 
-
     if 'riemann' in pipeline_name:  
-        #pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
-        #                            ('mdm', FgMDM(metric="riemann"))])
-        '''
+        pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
+                                    ('mdm', FgMDM(metric="riemann"))])
+
         pipelines["tgsp+slda"] = Pipeline(steps=[('cov', Covariances("oas")), 
                 ('tg', TangentSpace(metric="riemann")),
                 ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])   
-        '''
         pipe = Pipeline(steps=[('cov', Covariances("oas")), 
                                             ('tg', TangentSpace(metric="riemann")),
                                             ('svm', SVC(decision_function_shape='ovo'))])
@@ -215,7 +217,7 @@ def init_pipelines_grid(pipeline_name = ['csp']):
             "svm__kernel": ['rbf', 'linear']
                 }
         pipelines["tgsp+svm"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)  
-        '''
+
         pipe = Pipeline(steps=[('cov', Covariances("oas")), 
                                             ('tg', TangentSpace(metric="riemann")),
                                             ('rf', RFC(random_state=42))])
@@ -223,7 +225,6 @@ def init_pipelines_grid(pipeline_name = ['csp']):
             "rf__n_estimators": [10, 50, 100, 200],
             "rf__criterion": ['gini', 'entropy']}
         pipelines["tgsp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
-        '''
     return pipelines  
 
 def grid_search_execution(X_train, y_train, X_val, y_val, chosen_pipelines, clf):
@@ -250,7 +251,8 @@ def plot_dataset(data_table, columns, match='like', display='line'):
         f, xar = plt.subplots()
         xar = [xar]
     f.subplots_adjust(hspace=0.4)
-    f.suptitle(r'EEG signals with Common Average Referencing', fontsize=16)
+    f.suptitle(r'Example of an segment of EEG signals', fontsize=16)
+
     # Pass through the columns specified.
     for i in range(0, len(columns)):
         xar[i].set_prop_cycle(color=['b', 'r', 'k', 'y', 'm'])
@@ -276,7 +278,6 @@ def plot_dataset(data_table, columns, match='like', display='line'):
 
         # Pass through the relevant columns.
         for j in range(0, len(relevant_cols)):
-        
             # Create a mask to ignore the NaN and Inf values when plotting:
             mask = data_table[relevant_cols[j]].replace([np.inf, -np.inf], np.nan).notnull()
             max_values.append(data_table[relevant_cols[j]][mask].max())

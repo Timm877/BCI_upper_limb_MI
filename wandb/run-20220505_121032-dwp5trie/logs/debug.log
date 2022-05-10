@@ -1,0 +1,25 @@
+2022-05-05 12:10:32,657 INFO    Thread-8  :10200 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Tim de Boer\.config\wandb\settings
+2022-05-05 12:10:32,658 INFO    Thread-8  :10200 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-05-05 12:10:32,658 INFO    Thread-8  :10200 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'hp-sweeps-CNN-X03', 'entity': 'timm877', 'root_dir': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI', 'sweep_id': 'kw4hyktf', 'run_id': 'dwp5trie', 'sweep_param_path': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\sweep-kw4hyktf\\config-dwp5trie.yaml'}
+2022-05-05 12:10:32,658 INFO    Thread-8  :10200 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'scripts\\3_TL.py', 'program': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\scripts\\3_TL.py'}
+2022-05-05 12:10:32,659 INFO    Thread-8  :10200 [wandb_init.py:_log_setup():428] Logging user logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_121032-dwp5trie\logs\debug.log
+2022-05-05 12:10:32,659 INFO    Thread-8  :10200 [wandb_init.py:_log_setup():429] Logging internal logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_121032-dwp5trie\logs\debug-internal.log
+2022-05-05 12:10:32,659 INFO    Thread-8  :10200 [wandb_init.py:init():462] calling init triggers
+2022-05-05 12:10:32,659 INFO    Thread-8  :10200 [wandb_init.py:init():465] wandb.init called with sweep_config: {'activation_type': 'relu', 'batch_size': 32, 'dropout': 0.2, 'epochs': 10, 'filter_sizing': 40, 'learning_rate': 0.001, 'mean_pool': 25, 'receptive_field': 25}
+config: {}
+2022-05-05 12:10:32,660 INFO    Thread-8  :10200 [wandb_init.py:init():515] starting backend
+2022-05-05 12:10:32,660 INFO    Thread-8  :10200 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-05-05 12:10:32,668 INFO    Thread-8  :10200 [backend.py:ensure_launched():217] starting backend process...
+2022-05-05 12:10:32,799 INFO    Thread-8  :10200 [backend.py:ensure_launched():222] started backend process with pid: 10088
+2022-05-05 12:10:32,800 INFO    Thread-8  :10200 [wandb_init.py:init():525] backend started and connected
+2022-05-05 12:10:32,810 INFO    Thread-8  :10200 [wandb_init.py:init():596] updated telemetry
+2022-05-05 12:10:32,866 INFO    Thread-8  :10200 [wandb_init.py:init():627] communicating run to backend with 30 second timeout
+2022-05-05 12:10:34,654 INFO    Thread-8  :10200 [wandb_run.py:_on_init():1924] communicating current version
+2022-05-05 12:10:34,857 INFO    Thread-8  :10200 [wandb_run.py:_on_init():1928] got version response 
+2022-05-05 12:10:34,857 INFO    Thread-8  :10200 [wandb_init.py:init():662] starting run threads in backend
+2022-05-05 12:10:39,871 INFO    Thread-8  :10200 [wandb_run.py:_config_callback():1136] config_cb None None {'activation_type': 'relu', 'batch_size': 32, 'dropout': 0.2, 'epochs': 10, 'filter_sizing': 40, 'learning_rate': 0.001, 'mean_pool': 25, 'receptive_field': 25}
+2022-05-05 12:10:39,890 INFO    Thread-8  :10200 [wandb_run.py:_console_start():1898] atexit reg
+2022-05-05 12:10:39,892 INFO    Thread-8  :10200 [wandb_run.py:_redirect():1771] redirect: SettingsConsole.WRAP
+2022-05-05 12:10:39,894 INFO    Thread-8  :10200 [wandb_run.py:_redirect():1808] Wrapping output streams.
+2022-05-05 12:10:39,895 INFO    Thread-8  :10200 [wandb_run.py:_redirect():1832] Redirects installed.
+2022-05-05 12:10:39,896 INFO    Thread-8  :10200 [wandb_init.py:init():688] run started, returning control to user process

@@ -1,0 +1,25 @@
+
+310
+Current train acc after epoch 1: 0.40154192097654995
+Current train loss after epoch 1: 52.616973996162415
+Current val acc after epoch 1: 0.3935897435897436
+Current val loss after epoch 1: 7.666723370552063
+Current train acc after epoch 2: 0.4871506585287504
+Current train loss after epoch 2: 50.59867411851883
+Current val acc after epoch 2: 0.37051282051282053
+Current val loss after epoch 2: 7.590593218803406
+Current train acc after epoch 3: 0.47863796980404755
+Current train loss after epoch 3: 49.778772592544556
+Current val acc after epoch 3: 0.33589743589743587
+Current val loss after epoch 3: 8.167568683624268
+Current train acc after epoch 4: 0.5706713780918727
+Current train loss after epoch 4: 45.50074774026871
+Current val acc after epoch 4: 0.33076923076923076
+Current val loss after epoch 4: 8.162237405776978
+Current train acc after epoch 5: 0.6005460970125281
+Current train loss after epoch 5: 43.74550998210907
+Current val acc after epoch 5: 0.3474358974358974
+Current val loss after epoch 5: 7.923423528671265
+Finished Training
+Final accuracy of the network on the training set: 0.6005460970125281
+Final accuracy of the network on the validation set: 0.3474358974358974

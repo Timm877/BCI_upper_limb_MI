@@ -1,0 +1,148 @@
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Tim de Boer\.config\wandb\settings
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'hp-sweeps-eegnet-1trialpersubject_fullrun_subject5', 'entity': 'timm877', 'root_dir': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI', 'run_id': '6hd9bw4v', 'sweep_param_path': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\sweep-ljm9ic6b\\config-6hd9bw4v.yaml', 'sweep_id': 'ljm9ic6b'}
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'scripts\\3_TL.py', 'program': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\scripts\\3_TL.py'}
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [wandb_init.py:_log_setup():428] Logging user logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220506_130702-6hd9bw4v\logs\debug.log
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [wandb_init.py:_log_setup():429] Logging internal logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220506_130702-6hd9bw4v\logs\debug-internal.log
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [wandb_init.py:init():462] calling init triggers
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [wandb_init.py:init():465] wandb.init called with sweep_config: {'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.2, 'epochs': 25, 'filter_sizing': 8, 'learning_rate': 0.005, 'mean_pool': 15, 'receptive_field': 64, 'seed': 42}
+config: {}
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [wandb_init.py:init():515] starting backend
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-05-06 13:07:02,958 INFO    Thread-19 :9408 [backend.py:ensure_launched():217] starting backend process...
+2022-05-06 13:07:03,099 INFO    Thread-19 :9408 [backend.py:ensure_launched():222] started backend process with pid: 10448
+2022-05-06 13:07:03,099 INFO    Thread-19 :9408 [wandb_init.py:init():525] backend started and connected
+2022-05-06 13:07:03,115 INFO    Thread-19 :9408 [wandb_init.py:init():596] updated telemetry
+2022-05-06 13:07:03,146 INFO    Thread-19 :9408 [wandb_init.py:init():627] communicating run to backend with 30 second timeout
+2022-05-06 13:07:04,792 INFO    Thread-19 :9408 [wandb_run.py:_on_init():1924] communicating current version
+2022-05-06 13:07:05,011 INFO    Thread-19 :9408 [wandb_run.py:_on_init():1928] got version response 
+2022-05-06 13:07:05,011 INFO    Thread-19 :9408 [wandb_init.py:init():662] starting run threads in backend
+2022-05-06 13:07:10,027 INFO    Thread-19 :9408 [wandb_run.py:_config_callback():1136] config_cb None None {'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.2, 'epochs': 25, 'filter_sizing': 8, 'learning_rate': 0.005, 'mean_pool': 15, 'receptive_field': 64, 'seed': 42}
+2022-05-06 13:07:10,049 INFO    Thread-19 :9408 [wandb_run.py:_console_start():1898] atexit reg
+2022-05-06 13:07:10,050 INFO    Thread-19 :9408 [wandb_run.py:_redirect():1771] redirect: SettingsConsole.WRAP
+2022-05-06 13:07:10,050 INFO    Thread-19 :9408 [wandb_run.py:_redirect():1808] Wrapping output streams.
+2022-05-06 13:07:10,053 INFO    Thread-19 :9408 [wandb_run.py:_redirect():1832] Redirects installed.
+2022-05-06 13:07:10,053 INFO    Thread-19 :9408 [wandb_init.py:init():688] run started, returning control to user process
+2022-05-06 13:07:12,342 INFO    Thread-19 :9408 [wandb_watch.py:watch():47] Watching
+2022-05-06 13:07:12,528 INFO    Thread-19 :9408 [wandb_run.py:_finish():1685] finishing run timm877/hp-sweeps-eegnet-1trialpersubject_fullrun_subject5/6hd9bw4v
+2022-05-06 13:07:12,528 INFO    Thread-19 :9408 [wandb_run.py:_atexit_cleanup():1867] got exitcode: 1
+2022-05-06 13:07:12,528 INFO    Thread-19 :9408 [wandb_run.py:_restore():1839] restore
+2022-05-06 13:07:13,166 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  total_bytes: 1000
+}
+
+2022-05-06 13:07:13,469 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 1000
+}
+
+2022-05-06 13:07:13,882 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 7693
+}
+
+2022-05-06 13:07:14,010 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:14,126 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:14,244 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 7693
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:14,361 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 7693
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:14,471 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 7719
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:14,577 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 7719
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:14,694 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 7719
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:14,804 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 7719
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:14,910 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 7719
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:15,513 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 7719
+  total_bytes: 7719
+}
+
+2022-05-06 13:07:16,046 INFO    Thread-19 :9408 [wandb_run.py:_on_finish():1996] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 7719
+  total_bytes: 7719
+}
+local_info {
+}
+
+2022-05-06 13:07:17,585 INFO    Thread-19 :9408 [wandb_run.py:_footer_history_summary_info():3104] rendering history
+2022-05-06 13:07:17,585 INFO    Thread-19 :9408 [wandb_run.py:_footer_history_summary_info():3136] rendering summary
+2022-05-06 13:07:17,585 INFO    Thread-19 :9408 [wandb_run.py:_footer_sync_info():3060] logging synced files

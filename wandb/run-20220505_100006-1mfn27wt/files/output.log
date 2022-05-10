@@ -1,0 +1,106 @@
+
+310
+Current train acc after epoch 1: 0.39640218438805014
+Current train loss after epoch 1: 53.167898058891296
+Current val acc after epoch 1: 0.38846153846153847
+Current val loss after epoch 1: 7.606133341789246
+Current train acc after epoch 2: 0.43045293928686157
+Current train loss after epoch 2: 52.27780604362488
+Current val acc after epoch 2: 0.37948717948717947
+Current val loss after epoch 2: 7.696880102157593
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 128, in <module>
+    main()
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 117, in main
+    execution(pline, subj, type)
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 88, in execution
+    utils_TL.run_model(trainloader, valloader, lr, window_size, n_electrodes, receptive_field,
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 265, in run_model
+    output = net(inputs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 144, in forward
+    out = self.temporal(x)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\container.py", line 141, in forward
+    input = module(input)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py", line 446, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py", line 442, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 128, in <module>
+    main()
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 117, in main
+    execution(pline, subj, type)
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 88, in execution
+    utils_TL.run_model(trainloader, valloader, lr, window_size, n_electrodes, receptive_field,
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 265, in run_model
+    output = net(inputs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 144, in forward
+    out = self.temporal(x)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\container.py", line 141, in forward
+    input = module(input)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py", line 446, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py", line 442, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 128, in <module>
+    main()
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 117, in main
+    execution(pline, subj, type)
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 88, in execution
+    utils_TL.run_model(trainloader, valloader, lr, window_size, n_electrodes, receptive_field,
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 265, in run_model
+    output = net(inputs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 144, in forward
+    out = self.temporal(x)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\container.py", line 141, in forward
+    input = module(input)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py", line 446, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py", line 442, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 128, in <module>
+    main()
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 117, in main
+    execution(pline, subj, type)
+  File "C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\scripts\3_TL.py", line 88, in execution
+    utils_TL.run_model(trainloader, valloader, lr, window_size, n_electrodes, receptive_field,
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 265, in run_model
+    output = net(inputs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "c:\users\tim de boer\documents\vu\master_artificial_intelligence\9_bci_masterproject\bci_code\unicorn_mi_bci\src\utils_TL.py", line 144, in forward
+    out = self.temporal(x)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\container.py", line 141, in forward
+    input = module(input)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py", line 446, in forward
+    return self._conv_forward(input, self.weight, self.bias)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py", line 442, in _conv_forward
+    return F.conv2d(input, weight, bias, self.stride,
+KeyboardInterrupt

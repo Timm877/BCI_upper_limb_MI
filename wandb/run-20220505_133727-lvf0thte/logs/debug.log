@@ -1,0 +1,97 @@
+2022-05-05 13:37:27,995 INFO    Thread-30 :14436 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Tim de Boer\.config\wandb\settings
+2022-05-05 13:37:27,996 INFO    Thread-30 :14436 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-05-05 13:37:27,996 INFO    Thread-30 :14436 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'hp-sweeps-CNN-batchsize-X03', 'entity': 'timm877', 'root_dir': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI', 'run_id': 'lvf0thte', 'sweep_param_path': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\sweep-9qhic1jg\\config-lvf0thte.yaml', 'sweep_id': '9qhic1jg'}
+2022-05-05 13:37:27,997 INFO    Thread-30 :14436 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'scripts\\3_TL.py', 'program': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\scripts\\3_TL.py'}
+2022-05-05 13:37:27,997 INFO    Thread-30 :14436 [wandb_init.py:_log_setup():428] Logging user logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_133727-lvf0thte\logs\debug.log
+2022-05-05 13:37:27,997 INFO    Thread-30 :14436 [wandb_init.py:_log_setup():429] Logging internal logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_133727-lvf0thte\logs\debug-internal.log
+2022-05-05 13:37:27,997 INFO    Thread-30 :14436 [wandb_init.py:init():462] calling init triggers
+2022-05-05 13:37:27,997 INFO    Thread-30 :14436 [wandb_init.py:init():465] wandb.init called with sweep_config: {'activation_type': 'relu', 'batch_size': 128, 'dropout': 0.1, 'epochs': 20, 'filter_sizing': 10, 'learning_rate': 0.0001, 'mean_pool': 15, 'receptive_field': 75}
+config: {}
+2022-05-05 13:37:27,998 INFO    Thread-30 :14436 [wandb_init.py:init():515] starting backend
+2022-05-05 13:37:27,998 INFO    Thread-30 :14436 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-05-05 13:37:28,004 INFO    Thread-30 :14436 [backend.py:ensure_launched():217] starting backend process...
+2022-05-05 13:37:28,087 INFO    Thread-30 :14436 [backend.py:ensure_launched():222] started backend process with pid: 14572
+2022-05-05 13:37:28,087 INFO    Thread-30 :14436 [wandb_init.py:init():525] backend started and connected
+2022-05-05 13:37:28,087 INFO    Thread-30 :14436 [wandb_init.py:init():596] updated telemetry
+2022-05-05 13:37:28,134 INFO    Thread-30 :14436 [wandb_init.py:init():627] communicating run to backend with 30 second timeout
+2022-05-05 13:37:29,830 INFO    Thread-30 :14436 [wandb_run.py:_on_init():1924] communicating current version
+2022-05-05 13:37:30,039 INFO    Thread-30 :14436 [wandb_run.py:_on_init():1928] got version response 
+2022-05-05 13:37:30,039 INFO    Thread-30 :14436 [wandb_init.py:init():662] starting run threads in backend
+2022-05-05 13:37:35,055 INFO    Thread-30 :14436 [wandb_run.py:_config_callback():1136] config_cb None None {'activation_type': 'relu', 'batch_size': 128, 'dropout': 0.1, 'epochs': 20, 'filter_sizing': 10, 'learning_rate': 0.0001, 'mean_pool': 15, 'receptive_field': 75}
+2022-05-05 13:37:35,094 INFO    Thread-30 :14436 [wandb_run.py:_console_start():1898] atexit reg
+2022-05-05 13:37:35,097 INFO    Thread-30 :14436 [wandb_run.py:_redirect():1771] redirect: SettingsConsole.WRAP
+2022-05-05 13:37:35,098 INFO    Thread-30 :14436 [wandb_run.py:_redirect():1808] Wrapping output streams.
+2022-05-05 13:37:35,104 INFO    Thread-30 :14436 [wandb_run.py:_redirect():1832] Redirects installed.
+2022-05-05 13:37:35,104 INFO    Thread-30 :14436 [wandb_init.py:init():688] run started, returning control to user process
+2022-05-05 13:37:40,095 INFO    Thread-30 :14436 [wandb_watch.py:watch():47] Watching
+2022-05-05 13:43:26,285 INFO    Thread-30 :14436 [wandb_run.py:_finish():1685] finishing run timm877/hp-sweeps-CNN-batchsize-X03/lvf0thte
+2022-05-05 13:43:26,285 INFO    Thread-30 :14436 [wandb_run.py:_atexit_cleanup():1867] got exitcode: 0
+2022-05-05 13:43:26,287 INFO    Thread-30 :14436 [wandb_run.py:_restore():1839] restore
+2022-05-05 13:43:32,132 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:43:37,251 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:43:42,378 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:43:47,497 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:43:52,619 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:43:57,737 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:02,861 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:07,981 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:13,094 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:18,217 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:23,327 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:28,437 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:33,542 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:38,655 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:43,780 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:48,883 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:53,995 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:44:59,111 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:04,241 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:09,353 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:14,482 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:19,606 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:24,725 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:29,838 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:34,958 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:40,074 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:45,197 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:50,320 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:45:55,445 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:00,583 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:05,701 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:10,829 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:15,954 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:21,072 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:26,197 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:31,301 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:36,412 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:41,515 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:46,637 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:51,754 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:46:56,875 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:01,996 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:07,111 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:12,227 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:17,347 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:22,471 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:27,586 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:32,694 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:37,813 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:42,932 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:48,044 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:53,160 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:47:58,273 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:03,386 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:08,496 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:13,622 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:18,742 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:23,858 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:28,972 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:34,095 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:39,206 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:44,330 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:49,445 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:54,561 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:48:59,676 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:49:04,787 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:49:09,909 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None
+2022-05-05 13:49:15,025 INFO    Thread-30 :14436 [wandb_run.py:_on_finish():1996] got exit ret: None

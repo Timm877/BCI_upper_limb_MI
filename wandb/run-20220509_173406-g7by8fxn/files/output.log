@@ -1,0 +1,53 @@
+{'D': 4, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.1, 'epochs': 40, 'filter_sizing': 8, 'learning_rate': 0.001, 'mean_pool': 8, 'network': 'EEGNET', 'receptive_field': 64, 'seed': 42, 'val_subjects': ['X05', 'X06']}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X01_deep.pkl...
+Current length of X train: 780.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X02_deep.pkl...
+Current length of X train: 1556.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X03_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X04_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X05_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 780.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X06_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X07_deep.pkl...
+Current length of X train: 3886.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X08_deep.pkl...
+Current length of X train: 4666.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X09_deep.pkl...
+Current length of X train: 5446.
+Current length of X val: 1560.
+trainable parameters: 3891
+acc: 0.3557692307692308, f1: 0.36082705953742555
+acc: 0.41923076923076924, f1: 0.3926812820166091
+acc: 0.5019230769230769, f1: 0.4573135836196774
+acc: 0.5102564102564102, f1: 0.4588113500023847
+acc: 0.5846153846153846, f1: 0.5784524498646262
+acc: 0.6064102564102564, f1: 0.5984675417691886
+acc: 0.6173076923076923, f1: 0.5939460647735386
+acc: 0.6147435897435898, f1: 0.6124423816135666
+acc: 0.6275641025641026, f1: 0.6383018001296504
+acc: 0.6205128205128205, f1: 0.6332333139651657
+INFO: Early stopping counter 1 of 7
+acc: 0.6128205128205129, f1: 0.6039342164397754
+INFO: Early stopping counter 2 of 7
+acc: 0.6173076923076923, f1: 0.5799599077590551
+INFO: Early stopping counter 3 of 7
+acc: 0.6205128205128205, f1: 0.6218063192251735
+INFO: Early stopping counter 4 of 7
+acc: 0.6153846153846154, f1: 0.5858568820404556
+INFO: Early stopping counter 5 of 7
+acc: 0.6243589743589744, f1: 0.6225410895702249
+INFO: Early stopping counter 6 of 7
+acc: 0.6198717948717949, f1: 0.6015703865385414
+INFO: Early stopping counter 7 of 7
+INFO: Early stopping

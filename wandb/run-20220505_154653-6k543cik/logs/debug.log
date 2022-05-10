@@ -1,0 +1,933 @@
+2022-05-05 15:46:53,138 INFO    Thread-8  :12028 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Tim de Boer\.config\wandb\settings
+2022-05-05 15:46:53,138 INFO    Thread-8  :12028 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-05-05 15:46:53,138 INFO    Thread-8  :12028 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'hp-sweeps-CNN-1trialpersubject_lasttry2-X01', 'entity': 'timm877', 'root_dir': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI', 'sweep_id': 'yt7e4rkh', 'run_id': '6k543cik', 'sweep_param_path': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\sweep-yt7e4rkh\\config-6k543cik.yaml'}
+2022-05-05 15:46:53,138 INFO    Thread-8  :12028 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'scripts\\3_TL.py', 'program': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\scripts\\3_TL.py'}
+2022-05-05 15:46:53,138 INFO    Thread-8  :12028 [wandb_init.py:_log_setup():428] Logging user logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_154653-6k543cik\logs\debug.log
+2022-05-05 15:46:53,138 INFO    Thread-8  :12028 [wandb_init.py:_log_setup():429] Logging internal logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_154653-6k543cik\logs\debug-internal.log
+2022-05-05 15:46:53,138 INFO    Thread-8  :12028 [wandb_init.py:init():462] calling init triggers
+2022-05-05 15:46:53,148 INFO    Thread-8  :12028 [wandb_init.py:init():465] wandb.init called with sweep_config: {'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.2, 'epochs': 2, 'filter_sizing': 10, 'learning_rate': 0.001, 'mean_pool': 15, 'receptive_field': 50, 'seed': 42}
+config: {'_items': {'_items': {'_wandb': {}, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.2, 'epochs': 2, 'filter_sizing': 10, 'learning_rate': 0.001, 'mean_pool': 15, 'receptive_field': 50, 'seed': 42}, '_locked': {'activation_type': 0, 'batch_size': 0, 'dropout': 0, 'epochs': 0, 'filter_sizing': 0, 'learning_rate': 0, 'mean_pool': 0, 'receptive_field': 0, 'seed': 0}, '_users': {'sweep': 0}, '_users_inv': {'0': 'sweep'}, '_users_cnt': 1, '_callback': 'wandb.sdk.wandb_run.Run._config_callback', '_settings': "<Settings {'_args': [], '_cli_only_mode': None, '_colab': False, '_config_dict': None, '_console': <SettingsConsole.WRAP: 1>, '_cuda': None, '_disable_meta': None, '_disable_stats': None, '_disable_viewer': None, '_except_exit': True, '_executable': 'C:\\\\Users\\\\Tim de Boer\\\\anaconda3\\\\envs\\\\UnicornBCI\\\\python.exe', '_internal_check_process': 8, '_internal_queue_timeout': 2, '_jupyter': False, '_jupyter_name': None, '_jupyter_path': None, '_jupyter_root': None, '_kaggle': True, '_noop': False, '_offline': False, '_os': 'Windows-10-10.0.19044-SP0', '_platform': 'windows', '_python': '3.9.7', '_require_service': None, '_runqueue_item_id': None, '_save_requirements': True, '_service_transport': None, '_start_datetime': datetime.datetime(2022, 5, 5, 15, 44, 56, 259374), '_start_time': 1651758296.259374, '_tmp_code_dir': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\run-20220505_154456-6k543cik\\\\tmp\\\\code', '_tracelog': None, '_unsaved_keys': None, '_windows': True, 'allow_val_change': None, 'anonymous': None, 'api_key': '***REDACTED***', 'base_url': 'https://api.wandb.ai', 'code_dir': None, 'config_paths': None, 'console': 'auto', 'deployment': 'cloud', 'disable_code': None, 'disable_git': False, 'disabled': False, 'docker': None, 'email': 'timdb877@gmail.com', 'entity': 'timm877', 'files_dir': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\run-20220505_154456-6k543cik\\\\files', 'force': None, 'git_remote': 'https://github.com/Timm877/BCI_upper_limb_MI.git', 'heartbeat_seconds': 30, 'host': 'LAPTOP-JO6NFL4D', 'ignore_globs': (), 'init_timeout': 30, 'is_local': False, 'label_disable': None, 'launch': None, 'launch_config_path': None, 'log_dir': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\run-20220505_154456-6k543cik\\\\logs', 'log_internal': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\run-20220505_154456-6k543cik\\\\logs\\\\debug-internal.log', 'log_symlink_internal': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\debug-internal.log', 'log_symlink_user': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\debug.log', 'log_user': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\run-20220505_154456-6k543cik\\\\logs\\\\debug.log', 'login_timeout': None, 'magic': None, 'mode': 'online', 'notebook_name': None, 'problem': 'fatal', 'program': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\scripts\\\\3_TL.py', 'program_relpath': 'scripts\\\\3_TL.py', 'project': 'hp-sweeps-CNN-1trialpersubject_lasttry2-X01', 'project_url': 'https://wandb.ai/timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01', 'quiet': None, 'reinit': None, 'relogin': None, 'resume': None, 'resume_fname': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\wandb-resume.json', 'resumed': False, 'root_dir': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI', 'run_group': None, 'run_id': '6k543cik', 'run_job_type': None, 'run_mode': 'run', 'run_name': 'woven-sweep-1', 'run_notes': None, 'run_tags': None, 'run_url': 'https://wandb.ai/timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01/runs/6k543cik', 'sagemaker_disable': None, 'save_code': None, 'settings_system': 'C:\\\\Users\\\\Tim de Boer\\\\.config\\\\wandb\\\\settings', 'settings_workspace': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\settings', 'show_colors': None, 'show_emoji': None, 'show_errors': True, 'show_info': True, 'show_warnings': True, 'silent': False, 'start_method': None, 'strict': None, 'summary_errors': None, 'summary_warnings': 5, 'sweep_id': 'yt7e4rkh', 'sweep_param_path': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\sweep-yt7e4rkh\\\\config-6k543cik.yaml', 'sweep_url': 'https://wandb.ai/timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01/sweeps/yt7e4rkh', 'symlink': False, 'sync_dir': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\run-20220505_154456-6k543cik', 'sync_file': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\run-20220505_154456-6k543cik\\\\run-6k543cik.wandb', 'sync_symlink_latest': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\latest-run', 'system_sample': 15, 'system_sample_seconds': 2, 'timespec': '20220505_154456', 'tmp_dir': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\run-20220505_154456-6k543cik\\\\tmp', 'username': 'Tim de Boer', 'wandb_dir': 'C:\\\\Users\\\\Tim de Boer\\\\Documents\\\\VU\\\\Master_Artificial_Intelligence\\\\9_BCI_MasterProject\\\\BCI_Code\\\\unicorn_MI_BCI\\\\wandb\\\\', 'table_raise_on_max_row_limit_exceeded': False}>", '_artifact_callback': 'wandb.sdk.wandb_run.Run._config_artifact_callback', '_wandb': {}, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.2, 'epochs': 2, 'filter_sizing': 10, 'learning_rate': 0.001, 'mean_pool': 15, 'receptive_field': 50, 'seed': 42}, '_locked': {'activation_type': 0, 'batch_size': 0, 'dropout': 0, 'epochs': 0, 'filter_sizing': 0, 'learning_rate': 0, 'mean_pool': 0, 'receptive_field': 0, 'seed': 0}, '_users': {'sweep': 0}, '_users_inv': {0: 'sweep'}, '_users_cnt': 1, '_callback': <bound method Run._config_callback of <wandb.sdk.wandb_run.Run object at 0x000001E509160130>>, '_settings': <Settings {'_Settings__frozen': False, '_Settings__initialized': True, '_Settings__preprocessing_warnings': {}, '_Settings__validation_warnings': {}, '_Settings__unexpected_args': set(), '_Settings_start_datetime': datetime.datetime(2022, 5, 5, 15, 45, 55, 393385), '_Settings_start_time': 1651758355.393385, '_args': '<Property value=[] source=8>', '_cli_only_mode': '<Property value=None source=1>', '_colab': '<Property value=False source=1>', '_config_dict': '<Property value=None source=1>', '_console': '<Property value=1 source=1>', '_cuda': '<Property value=None source=1>', '_disable_meta': '<Property value=None source=1>', '_disable_stats': '<Property value=None source=1>', '_disable_viewer': '<Property value=None source=1>', '_except_exit': '<Property value=True source=8>', '_executable': '<Property value=C:\\Users\\Tim de Boer\\anaconda3\\envs\\UnicornBCI\\python.exe source=8>', '_internal_check_process': '<Property value=8 source=1>', '_internal_queue_timeout': '<Property value=2 source=1>', '_jupyter': '<Property value=False source=1>', '_jupyter_name': '<Property value=None source=1>', '_jupyter_path': '<Property value=None source=1>', '_jupyter_root': '<Property value=None source=1>', '_kaggle': '<Property value=True source=1>', '_noop': '<Property value=False source=1>', '_offline': '<Property value=False source=1>', '_os': '<Property value=Windows-10-10.0.19044-SP0 source=8>', '_platform': '<Property value=windows source=1>', '_python': '<Property value=3.9.7 source=8>', '_require_service': '<Property value=None source=1>', '_runqueue_item_id': '<Property value=None source=1>', '_save_requirements': '<Property value=True source=1>', '_service_transport': '<Property value=None source=1>', '_start_datetime': '<Property value=2022-05-05 15:45:55.393385 source=11>', '_start_time': '<Property value=1651758355.393385 source=11>', '_tmp_code_dir': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154555-6k543cik\\tmp\\code source=1>', '_tracelog': '<Property value=None source=1>', '_unsaved_keys': '<Property value=None source=1>', '_windows': '<Property value=True source=1>', 'allow_val_change': '<Property value=None source=1>', 'anonymous': '<Property value=None source=1>', 'api_key': '<Property value=None source=1>', 'base_url': '<Property value=https://api.wandb.ai source=1>', 'code_dir': '<Property value=None source=1>', 'config_paths': '<Property value=None source=1>', 'console': '<Property value=auto source=1>', 'deployment': '<Property value=cloud source=1>', 'disable_code': '<Property value=None source=1>', 'disable_git': '<Property value=False source=8>', 'disabled': '<Property value=False source=1>', 'docker': '<Property value=None source=8>', 'email': '<Property value=timdb877@gmail.com source=5>', 'entity': '<Property value=timm877 source=14>', 'files_dir': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154555-6k543cik\\files source=1>', 'force': '<Property value=None source=1>', 'git_remote': '<Property value=https://github.com/Timm877/BCI_upper_limb_MI.git source=14>', 'heartbeat_seconds': '<Property value=30 source=1>', 'host': '<Property value=LAPTOP-JO6NFL4D source=14>', 'ignore_globs': '<Property value=() source=1>', 'init_timeout': '<Property value=30 source=1>', 'is_local': '<Property value=False source=1>', 'label_disable': '<Property value=None source=1>', 'launch': '<Property value=None source=1>', 'launch_config_path': '<Property value=None source=1>', 'log_dir': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154555-6k543cik\\logs source=1>', 'log_internal': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154555-6k543cik\\logs\\debug-internal.log source=1>', 'log_symlink_internal': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\debug-internal.log source=1>', 'log_symlink_user': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\debug.log source=1>', 'log_user': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154555-6k543cik\\logs\\debug.log source=1>', 'login_timeout': '<Property value=None source=1>', 'magic': '<Property value=None source=1>', 'mode': '<Property value=online source=1>', 'notebook_name': '<Property value=None source=1>', 'problem': '<Property value=fatal source=1>', 'program': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\scripts\\3_TL.py source=8>', 'program_relpath': '<Property value=scripts\\3_TL.py source=8>', 'project': '<Property value=hp-sweeps-CNN-1trialpersubject_lasttry2-X01 source=14>', 'project_url': '<Property value=https://wandb.ai/timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01 source=1>', 'quiet': '<Property value=None source=1>', 'reinit': '<Property value=None source=1>', 'relogin': '<Property value=None source=1>', 'resume': '<Property value=None source=1>', 'resume_fname': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\wandb-resume.json source=1>', 'resumed': '<Property value=False source=1>', 'root_dir': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI source=8>', 'run_group': '<Property value=None source=1>', 'run_id': '<Property value=6k543cik source=14>', 'run_job_type': '<Property value=None source=1>', 'run_mode': '<Property value=run source=1>', 'run_name': '<Property value=woven-sweep-1 source=14>', 'run_notes': '<Property value=None source=1>', 'run_tags': '<Property value=None source=1>', 'run_url': '<Property value=https://wandb.ai/timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01/runs/6k543cik source=1>', 'sagemaker_disable': '<Property value=None source=1>', 'save_code': '<Property value=None source=1>', 'settings_system': '<Property value=C:\\Users\\Tim de Boer\\.config\\wandb\\settings source=1>', 'settings_workspace': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\settings source=1>', 'show_colors': '<Property value=None source=1>', 'show_emoji': '<Property value=None source=1>', 'show_errors': '<Property value=True source=1>', 'show_info': '<Property value=True source=1>', 'show_warnings': '<Property value=True source=1>', 'silent': '<Property value=False source=1>', 'start_method': '<Property value=None source=1>', 'strict': '<Property value=None source=1>', 'summary_errors': '<Property value=None source=1>', 'summary_warnings': '<Property value=5 source=14>', 'sweep_id': '<Property value=yt7e4rkh source=14>', 'sweep_param_path': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\sweep-yt7e4rkh\\config-6k543cik.yaml source=8>', 'sweep_url': '<Property value=https://wandb.ai/timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01/sweeps/yt7e4rkh source=1>', 'symlink': '<Property value=False source=8>', 'sync_dir': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154555-6k543cik source=1>', 'sync_file': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154555-6k543cik\\run-6k543cik.wandb source=1>', 'sync_symlink_latest': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\latest-run source=1>', 'system_sample': '<Property value=15 source=1>', 'system_sample_seconds': '<Property value=2 source=1>', 'timespec': '<Property value=20220505_154555 source=1>', 'tmp_dir': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154555-6k543cik\\tmp source=1>', 'username': '<Property value=Tim de Boer source=8>', 'wandb_dir': '<Property value=C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\ source=1>', 'table_raise_on_max_row_limit_exceeded': '<Property value=False source=1>'}>, '_artifact_callback': <bound method Run._config_artifact_callback of <wandb.sdk.wandb_run.Run object at 0x000001E509160130>>}
+2022-05-05 15:46:53,148 INFO    Thread-8  :12028 [wandb_init.py:init():515] starting backend
+2022-05-05 15:46:53,148 INFO    Thread-8  :12028 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-05-05 15:46:53,161 INFO    Thread-8  :12028 [backend.py:ensure_launched():217] starting backend process...
+2022-05-05 15:46:53,256 INFO    Thread-8  :12028 [backend.py:ensure_launched():222] started backend process with pid: 524
+2022-05-05 15:46:53,257 INFO    Thread-8  :12028 [wandb_init.py:init():525] backend started and connected
+2022-05-05 15:46:53,270 INFO    Thread-8  :12028 [wandb_init.py:init():596] updated telemetry
+2022-05-05 15:46:53,318 INFO    Thread-8  :12028 [wandb_init.py:init():627] communicating run to backend with 30 second timeout
+2022-05-05 15:46:55,266 INFO    Thread-8  :12028 [wandb_run.py:_on_init():1924] communicating current version
+2022-05-05 15:46:55,493 INFO    Thread-8  :12028 [wandb_run.py:_on_init():1928] got version response 
+2022-05-05 15:46:55,493 INFO    Thread-8  :12028 [wandb_init.py:init():662] starting run threads in backend
+2022-05-05 15:47:00,495 INFO    Thread-8  :12028 [wandb_run.py:_config_callback():1136] config_cb None None {'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.2, 'epochs': 2, 'filter_sizing': 10, 'learning_rate': 0.001, 'mean_pool': 15, 'receptive_field': 50, 'seed': 42}
+2022-05-05 15:47:00,524 INFO    Thread-8  :12028 [wandb_run.py:_console_start():1898] atexit reg
+2022-05-05 15:47:00,526 INFO    Thread-8  :12028 [wandb_run.py:_redirect():1771] redirect: SettingsConsole.WRAP
+2022-05-05 15:47:00,526 INFO    Thread-8  :12028 [wandb_run.py:_redirect():1808] Wrapping output streams.
+2022-05-05 15:47:00,528 INFO    Thread-8  :12028 [wandb_run.py:_redirect():1832] Redirects installed.
+2022-05-05 15:47:00,529 INFO    Thread-8  :12028 [wandb_init.py:init():688] run started, returning control to user process
+2022-05-05 15:47:04,067 INFO    Thread-8  :12028 [wandb_watch.py:watch():47] Watching
+2022-05-05 15:47:46,001 INFO    Thread-8  :12028 [wandb_run.py:_finish():1685] finishing run timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01/6k543cik
+2022-05-05 15:47:46,001 INFO    Thread-8  :12028 [wandb_run.py:_atexit_cleanup():1867] got exitcode: 0
+2022-05-05 15:47:46,001 INFO    Thread-8  :12028 [wandb_run.py:_restore():1839] restore
+2022-05-05 15:47:46,447 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 1000
+}
+
+2022-05-05 15:47:46,830 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 1000
+}
+
+2022-05-05 15:47:47,846 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 21544
+}
+
+2022-05-05 15:47:47,962 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:48,069 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:48,188 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 17686
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:48,298 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:48,407 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:48,515 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:48,629 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:48,739 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:48,848 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:48,962 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:49,070 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:49,180 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:49,288 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:49,395 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:49,506 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:49,616 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:49,728 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:49,834 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:49,945 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:50,055 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:50,162 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:50,272 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:50,380 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:50,489 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:50,592 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:50,703 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:50,809 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:50,924 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:51,036 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:51,140 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:51,256 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:51,368 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:51,476 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:51,584 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:51,694 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:51,803 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:51,912 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:52,024 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:52,134 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:52,241 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:52,350 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:52,460 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:52,568 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:52,676 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:52,786 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:52,894 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:53,003 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:53,114 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:53,226 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:53,340 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:53,454 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:53,563 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:53,671 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:53,784 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:53,894 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:54,003 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:54,115 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:54,227 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:54,338 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:54,446 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:54,558 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:54,666 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:54,789 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:54,899 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:55,007 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:55,116 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:55,238 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:55,353 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:55,455 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:55,572 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:55,689 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:55,805 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:55,922 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:56,039 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:56,156 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:56,267 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:56,371 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:56,484 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:56,590 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:56,697 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:56,821 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:56,934 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:57,038 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:57,155 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:57,271 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:57,388 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:57,504 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:57,616 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:57,720 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:57,829 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:57,953 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:58,070 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:58,182 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:58,293 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:58,403 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:58,513 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:58,622 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:58,730 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:58,840 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:58,951 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:59,062 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:59,172 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21544
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:59,282 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21893
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:59,392 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21893
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:59,502 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21893
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:59,613 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21893
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:59,737 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21893
+  total_bytes: 21893
+}
+
+2022-05-05 15:47:59,956 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21893
+  total_bytes: 21893
+}
+
+2022-05-05 15:48:00,561 INFO    Thread-8  :12028 [wandb_run.py:_on_finish():1996] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 21893
+  total_bytes: 21893
+}
+local_info {
+}
+
+2022-05-05 15:48:02,594 INFO    Thread-8  :12028 [wandb_run.py:_footer_history_summary_info():3104] rendering history
+2022-05-05 15:48:02,595 INFO    Thread-8  :12028 [wandb_run.py:_footer_history_summary_info():3136] rendering summary
+2022-05-05 15:48:02,612 INFO    Thread-8  :12028 [wandb_run.py:_footer_sync_info():3060] logging synced files

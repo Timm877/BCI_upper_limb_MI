@@ -101,7 +101,66 @@ class Inception(nn.Module):
         out = out3.view(out3.size(0), -1)
         prediction = self.fc(out)
         return prediction
+        
+class EEGNET(nn.Module):
+    def __init__(self, receptive_field, filter_sizing, mean_pool, activation_type, dropout):
+        super(EEGNET,self).__init__()
+        sample_duration = 500
+        channel_amount = 8
+        num_classes = 3
+        if activation_type == 'relu':
+            self.temporal=nn.Sequential(
+                nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, padding=0), 
+                nn.BatchNorm2d(filter_sizing),
+            )
+            self.spatial=nn.Sequential(
+                nn.Conv2d(filter_sizing,filter_sizing,kernel_size=[channel_amount,1],padding=0),
+                nn.BatchNorm2d(filter_sizing),
+                nn.ReLU(),
+            )
+            self.seperable=nn.Sequential(
+                nn.Conv2d(filter_sizing*2,filter_sizing*2,kernel_size=[1,16],padding=0),
+                nn.BatchNorm2d(filter_sizing),
+                nn.ReLU(),
+            )
+        else:
+            self.temporal=nn.Sequential(
+                nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, bias=False,\
+                    padding=(0, receptive_field//2)), 
+                nn.BatchNorm2d(filter_sizing),
+            )
+            self.spatial=nn.Sequential(
+                nn.Conv2d(filter_sizing,filter_sizing*2,kernel_size=[channel_amount,1],bias=False,\
+                    groups=filter_sizing, max_norm=1),
+                nn.BatchNorm2d(filter_sizing*2),
+                nn.ELU(True),
+            )
+            self.seperable=nn.Sequential(
+                nn.Conv2d(filter_sizing*2,filter_sizing*2,kernel_size=[1,16],\
+                    padding=(0, 8),groups=filter_sizing*2, bias=False),
+                nn.Conv2d(filter_sizing*2,filter_sizing*2,kernel_size=[1,16], groups=1, bias=False),
+                nn.BatchNorm2d(filter_sizing),
+                nn.ELU(True),
+            )
+        self.avgpool1 = nn.AvgPool2d([1, 4], stride=[1, 4], padding=0)   
+        self.avgpool2 = nn.AvgPool2d([1, 8], stride=[1, 8], padding=0)
+        self.dropout = nn.Dropout(dropout)
+        self.view = nn.Sequential(Flatten())
 
+        endsize = filter_sizing*((sample_duration-receptive_field+1)//mean_pool)
+        self.fc2= nn.Linear(endsize, num_classes)
+
+    def forward(self,x):
+        out = self.temporal(x)
+        out = self.spatial(out)
+        out = self.avgpool1(out)
+        out = self.dropout(out)
+        out = self.seperable(out)
+        out = self.avgpool2(out)
+        out = self.dropout(out)
+        out = out.view(out.size(0), -1)
+        prediction = self.fc2(out)
+        return prediction
 class CNN(nn.Module):
     def __init__(self, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool, num_classes):
         super(CNN,self).__init__()
@@ -162,7 +221,7 @@ mean_pool, num_classes, pipeline_type):
     validation_recall_iters = []
     validation_roc_auc_iters = []
 
-    print(f'To get stable results we run DL network from scratch 3 times.')
+    print(f'To get a bit more stable results we run DL network from scratch 3 times.')
     for iteration in range(1):
         print(f'Running iteration {iteration+1}...')
 

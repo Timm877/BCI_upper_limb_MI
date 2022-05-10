@@ -1,0 +1,2 @@
+
+{'method': 'random', 'metric': {'name': 'val/val_loss', 'goal': 'minimize'}, 'parameters': {'batch_size': {'values': [32, 64, 128]}, 'activation_type': {'values': ['relu', 'elu']}, 'dropout': {'values': [0.1, 0.2, 0.3]}, 'mean_pools': {'values': [15, 25, 50]}, 'filter_sizings': {'values': [10, 20, 30, 40]}, 'receptive_fields': {'values': [75, 50, 25]}, 'learning_rate': {'values': [0.0001, 0.001, 0.005, 0.01]}, 'epochs': {'value': 3}}}

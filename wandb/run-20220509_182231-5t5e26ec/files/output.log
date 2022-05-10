@@ -1,0 +1,51 @@
+{'D': 3, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.25, 'epochs': 40, 'filter_sizing': 32, 'learning_rate': 0.01, 'mean_pool': 8, 'network': 'EEGNET', 'receptive_field': 64, 'seed': 42, 'val_subjects': ['X05', 'X06']}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X01_deep.pkl...
+Current length of X train: 780.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X02_deep.pkl...
+Current length of X train: 1556.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X03_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X04_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X05_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 780.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X06_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X07_deep.pkl...
+Current length of X train: 3886.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X08_deep.pkl...
+Current length of X train: 4666.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X09_deep.pkl...
+Current length of X train: 5446.
+Current length of X val: 1560.
+trainable parameters: 18339
+acc: 0.4288461538461538, f1: 0.4127157528731827
+acc: 0.6275641025641026, f1: 0.6121152000759923
+acc: 0.583974358974359, f1: 0.554726382064245
+INFO: Early stopping counter 1 of 7
+acc: 0.6198717948717949, f1: 0.5885172050703668
+INFO: Early stopping counter 2 of 7
+acc: 0.610897435897436, f1: 0.5882192212831733
+acc: 0.5948717948717949, f1: 0.5685108400542492
+INFO: Early stopping counter 1 of 7
+acc: 0.6057692307692307, f1: 0.5941189090494803
+INFO: Early stopping counter 2 of 7
+acc: 0.617948717948718, f1: 0.602158106762687
+INFO: Early stopping counter 3 of 7
+acc: 0.6, f1: 0.5752525236906895
+INFO: Early stopping counter 4 of 7
+acc: 0.6012820512820513, f1: 0.5791694499717348
+INFO: Early stopping counter 5 of 7
+acc: 0.5884615384615385, f1: 0.566147534593414
+INFO: Early stopping counter 6 of 7
+acc: 0.5807692307692308, f1: 0.5455734017794248
+INFO: Early stopping counter 7 of 7
+INFO: Early stopping

@@ -1,0 +1,28 @@
+wandb_version: 1
+
+D:
+  value: 4
+activation_type:
+  value: elu
+batch_size:
+  value: 256
+dropout:
+  value: 0.4
+epochs:
+  value: 30
+filter_sizing:
+  value: 32
+learning_rate:
+  value: 0.001
+mean_pool:
+  value: 8
+network:
+  value: EEGNET
+receptive_field:
+  value: 64
+seed:
+  value: 42
+val_subjects:
+  value:
+  - X04
+  - X06

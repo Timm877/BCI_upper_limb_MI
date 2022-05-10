@@ -1,0 +1,54 @@
+{'activation_type': 'relu', 'batch_size': 256, 'dropout': 0.3, 'epochs': 25, 'filter_sizing': 30, 'learning_rate': 0.01, 'mean_pool': 50, 'receptive_field': 75, 'seed': 42}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X01_deep.pkl...
+Current length of X train: 702.
+Current length of X val: 78.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X02_deep.pkl...
+Current length of X train: 1400.
+Current length of X val: 156.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X03_deep.pkl...
+Current length of X train: 2095.
+Current length of X val: 234.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X04_deep.pkl...
+Current length of X train: 2796.
+Current length of X val: 312.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X05_deep.pkl...
+Current length of X train: 3498.
+Current length of X val: 390.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X06_deep.pkl...
+Current length of X train: 4200.
+Current length of X val: 468.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X07_deep.pkl...
+Current length of X train: 4900.
+Current length of X val: 546.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X08_deep.pkl...
+Current length of X train: 5602.
+Current length of X val: 624.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X09_deep.pkl...
+Current length of X train: 6304.
+Current length of X val: 702.
+acc: 0.5028490028490028, f1: 0.4974976715944874
+acc: 0.5213675213675214, f1: 0.5120693528693354
+acc: 0.5726495726495726, f1: 0.5691757488513066
+acc: 0.5769230769230769, f1: 0.5766689988186474
+acc: 0.5883190883190883, f1: 0.5894836993798993
+acc: 0.5982905982905983, f1: 0.5979681661231694
+acc: 0.5797720797720798, f1: 0.5770191707580986
+acc: 0.5797720797720798, f1: 0.5793700066420285
+acc: 0.6082621082621082, f1: 0.6038668384374871
+acc: 0.5868945868945868, f1: 0.5892243235977136
+acc: 0.5712250712250713, f1: 0.5717395914746132
+acc: 0.5925925925925926, f1: 0.5919512881088798
+acc: 0.5968660968660968, f1: 0.592836770700441
+acc: 0.5925925925925926, f1: 0.5922709422260347
+acc: 0.6011396011396012, f1: 0.6030522099896047
+acc: 0.5826210826210826, f1: 0.5813585823504384
+acc: 0.584045584045584, f1: 0.5807888248343961
+acc: 0.5968660968660968, f1: 0.5880446354090262
+acc: 0.6196581196581197, f1: 0.6228904779990807
+wandb: Network error (ConnectionError), entering retry loop.
+acc: 0.5954415954415955, f1: 0.5955297377665209
+acc: 0.6096866096866097, f1: 0.6074155252595522
+acc: 0.5726495726495726, f1: 0.5637858559275944
+acc: 0.5911680911680912, f1: 0.5923591007752206
+acc: 0.5954415954415955, f1: 0.588565592440116
+acc: 0.5982905982905983, f1: 0.600190228863762

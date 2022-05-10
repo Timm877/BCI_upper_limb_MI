@@ -1,0 +1,209 @@
+2022-05-05 16:40:56,968 INFO    Thread-30 :14504 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Tim de Boer\.config\wandb\settings
+2022-05-05 16:40:56,968 INFO    Thread-30 :14504 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-05-05 16:40:56,968 INFO    Thread-30 :14504 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'hp-sweeps-CNN-1trialpersubject_fullrun', 'entity': 'timm877', 'root_dir': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI', 'run_id': '5ujwvci9', 'sweep_param_path': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\sweep-t0tmnu8n\\config-5ujwvci9.yaml', 'sweep_id': 't0tmnu8n'}
+2022-05-05 16:40:56,969 INFO    Thread-30 :14504 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'scripts\\3_TL.py', 'program': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\scripts\\3_TL.py'}
+2022-05-05 16:40:56,969 INFO    Thread-30 :14504 [wandb_init.py:_log_setup():428] Logging user logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_164056-5ujwvci9\logs\debug.log
+2022-05-05 16:40:56,969 INFO    Thread-30 :14504 [wandb_init.py:_log_setup():429] Logging internal logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220505_164056-5ujwvci9\logs\debug-internal.log
+2022-05-05 16:40:56,969 INFO    Thread-30 :14504 [wandb_init.py:init():462] calling init triggers
+2022-05-05 16:40:56,969 INFO    Thread-30 :14504 [wandb_init.py:init():465] wandb.init called with sweep_config: {'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.1, 'epochs': 25, 'filter_sizing': 40, 'learning_rate': 0.005, 'mean_pool': 25, 'receptive_field': 50, 'seed': 42}
+config: {}
+2022-05-05 16:40:56,969 INFO    Thread-30 :14504 [wandb_init.py:init():515] starting backend
+2022-05-05 16:40:56,969 INFO    Thread-30 :14504 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-05-05 16:40:56,969 INFO    Thread-30 :14504 [backend.py:ensure_launched():217] starting backend process...
+2022-05-05 16:40:57,176 INFO    Thread-30 :14504 [backend.py:ensure_launched():222] started backend process with pid: 10480
+2022-05-05 16:40:57,177 INFO    Thread-30 :14504 [wandb_init.py:init():525] backend started and connected
+2022-05-05 16:40:57,187 INFO    Thread-30 :14504 [wandb_init.py:init():596] updated telemetry
+2022-05-05 16:40:57,255 INFO    Thread-30 :14504 [wandb_init.py:init():627] communicating run to backend with 30 second timeout
+2022-05-05 16:41:00,266 INFO    Thread-30 :14504 [wandb_run.py:_on_init():1924] communicating current version
+2022-05-05 16:41:00,505 INFO    Thread-30 :14504 [wandb_run.py:_on_init():1928] got version response 
+2022-05-05 16:41:00,505 INFO    Thread-30 :14504 [wandb_init.py:init():662] starting run threads in backend
+2022-05-05 16:41:05,511 INFO    Thread-30 :14504 [wandb_run.py:_config_callback():1136] config_cb None None {'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.1, 'epochs': 25, 'filter_sizing': 40, 'learning_rate': 0.005, 'mean_pool': 25, 'receptive_field': 50, 'seed': 42}
+2022-05-05 16:41:05,542 INFO    Thread-30 :14504 [wandb_run.py:_console_start():1898] atexit reg
+2022-05-05 16:41:05,544 INFO    Thread-30 :14504 [wandb_run.py:_redirect():1771] redirect: SettingsConsole.WRAP
+2022-05-05 16:41:05,544 INFO    Thread-30 :14504 [wandb_run.py:_redirect():1808] Wrapping output streams.
+2022-05-05 16:41:05,547 INFO    Thread-30 :14504 [wandb_run.py:_redirect():1832] Redirects installed.
+2022-05-05 16:41:05,547 INFO    Thread-30 :14504 [wandb_init.py:init():688] run started, returning control to user process
+2022-05-05 16:41:08,931 INFO    Thread-30 :14504 [wandb_watch.py:watch():47] Watching
+2022-05-05 16:42:53,877 ERROR   Thread-7  :14504 [retry.py:__call__():126] Retry attempt failed:
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connection.py", line 158, in _new_conn
+    conn = connection.create_connection(
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\util\connection.py", line 57, in create_connection
+    for res in socket.getaddrinfo(host, port, family, socket.SOCK_STREAM):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\socket.py", line 954, in getaddrinfo
+    for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+socket.gaierror: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connectionpool.py", line 597, in urlopen
+    httplib_response = self._make_request(conn, method, url,
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connectionpool.py", line 343, in _make_request
+    self._validate_conn(conn)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connectionpool.py", line 839, in _validate_conn
+    conn.connect()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connection.py", line 301, in connect
+    conn = self._new_conn()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connection.py", line 167, in _new_conn
+    raise NewConnectionError(
+urllib3.exceptions.NewConnectionError: <urllib3.connection.VerifiedHTTPSConnection object at 0x000001507B526DF0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\adapters.py", line 439, in send
+    resp = conn.urlopen(
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\connectionpool.py", line 637, in urlopen
+    retries = retries.increment(method, url, error=e, _pool=self,
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\urllib3\util\retry.py", line 399, in increment
+    raise MaxRetryError(_pool, url, error or ResponseError(cause))
+urllib3.exceptions.MaxRetryError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x000001507B526DF0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\lib\retry.py", line 102, in __call__
+    result = self._call_fn(*args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\internal\internal_api.py", line 140, in execute
+    return self.client.execute(*args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 52, in execute
+    result = self._get_result(document, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\client.py", line 60, in _get_result
+    return self.transport.execute(document, *args, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\vendor\gql-0.2.0\wandb_gql\transport\requests.py", line 38, in execute
+    request = requests.post(self.url, **post_args)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\api.py", line 116, in post
+    return request('post', url, data=data, json=json, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\api.py", line 60, in request
+    return session.request(method=method, url=url, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\sessions.py", line 533, in request
+    resp = self.send(prep, **send_kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\sessions.py", line 646, in send
+    r = adapter.send(request, **kwargs)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\requests\adapters.py", line 516, in send
+    raise ConnectionError(e, request=request)
+requests.exceptions.ConnectionError: HTTPSConnectionPool(host='api.wandb.ai', port=443): Max retries exceeded with url: /graphql (Caused by NewConnectionError('<urllib3.connection.VerifiedHTTPSConnection object at 0x000001507B526DF0>: Failed to establish a new connection: [Errno 11001] getaddrinfo failed'))
+2022-05-05 17:08:28,262 INFO    Thread-30 :14504 [wandb_run.py:_finish():1685] finishing run timm877/hp-sweeps-CNN-1trialpersubject_fullrun/5ujwvci9
+2022-05-05 17:08:28,262 INFO    Thread-30 :14504 [wandb_run.py:_atexit_cleanup():1867] got exitcode: 0
+2022-05-05 17:08:28,264 INFO    Thread-30 :14504 [wandb_run.py:_restore():1839] restore
+2022-05-05 17:08:29,215 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 1000
+}
+
+2022-05-05 17:08:29,330 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 1000
+}
+
+2022-05-05 17:08:29,657 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 1
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 1000
+}
+
+2022-05-05 17:08:30,114 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 5
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 8951
+}
+
+2022-05-05 17:08:30,248 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 28078
+}
+
+2022-05-05 17:08:30,364 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 1000
+  total_bytes: 28078
+}
+
+2022-05-05 17:08:30,481 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 8143
+  total_bytes: 28078
+}
+
+2022-05-05 17:08:30,598 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 28078
+  total_bytes: 28078
+}
+
+2022-05-05 17:08:30,713 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 28078
+  total_bytes: 28078
+}
+
+2022-05-05 17:08:30,831 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 28078
+  total_bytes: 28078
+}
+
+2022-05-05 17:08:30,947 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 28078
+  total_bytes: 28078
+}
+
+2022-05-05 17:08:31,063 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 28078
+  total_bytes: 28078
+}
+
+2022-05-05 17:08:31,914 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 28078
+  total_bytes: 28078
+}
+
+2022-05-05 17:08:32,447 INFO    Thread-30 :14504 [wandb_run.py:_on_finish():1996] got exit ret: done: true
+exit_result {
+}
+file_counts {
+  wandb_count: 6
+}
+pusher_stats {
+  uploaded_bytes: 28078
+  total_bytes: 28078
+}
+local_info {
+}
+
+2022-05-05 17:08:34,112 INFO    Thread-30 :14504 [wandb_run.py:_footer_history_summary_info():3104] rendering history
+2022-05-05 17:08:34,113 INFO    Thread-30 :14504 [wandb_run.py:_footer_history_summary_info():3136] rendering summary
+2022-05-05 17:08:34,126 INFO    Thread-30 :14504 [wandb_run.py:_footer_sync_info():3060] logging synced files

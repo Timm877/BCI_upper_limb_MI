@@ -3,3 +3,5 @@ bin
 data
 results
 outliers
+pretrain_models
+wandb

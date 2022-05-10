@@ -1,0 +1,59 @@
+{'D': 3, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.25, 'epochs': 30, 'filter_sizing': 32, 'learning_rate': 0.005, 'mean_pool': 8, 'network': 'EEGNET', 'receptive_field': 64, 'seed': 42, 'val_subjects': ['X04', 'X06']}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X01_deep.pkl...
+Current length of X train: 780.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X02_deep.pkl...
+Current length of X train: 1556.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X03_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X04_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 779.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X05_deep.pkl...
+Current length of X train: 3109.
+Current length of X val: 779.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X06_deep.pkl...
+Current length of X train: 3109.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X07_deep.pkl...
+Current length of X train: 3887.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X08_deep.pkl...
+Current length of X train: 4667.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X09_deep.pkl...
+Current length of X train: 5447.
+Current length of X val: 1559.
+trainable parameters: 156003
+acc: 0.4740218088518281, f1: 0.4681565786004495
+acc: 0.4996792815907633, f1: 0.47605331402584905
+acc: 0.5189223861449648, f1: 0.524704529203108
+acc: 0.50096215522771, f1: 0.5060656677598033
+acc: 0.4541372674791533, f1: 0.44435743142203415
+acc: 0.5003207184092366, f1: 0.488895951867207
+acc: 0.4830019243104554, f1: 0.4882115968586352
+acc: 0.5253367543296985, f1: 0.5383761258634182
+acc: 0.5105837075048107, f1: 0.4835728948412475
+acc: 0.4900577293136626, f1: 0.4840756917636827
+acc: 0.4919820397690827, f1: 0.48225723378200164
+acc: 0.482360487491982, f1: 0.4689898929457271
+acc: 0.4900577293136626, f1: 0.5073797322455472
+acc: 0.4708146247594612, f1: 0.4471864216742328
+acc: 0.5048107761385503, f1: 0.49354977869104505
+acc: 0.482360487491982, f1: 0.48132948404493126
+acc: 0.4650416933932008, f1: 0.47036172642620705
+acc: 0.4810776138550353, f1: 0.4696509841421898
+acc: 0.4810776138550353, f1: 0.4822397791786575
+acc: 0.4842847979474022, f1: 0.5002652187629342
+acc: 0.463758819756254, f1: 0.4742602215574453
+acc: 0.45862732520846694, f1: 0.45706317165966187
+acc: 0.46183450930083386, f1: 0.44590928763406007
+acc: 0.4541372674791533, f1: 0.42985286739778467
+acc: 0.4406670942912123, f1: 0.4554284436747817
+acc: 0.46119307248236047, f1: 0.44561688446914693
+acc: 0.4496472097498396, f1: 0.42599562848533273
+acc: 0.463758819756254, f1: 0.4382840578530632
+acc: 0.47145606157793457, f1: 0.46898914057229485
+acc: 0.4605516356638871, f1: 0.47735076748335264

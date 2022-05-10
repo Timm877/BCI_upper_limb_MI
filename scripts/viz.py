@@ -12,12 +12,12 @@ sampling_frequency = 250
 # testing here for 8 electrodes:
 electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
 n_electrodes = len(electrode_names)
-folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/X07')
-result_path = Path(f'./results/intermediate_datafiles/openloop/X07')
+folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/X02_RG_more')
+result_path = Path(f'./results/intermediate_datafiles/openloop/X02')
 result_path.mkdir(exist_ok=True, parents=True)
 
 for instance in os.scandir(folder_path):
-    if 'riemann' in instance.path: 
+    if 'riemann' in instance.path and '500' in instance.path: 
         print(f'Running for {instance.path}...')
         a_file = open(instance.path, "rb")
         data_dict = pickle.load(a_file)

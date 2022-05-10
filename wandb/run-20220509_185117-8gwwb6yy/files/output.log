@@ -1,0 +1,53 @@
+{'D': 2, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.25, 'epochs': 40, 'filter_sizing': 8, 'learning_rate': 0.01, 'mean_pool': 8, 'network': 'EEGNET', 'receptive_field': 64, 'seed': 42, 'val_subjects': ['X05', 'X06']}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X01_deep.pkl...
+Current length of X train: 780.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X02_deep.pkl...
+Current length of X train: 1556.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X03_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X04_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X05_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 780.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X06_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X07_deep.pkl...
+Current length of X train: 3886.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X08_deep.pkl...
+Current length of X train: 4666.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X09_deep.pkl...
+Current length of X train: 5446.
+Current length of X val: 1560.
+trainable parameters: 1955
+acc: 0.3782051282051282, f1: 0.3875150374562725
+acc: 0.6173076923076923, f1: 0.5948609172877876
+acc: 0.5826923076923077, f1: 0.5531187146243688
+INFO: Early stopping counter 1 of 7
+acc: 0.591025641025641, f1: 0.5620250453051373
+INFO: Early stopping counter 2 of 7
+acc: 0.5717948717948718, f1: 0.5858516161296954
+acc: 0.5846153846153846, f1: 0.5804366571230432
+acc: 0.5846153846153846, f1: 0.5773739424714733
+acc: 0.5884615384615385, f1: 0.5708712395579222
+INFO: Early stopping counter 1 of 7
+acc: 0.591025641025641, f1: 0.5918912892068359
+INFO: Early stopping counter 2 of 7
+acc: 0.5955128205128205, f1: 0.5863187994033507
+INFO: Early stopping counter 3 of 7
+acc: 0.5833333333333334, f1: 0.5268252245526772
+INFO: Early stopping counter 4 of 7
+acc: 0.5826923076923077, f1: 0.5580027306780341
+INFO: Early stopping counter 5 of 7
+acc: 0.5461538461538461, f1: 0.5266249902348848
+INFO: Early stopping counter 6 of 7
+acc: 0.5717948717948718, f1: 0.5586199120924186
+INFO: Early stopping counter 7 of 7
+INFO: Early stopping

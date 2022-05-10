@@ -1,0 +1,57 @@
+{'D': 2, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.25, 'epochs': 30, 'filter_sizing': 16, 'learning_rate': 0.001, 'mean_pool': 8, 'network': 'EEGNET', 'receptive_field': 64, 'seed': 42, 'val_subjects': ['X04', 'X06']}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz_normalized\X01_deep.pkl...
+Current length of X train: 780.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz_normalized\X02_deep.pkl...
+Current length of X train: 1556.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz_normalized\X03_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz_normalized\X04_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 779.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz_normalized\X05_deep.pkl...
+Current length of X train: 3109.
+Current length of X val: 779.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz_normalized\X06_deep.pkl...
+Current length of X train: 3109.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz_normalized\X07_deep.pkl...
+Current length of X train: 3887.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz_normalized\X08_deep.pkl...
+Current length of X train: 4667.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz_normalized\X09_deep.pkl...
+Current length of X train: 5447.
+Current length of X val: 1559.
+C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py:442: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at  ..\aten\src\ATen\native\Convolution.cpp:647.)
+  return F.conv2d(input, weight, bias, self.stride,
+trainable parameters: 4419
+acc: 0.3553559974342527, f1: 0.35211037740320067
+acc: 0.372674791533034, f1: 0.38022554385335133
+acc: 0.41949967928159076, f1: 0.43621506254142817
+acc: 0.4483643361128929, f1: 0.4309775786083127
+acc: 0.4470814624759461, f1: 0.42734356880686636
+acc: 0.4836433611289288, f1: 0.4809977442451971
+acc: 0.47979474021808854, f1: 0.495011067535038
+acc: 0.5060936497754971, f1: 0.5287408216282096
+acc: 0.5003207184092366, f1: 0.5047478060095272
+acc: 0.5099422706863374, f1: 0.5086471513705583
+acc: 0.4900577293136626, f1: 0.5053846308648727
+acc: 0.4990378447722899, f1: 0.48716688905939487
+acc: 0.4842847979474022, f1: 0.479183613295098
+acc: 0.49583066067992304, f1: 0.5140541136664357
+acc: 0.5285439384220654, f1: 0.5191257103158966
+acc: 0.5086593970493907, f1: 0.5192893248559548
+acc: 0.504169339320077, f1: 0.5170541098207695
+acc: 0.4971135343168698, f1: 0.4716849110974053
+acc: 0.5202052597819115, f1: 0.5308484385429869
+acc: 0.490699166132136, f1: 0.5031253174390243
+acc: 0.49775497113534317, f1: 0.48982193266851887
+acc: 0.5125080179602309, f1: 0.5277822294483419
+acc: 0.5131494547787043, f1: 0.5147046759781861
+acc: 0.4990378447722899, f1: 0.4954552991446734
+acc: 0.5086593970493907, f1: 0.5024814598949926
+acc: 0.5137908915971777, f1: 0.4874928856246644

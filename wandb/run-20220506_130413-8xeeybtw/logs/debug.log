@@ -1,0 +1,41 @@
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [wandb_setup.py:_flush():76] Loading settings from C:\Users\Tim de Boer\.config\wandb\settings
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [wandb_setup.py:_flush():76] Loading settings from wandb\settings
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [wandb_setup.py:_flush():76] Loading settings from environment variables: {'project': 'hp-sweeps-eegnet-1trialpersubject_fullrun_subject5', 'entity': 'timm877', 'root_dir': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI', 'run_id': '8xeeybtw', 'sweep_param_path': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\sweep-797mvs8g\\config-8xeeybtw.yaml', 'sweep_id': '797mvs8g'}
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [wandb_setup.py:_flush():76] Inferring run settings from compute environment: {'program_relpath': 'scripts\\3_TL.py', 'program': 'C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\scripts\\3_TL.py'}
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [wandb_init.py:_log_setup():428] Logging user logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220506_130413-8xeeybtw\logs\debug.log
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [wandb_init.py:_log_setup():429] Logging internal logs to C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220506_130413-8xeeybtw\logs\debug-internal.log
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [wandb_init.py:init():462] calling init triggers
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [wandb_init.py:init():465] wandb.init called with sweep_config: {'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.2, 'epochs': 25, 'filter_sizing': 8, 'learning_rate': 0.005, 'mean_pool': 15, 'receptive_field': 64, 'seed': 42}
+config: {}
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [wandb_init.py:init():515] starting backend
+2022-05-06 13:04:13,417 INFO    Thread-19 :14584 [backend.py:_multiprocessing_setup():97] multiprocessing start_methods=spawn, using: spawn
+2022-05-06 13:04:13,435 INFO    Thread-19 :14584 [backend.py:ensure_launched():217] starting backend process...
+2022-05-06 13:04:13,618 INFO    Thread-19 :14584 [backend.py:ensure_launched():222] started backend process with pid: 6704
+2022-05-06 13:04:13,618 INFO    Thread-19 :14584 [wandb_init.py:init():525] backend started and connected
+2022-05-06 13:04:13,634 INFO    Thread-19 :14584 [wandb_init.py:init():596] updated telemetry
+2022-05-06 13:04:13,712 INFO    Thread-19 :14584 [wandb_init.py:init():627] communicating run to backend with 30 second timeout
+2022-05-06 13:04:43,726 INFO    Thread-19 :14584 [interface_shared.py:_communicate_run():326] couldn't get run from backend
+2022-05-06 13:04:43,726 ERROR   Thread-19 :14584 [wandb_init.py:init():636] backend process timed out
+2022-05-06 13:04:43,726 ERROR   Thread-19 :14584 [wandb_init.py:init():647] encountered error: Error communicating with wandb process
+try: wandb.init(settings=wandb.Settings(start_method='fork'))
+or:  wandb.init(settings=wandb.Settings(start_method='thread'))
+For more info see: https://docs.wandb.ai/library/init#init-start-error
+2022-05-06 13:04:43,752 ERROR   Thread-19 :14584 [wandb_init.py:init():1026] error
+Traceback (most recent call last):
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_init.py", line 999, in init
+    run = wi.init()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\wandb_init.py", line 651, in init
+    backend.cleanup()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\backend\backend.py", line 246, in cleanup
+    self.interface.join()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 475, in join
+    super().join()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface.py", line 666, in join
+    _ = self._communicate_shutdown()
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 472, in _communicate_shutdown
+    _ = self._communicate(record)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 226, in _communicate
+    return self._communicate_async(rec, local=local).get(timeout=timeout)
+  File "C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\wandb\sdk\interface\interface_shared.py", line 231, in _communicate_async
+    raise Exception("The wandb backend process has shutdown")
+Exception: The wandb backend process has shutdown

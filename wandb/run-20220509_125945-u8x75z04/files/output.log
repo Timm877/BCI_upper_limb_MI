@@ -1,0 +1,59 @@
+{'D': 3, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.1, 'epochs': 40, 'filter_sizing': 8, 'learning_rate': 0.005, 'mean_pool': 8, 'network': 'EEGNET', 'receptive_field': 64, 'seed': 42, 'val_subjects': ['X05', 'X06']}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X01_deep.pkl...
+Current length of X train: 780.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X02_deep.pkl...
+Current length of X train: 1556.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X03_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X04_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X05_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 780.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X06_deep.pkl...
+Current length of X train: 3108.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X07_deep.pkl...
+Current length of X train: 3886.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X08_deep.pkl...
+Current length of X train: 4666.
+Current length of X val: 1560.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_1_100Hz\X09_deep.pkl...
+Current length of X train: 5446.
+Current length of X val: 1560.
+C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py:442: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at  ..\aten\src\ATen\native\Convolution.cpp:647.)
+  return F.conv2d(input, weight, bias, self.stride,
+trainable parameters: 2859
+acc: 0.4128205128205128, f1: 0.40211481512231634
+acc: 0.5923076923076923, f1: 0.5768984251983378
+acc: 0.6346153846153846, f1: 0.6218063250751225
+acc: 0.6378205128205128, f1: 0.638170723934266
+acc: 0.625, f1: 0.6362716683111229
+INFO: Early stopping counter 1 of 7
+acc: 0.6371794871794871, f1: 0.6372706246503189
+INFO: Early stopping counter 2 of 7
+acc: 0.6185897435897436, f1: 0.6068073699553608
+INFO: Early stopping counter 3 of 7
+acc: 0.6288461538461538, f1: 0.622126259058999
+INFO: Early stopping counter 4 of 7
+acc: 0.6397435897435897, f1: 0.6436012538600488
+acc: 0.6141025641025641, f1: 0.5773412464054845
+INFO: Early stopping counter 1 of 7
+acc: 0.632051282051282, f1: 0.625566949976438
+INFO: Early stopping counter 2 of 7
+acc: 0.6217948717948718, f1: 0.6299693331098065
+INFO: Early stopping counter 3 of 7
+acc: 0.6243589743589744, f1: 0.6219153313654614
+INFO: Early stopping counter 4 of 7
+acc: 0.6192307692307693, f1: 0.607650904380247
+INFO: Early stopping counter 5 of 7
+acc: 0.6096153846153847, f1: 0.5879125813943238
+INFO: Early stopping counter 6 of 7
+acc: 0.6205128205128205, f1: 0.6226873879700356
+INFO: Early stopping counter 7 of 7
+INFO: Early stopping

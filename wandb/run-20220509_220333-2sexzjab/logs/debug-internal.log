@@ -1,0 +1,1031 @@
+2022-05-09 22:03:35,114 INFO    MainThread:2888 [internal.py:wandb_internal():90] W&B internal server running at pid: 2888, started at: 2022-05-09 22:03:35.114950
+2022-05-09 22:03:35,114 INFO    WriterThread:2888 [datastore.py:open_for_write():75] open: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\run-2sexzjab.wandb
+2022-05-09 22:03:35,114 DEBUG   SenderThread:2888 [sender.py:send():232] send: header
+2022-05-09 22:03:35,114 DEBUG   SenderThread:2888 [sender.py:send():232] send: run
+2022-05-09 22:03:35,415 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: check_version
+2022-05-09 22:03:35,415 INFO    SenderThread:2888 [dir_watcher.py:__init__():197] watching files in: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files
+2022-05-09 22:03:35,415 INFO    SenderThread:2888 [sender.py:_start_run_threads():811] run started: 2sexzjab with start time 1652126613
+2022-05-09 22:03:35,415 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:35,415 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:35,415 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: check_version
+2022-05-09 22:03:35,542 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: run_start
+2022-05-09 22:03:36,431 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:39,982 DEBUG   HandlerThread:2888 [meta.py:__init__():35] meta init
+2022-05-09 22:03:39,983 DEBUG   HandlerThread:2888 [meta.py:__init__():49] meta init done
+2022-05-09 22:03:39,983 DEBUG   HandlerThread:2888 [meta.py:probe():209] probe
+2022-05-09 22:03:40,273 DEBUG   HandlerThread:2888 [meta.py:_setup_git():199] setup git
+2022-05-09 22:03:40,367 DEBUG   HandlerThread:2888 [meta.py:_setup_git():206] setup git done
+2022-05-09 22:03:40,367 DEBUG   HandlerThread:2888 [meta.py:_save_pip():53] save pip
+2022-05-09 22:03:40,367 DEBUG   HandlerThread:2888 [meta.py:_save_pip():67] save pip done
+2022-05-09 22:03:40,367 DEBUG   HandlerThread:2888 [meta.py:_save_conda():74] save conda
+2022-05-09 22:03:40,448 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\conda-environment.yaml
+2022-05-09 22:03:40,448 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\requirements.txt
+2022-05-09 22:03:41,451 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:03:43,467 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:03:45,488 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:03:46,279 DEBUG   HandlerThread:2888 [meta.py:_save_conda():84] save conda done
+2022-05-09 22:03:46,279 DEBUG   HandlerThread:2888 [meta.py:probe():247] probe done
+2022-05-09 22:03:46,279 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-09 22:03:46,279 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: stop_status
+2022-05-09 22:03:46,299 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:46,302 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:46,303 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:46,305 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:46,306 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:46,494 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\conda-environment.yaml
+2022-05-09 22:03:46,494 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_created():244] file/dir created: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-metadata.json
+2022-05-09 22:03:46,557 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:46,713 DEBUG   SenderThread:2888 [sender.py:send():232] send: telemetry
+2022-05-09 22:03:46,713 DEBUG   SenderThread:2888 [sender.py:send():232] send: telemetry
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:46,729 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:46,729 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:46,729 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:46,729 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:46,729 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:46,729 DEBUG   SenderThread:2888 [sender.py:send():232] send: files
+2022-05-09 22:03:46,729 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-metadata.json with policy now
+2022-05-09 22:03:46,744 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:46,744 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:46,744 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:47,034 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:47,034 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:47,034 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:47,034 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:47,435 INFO    Thread-17 :2888 [upload_job.py:push():132] Uploaded file C:\Users\TIMDEB~1\AppData\Local\Temp\tmp4k__n1wfwandb\v0cdstar-wandb-metadata.json
+2022-05-09 22:03:47,456 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:47,456 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:47,456 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:47,456 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:47,503 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:47,956 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:47,957 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:47,957 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:47,958 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:48,482 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:48,497 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:48,497 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:48,497 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:48,513 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:49,061 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:49,061 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:49,061 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:49,077 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:49,528 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:49,609 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:49,609 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:49,609 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:49,609 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:50,157 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:50,157 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:50,157 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:50,157 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:50,530 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:50,705 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:50,705 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:50,705 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:50,705 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:51,236 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:51,236 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:51,236 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:51,236 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:51,536 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:51,863 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:51,863 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:51,863 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:51,863 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:52,489 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:52,489 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:52,489 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:52,489 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:52,552 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:53,119 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:53,119 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:53,119 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:53,135 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:53,238 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:53,238 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:53,238 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:53,238 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:53,572 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:54,244 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:54,246 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:54,246 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:54,248 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:54,572 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:54,728 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:54,728 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:54,744 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:54,744 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:55,240 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:55,240 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:55,240 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:55,240 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:55,584 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:55,584 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:03:55,696 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:55,696 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:55,696 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:55,696 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:56,159 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:56,159 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:56,159 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:56,159 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:56,589 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:56,636 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:56,636 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:56,636 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:56,636 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:57,091 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:57,091 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:57,091 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:57,091 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:57,529 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:57,529 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:57,529 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:57,529 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:57,592 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:58,082 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:58,082 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:58,082 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:58,082 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:58,593 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:58,665 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:58,665 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:58,665 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:58,665 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:59,220 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:59,220 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:59,220 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:59,220 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:03:59,611 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:03:59,767 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:03:59,767 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:03:59,767 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:03:59,767 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:00,348 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:00,348 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:00,348 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:00,348 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:00,602 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-09 22:04:00,602 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: stop_status
+2022-05-09 22:04:00,619 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:01,001 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:01,001 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:01,001 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:01,001 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:01,614 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:01,614 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:01,614 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:01,614 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:01,630 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:02,184 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:02,184 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:02,184 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:02,184 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:02,640 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:02,985 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:02,985 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:02,985 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:02,985 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:03,486 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:03,486 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:03,486 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:03,486 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:03,646 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:03,986 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:03,986 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:03,986 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:03,986 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:04,099 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:04,099 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:04,099 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:04,099 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:04,660 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:05,067 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:05,068 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:05,068 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:05,071 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:05,569 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:05,569 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:05,662 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:05,819 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:05,819 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:06,040 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:06,040 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:06,040 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:06,040 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:06,493 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:06,493 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:06,493 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:06,493 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:06,667 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:06,667 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\config.yaml
+2022-05-09 22:04:07,004 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:07,005 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:07,005 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:07,006 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:07,487 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:07,487 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:07,487 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:07,503 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:07,670 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:07,670 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:04:08,102 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:08,103 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:08,103 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:08,103 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:08,634 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:08,634 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:08,634 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:08,634 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:08,681 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:09,167 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:09,167 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:09,167 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:09,167 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:09,685 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:09,716 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:09,731 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:09,731 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:09,731 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:10,278 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:10,278 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:10,278 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:10,278 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:10,698 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:10,934 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:10,934 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:10,934 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:10,934 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:11,545 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:11,545 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:11,545 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:11,545 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:11,705 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:12,200 DEBUG   SenderThread:2888 [sender.py:send():232] send: stats
+2022-05-09 22:04:12,231 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:12,231 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:12,231 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:12,231 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:12,670 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:12,670 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:12,670 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:12,670 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:12,717 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:13,144 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:13,144 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:13,144 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:13,144 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:13,600 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:13,600 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:13,600 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:13,600 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:13,726 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:14,069 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:14,069 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:14,069 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:14,069 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:14,534 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:14,534 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:14,534 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:14,534 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:14,662 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:14,662 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:14,662 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:14,662 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:14,727 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:15,623 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:15,625 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:15,625 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:15,626 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:15,730 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:15,861 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-09 22:04:15,861 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: stop_status
+2022-05-09 22:04:16,110 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:16,110 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:16,110 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:16,110 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:16,596 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:16,596 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:16,596 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:16,611 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:16,742 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:17,119 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:17,119 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:17,119 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:17,119 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:17,658 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:17,658 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:17,673 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:17,673 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:17,754 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:17,754 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:04:18,237 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:18,237 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:18,237 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:18,237 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:18,768 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:18,784 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:18,784 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:18,784 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:18,784 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:19,319 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:19,319 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:19,319 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:19,319 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:19,774 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:19,915 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:19,915 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:19,915 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:19,915 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:20,508 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:20,523 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:20,523 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:20,523 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:20,788 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:21,071 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:21,071 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:21,071 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:21,071 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:21,789 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:21,790 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:21,791 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:21,794 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:21,804 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:22,316 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:22,316 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:22,316 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:22,316 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:22,805 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:22,883 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:22,883 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:22,883 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:22,883 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:23,477 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:23,477 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:23,477 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:23,477 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:23,809 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:24,011 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:24,011 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:24,026 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:24,026 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:24,605 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:24,605 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:24,605 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:24,605 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:24,816 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:25,153 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:25,153 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:25,153 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:25,153 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:25,683 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:25,683 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:25,683 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:25,683 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:25,826 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:25,826 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:25,826 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:25,826 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:25,826 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:26,842 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:26,978 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:26,979 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:26,979 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:26,982 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:27,495 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:27,495 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:27,495 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:27,495 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:27,854 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:28,073 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:28,073 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:28,073 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:28,073 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:28,780 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:28,780 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:28,780 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:28,780 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:28,861 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:28,861 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:04:29,361 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:29,361 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:29,361 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:29,361 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:29,875 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:29,922 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:29,922 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:29,922 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:29,922 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:30,455 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:30,455 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:30,455 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:30,455 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:30,879 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:31,019 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:31,019 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:31,019 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:31,019 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:31,082 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-09 22:04:31,082 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: stop_status
+2022-05-09 22:04:31,553 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:31,882 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:32,116 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:32,163 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:32,163 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:32,163 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:32,163 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:32,163 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:32,163 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:32,865 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:32,866 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:32,866 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:32,867 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:32,895 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:33,346 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:33,346 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:33,346 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:33,346 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:33,803 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:33,803 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:33,803 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:33,803 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:33,897 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:34,288 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:34,288 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:34,288 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:34,288 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:34,743 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:34,743 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:34,743 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:34,743 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:34,901 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:35,224 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:35,224 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:35,224 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:35,224 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:35,671 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:35,671 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:35,671 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:35,671 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:35,908 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:36,111 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:36,111 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:36,111 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:36,111 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:36,563 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:36,563 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:36,563 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:36,563 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:36,682 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:36,683 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:36,683 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:36,684 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:36,915 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:37,635 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:37,635 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:37,636 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:37,637 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:37,927 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:38,099 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:38,099 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:38,099 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:38,099 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:38,583 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:38,583 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:38,583 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:38,583 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:38,930 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:38,930 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:04:39,074 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,074 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:39,074 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:39,074 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:39,525 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,541 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:39,541 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:39,541 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:39,848 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,849 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,851 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,851 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,851 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,880 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,901 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,901 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,933 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:39,964 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,979 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:39,979 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:40,042 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:40,042 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:40,042 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:40,058 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:40,058 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:40,511 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:40,511 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:40,511 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:40,527 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:40,949 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:41,044 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:41,044 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:41,044 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:41,044 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:41,481 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:41,481 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:41,481 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:41,481 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:41,953 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:42,045 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:42,061 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:42,061 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:42,061 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:42,486 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:42,488 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:42,489 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:42,496 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:42,941 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:42,941 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:42,941 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:42,956 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:42,956 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:43,393 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:43,408 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:43,408 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:43,408 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:43,846 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:43,846 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:43,846 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:43,862 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:43,959 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:44,316 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:44,316 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:44,316 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:44,316 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:44,802 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:44,802 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:44,802 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:44,802 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:44,961 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:45,254 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:45,254 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:45,254 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:45,270 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:45,740 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:45,740 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:45,740 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:45,740 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:45,962 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:46,165 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:46,181 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:46,181 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:46,181 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:46,275 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:46,290 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:46,290 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:46,290 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:46,558 DEBUG   SenderThread:2888 [sender.py:send():232] send: stats
+2022-05-09 22:04:46,978 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:47,166 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-09 22:04:47,166 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: stop_status
+2022-05-09 22:04:47,296 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:47,386 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:47,386 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:47,392 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:47,841 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:47,844 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:47,844 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:47,846 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:47,990 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:48,445 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:48,445 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:48,445 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:48,445 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:49,003 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:49,003 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:04:49,003 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:49,003 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:49,003 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:49,019 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:49,518 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:49,534 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:49,534 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:49,534 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:50,004 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:50,083 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:50,083 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:50,083 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:50,098 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:50,630 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:50,630 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:50,630 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:50,646 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:51,008 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:51,181 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:51,181 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:51,181 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:51,197 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:51,900 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:51,900 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:51,900 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:51,900 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:52,025 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:52,396 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:52,411 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:52,411 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:52,411 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:52,869 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:52,869 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:52,869 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:52,869 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:53,028 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:53,338 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:53,338 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:53,338 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:53,338 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:53,810 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:53,825 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:53,825 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:53,825 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:54,032 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:54,290 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:54,306 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:54,306 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:54,306 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:54,734 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:54,750 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:54,750 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:54,750 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:55,036 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:55,219 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:55,219 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:55,219 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:55,219 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:55,677 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:55,677 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:55,677 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:55,677 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:56,050 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:56,144 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:56,144 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:56,160 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:56,160 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:56,598 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:56,598 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:56,598 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:56,598 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:56,713 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:56,715 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:56,715 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:56,716 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:57,054 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:57,722 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:57,725 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:57,726 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:57,731 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:58,064 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:58,249 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:58,249 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:58,249 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:58,265 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:58,827 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:58,842 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:58,842 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:58,842 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:59,065 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:04:59,065 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:04:59,382 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:59,382 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:59,382 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:59,397 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:04:59,942 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:04:59,942 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:04:59,942 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:04:59,942 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:00,085 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:00,546 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:00,548 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:00,549 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:00,555 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:01,088 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:01,182 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:01,197 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:01,197 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:01,197 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:01,807 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:01,807 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:01,807 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:01,807 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:02,093 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:02,341 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:02,357 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:02,357 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:02,357 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:02,388 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-09 22:05:02,388 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: stop_status
+2022-05-09 22:05:03,041 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:03,041 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:03,041 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:03,041 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:03,103 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:03,497 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:03,497 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:03,497 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:03,512 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:03,974 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:03,974 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:03,974 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:03,974 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:04,117 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:04,411 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:04,411 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:04,411 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:04,411 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:04,896 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:04,896 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:04,896 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:04,896 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:05,125 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:05,366 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:05,366 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:05,366 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:05,366 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:05,867 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:05,883 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:05,883 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:05,883 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:06,135 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:06,351 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:06,351 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:06,351 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:06,351 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:06,797 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:06,797 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:06,797 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:06,812 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:07,137 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:07,262 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:07,262 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:07,262 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:07,262 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:07,360 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:07,376 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:07,376 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:07,376 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:08,139 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:08,310 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:08,313 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:08,313 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:08,316 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:08,775 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:08,775 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:08,775 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:08,790 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:09,149 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:09,149 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:05:09,229 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:09,229 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:09,229 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:09,229 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:09,714 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:09,714 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:09,714 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:09,714 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:10,155 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:10,155 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:10,170 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:10,170 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:10,170 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:10,625 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:10,625 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:10,625 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:10,625 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:11,156 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:11,159 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:11,159 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:11,162 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:11,163 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:11,660 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:11,663 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:11,663 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:11,674 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:12,104 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:12,104 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:12,104 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:12,104 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:12,189 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:12,614 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:12,614 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:12,614 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:12,629 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:13,099 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:13,115 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:13,115 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:13,115 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:13,196 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:13,555 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:13,555 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:13,555 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:13,555 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:13,995 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:13,995 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:13,995 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:14,010 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:14,201 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:14,466 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:14,481 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:14,481 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:14,481 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:14,952 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:14,952 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:14,952 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:14,952 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:15,206 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:15,408 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:15,408 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:15,408 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:15,408 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:15,874 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:15,874 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:15,874 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:15,874 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:16,206 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:16,331 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:16,331 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:16,331 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:16,331 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:16,786 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:16,801 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:16,801 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:16,801 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:16,897 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:16,897 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:16,897 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:16,897 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:17,211 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:17,616 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: stop_status
+2022-05-09 22:05:17,616 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: stop_status
+2022-05-09 22:05:17,837 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: partial_history
+2022-05-09 22:05:17,839 DEBUG   SenderThread:2888 [sender.py:send():232] send: history
+2022-05-09 22:05:17,840 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:17,843 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:17,843 DEBUG   SenderThread:2888 [sender.py:send():232] send: telemetry
+2022-05-09 22:05:17,843 DEBUG   SenderThread:2888 [sender.py:send():232] send: telemetry
+2022-05-09 22:05:18,197 DEBUG   SenderThread:2888 [sender.py:send():232] send: exit
+2022-05-09 22:05:18,197 INFO    SenderThread:2888 [sender.py:send_exit():368] handling exit code: 0
+2022-05-09 22:05:18,197 INFO    SenderThread:2888 [sender.py:send_exit():370] handling runtime: 102
+2022-05-09 22:05:18,200 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:18,201 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:18,201 INFO    SenderThread:2888 [sender.py:send_exit():376] send defer
+2022-05-09 22:05:18,202 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:18,202 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:18,202 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 0
+2022-05-09 22:05:18,202 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:18,203 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 0
+2022-05-09 22:05:18,203 INFO    SenderThread:2888 [sender.py:transition_state():389] send defer: 1
+2022-05-09 22:05:18,203 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:18,203 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 1
+2022-05-09 22:05:18,225 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:18,225 INFO    Thread-11 :2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:05:18,276 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 1
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:transition_state():389] send defer: 2
+2022-05-09 22:05:18,276 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:18,276 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 2
+2022-05-09 22:05:18,276 DEBUG   SenderThread:2888 [sender.py:send():232] send: stats
+2022-05-09 22:05:18,276 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 2
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:transition_state():389] send defer: 3
+2022-05-09 22:05:18,276 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:18,276 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 3
+2022-05-09 22:05:18,276 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 3
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:transition_state():389] send defer: 4
+2022-05-09 22:05:18,276 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:18,276 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 4
+2022-05-09 22:05:18,276 DEBUG   SenderThread:2888 [sender.py:send():232] send: summary
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:_save_file():948] saving file wandb-summary.json with policy end
+2022-05-09 22:05:18,276 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 4
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:transition_state():389] send defer: 5
+2022-05-09 22:05:18,276 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:18,276 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 5
+2022-05-09 22:05:18,276 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:18,276 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 5
+2022-05-09 22:05:18,308 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:18,520 INFO    SenderThread:2888 [sender.py:transition_state():389] send defer: 6
+2022-05-09 22:05:18,520 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:18,520 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:18,520 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 6
+2022-05-09 22:05:18,520 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:18,520 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 6
+2022-05-09 22:05:18,520 INFO    SenderThread:2888 [dir_watcher.py:finish():312] shutting down directory watcher
+2022-05-09 22:05:18,635 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:19,242 INFO    SenderThread:2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:19,243 INFO    SenderThread:2888 [dir_watcher.py:_on_file_modified():257] file/dir modified: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\config.yaml
+2022-05-09 22:05:19,243 INFO    SenderThread:2888 [dir_watcher.py:finish():342] scan: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files
+2022-05-09 22:05:19,243 INFO    SenderThread:2888 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\conda-environment.yaml conda-environment.yaml
+2022-05-09 22:05:19,244 INFO    SenderThread:2888 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\config.yaml config.yaml
+2022-05-09 22:05:19,244 INFO    SenderThread:2888 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log output.log
+2022-05-09 22:05:19,250 INFO    SenderThread:2888 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\requirements.txt requirements.txt
+2022-05-09 22:05:19,250 INFO    SenderThread:2888 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-metadata.json wandb-metadata.json
+2022-05-09 22:05:19,250 INFO    SenderThread:2888 [dir_watcher.py:finish():356] scan save: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json wandb-summary.json
+2022-05-09 22:05:19,253 INFO    SenderThread:2888 [sender.py:transition_state():389] send defer: 7
+2022-05-09 22:05:19,254 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:19,258 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:19,258 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 7
+2022-05-09 22:05:19,258 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:19,258 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 7
+2022-05-09 22:05:19,258 INFO    SenderThread:2888 [file_pusher.py:finish():145] shutting down file pusher
+2022-05-09 22:05:19,365 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:19,366 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:19,474 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:19,474 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:19,582 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:19,582 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:19,691 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:19,691 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:19,799 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:19,799 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:19,868 INFO    Thread-19 :2888 [upload_job.py:push():132] Uploaded file C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\config.yaml
+2022-05-09 22:05:19,877 INFO    Thread-21 :2888 [upload_job.py:push():132] Uploaded file C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\requirements.txt
+2022-05-09 22:05:19,908 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:19,909 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:19,987 INFO    Thread-20 :2888 [upload_job.py:push():132] Uploaded file C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\output.log
+2022-05-09 22:05:19,987 INFO    Thread-18 :2888 [upload_job.py:push():132] Uploaded file C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\conda-environment.yaml
+2022-05-09 22:05:20,017 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:20,017 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:20,129 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:20,129 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:20,237 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:20,238 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:20,345 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:20,346 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:20,454 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:20,454 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:20,562 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:20,562 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:20,671 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:20,671 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:20,780 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:20,781 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:20,891 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:20,891 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:21,002 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:21,002 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:21,119 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:21,119 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:21,229 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:21,229 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:21,334 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:21,334 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:21,442 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:21,442 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:21,548 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:21,548 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:21,634 INFO    Thread-22 :2888 [upload_job.py:push():132] Uploaded file C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\files\wandb-summary.json
+2022-05-09 22:05:21,655 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:21,655 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:21,763 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:21,763 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:21,837 INFO    Thread-10 :2888 [sender.py:transition_state():389] send defer: 8
+2022-05-09 22:05:21,837 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:21,838 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 8
+2022-05-09 22:05:21,838 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:21,838 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 8
+2022-05-09 22:05:21,871 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:22,772 INFO    SenderThread:2888 [sender.py:transition_state():389] send defer: 9
+2022-05-09 22:05:22,772 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:22,772 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:22,772 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 9
+2022-05-09 22:05:22,772 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:22,772 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 9
+2022-05-09 22:05:22,772 INFO    SenderThread:2888 [sender.py:transition_state():389] send defer: 10
+2022-05-09 22:05:22,772 DEBUG   SenderThread:2888 [sender.py:send():232] send: final
+2022-05-09 22:05:22,772 DEBUG   SenderThread:2888 [sender.py:send():232] send: footer
+2022-05-09 22:05:22,772 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: defer
+2022-05-09 22:05:22,772 INFO    HandlerThread:2888 [handler.py:handle_request_defer():164] handle defer: 10
+2022-05-09 22:05:22,785 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: defer
+2022-05-09 22:05:22,785 INFO    SenderThread:2888 [sender.py:send_request_defer():385] handle sender defer: 10
+2022-05-09 22:05:22,876 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: poll_exit
+2022-05-09 22:05:22,876 DEBUG   SenderThread:2888 [sender.py:send_request():246] send_request: poll_exit
+2022-05-09 22:05:22,877 INFO    SenderThread:2888 [file_pusher.py:join():150] waiting for file pusher
+2022-05-09 22:05:23,685 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: sampled_history
+2022-05-09 22:05:23,687 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: get_summary
+2022-05-09 22:05:23,688 DEBUG   HandlerThread:2888 [handler.py:handle_request():141] handle_request: shutdown
+2022-05-09 22:05:23,688 INFO    HandlerThread:2888 [handler.py:finish():806] shutting down handler
+2022-05-09 22:05:23,796 INFO    WriterThread:2888 [datastore.py:close():279] close: C:\Users\Tim de Boer\Documents\VU\Master_Artificial_Intelligence\9_BCI_MasterProject\BCI_Code\unicorn_MI_BCI\wandb\run-20220509_220333-2sexzjab\run-2sexzjab.wandb
+2022-05-09 22:05:24,584 INFO    SenderThread:2888 [sender.py:finish():1110] shutting down sender
+2022-05-09 22:05:24,584 INFO    SenderThread:2888 [file_pusher.py:finish():145] shutting down file pusher
+2022-05-09 22:05:24,584 INFO    SenderThread:2888 [file_pusher.py:join():150] waiting for file pusher
+2022-05-09 22:05:24,584 INFO    MainThread:2888 [internal.py:handle_exit():80] Internal process exited

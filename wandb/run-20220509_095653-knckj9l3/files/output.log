@@ -1,0 +1,71 @@
+{'D': 2, 'activation_type': 'elu', 'batch_size': 256, 'dropout': 0.4, 'epochs': 40, 'filter_sizing': 8, 'learning_rate': 0.001, 'mean_pool': 8, 'network': 'EEGNET', 'receptive_field': 64, 'seed': 42, 'val_subjects': ['X04', 'X06']}
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X01_deep.pkl...
+Current length of X train: 780.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X02_deep.pkl...
+Current length of X train: 1556.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X03_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 0.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X04_deep.pkl...
+Current length of X train: 2329.
+Current length of X val: 779.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X05_deep.pkl...
+Current length of X train: 3109.
+Current length of X val: 779.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X06_deep.pkl...
+Current length of X train: 3109.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X07_deep.pkl...
+Current length of X train: 3887.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X08_deep.pkl...
+Current length of X train: 4667.
+Current length of X val: 1559.
+Adding data for data\openloop\intermediate_datafiles\preprocess\TL_8_35Hz\X09_deep.pkl...
+Current length of X train: 5447.
+Current length of X val: 1559.
+C:\Users\Tim de Boer\anaconda3\envs\UnicornBCI\lib\site-packages\torch\nn\modules\conv.py:442: UserWarning: Using padding='same' with even kernel lengths and odd dilation may require a zero-padded copy of the input be created (Triggered internally at  ..\aten\src\ATen\native\Convolution.cpp:647.)
+  return F.conv2d(input, weight, bias, self.stride,
+trainable parameters: 2011
+acc: 0.34894162924951894, f1: 0.33791802715649283
+acc: 0.36561898652982683, f1: 0.354757245038284
+acc: 0.3765234124438743, f1: 0.35902060836621713
+acc: 0.4124438742783836, f1: 0.41157346480107815
+acc: 0.4663245670301475, f1: 0.4772143874515858
+acc: 0.47530468248877483, f1: 0.4587603007335837
+acc: 0.5048107761385503, f1: 0.4763670639503977
+acc: 0.4990378447722899, f1: 0.4876029815493214
+acc: 0.5028864656831302, f1: 0.5098710715394824
+acc: 0.5259781911481719, f1: 0.5442306200364759
+acc: 0.5195638229634381, f1: 0.5117963445187262
+acc: 0.522771007055805, f1: 0.5305937139901297
+acc: 0.5234124438742784, f1: 0.5436382191460806
+acc: 0.5246953175112251, f1: 0.5234681337647735
+acc: 0.5304682488774856, f1: 0.5453669528853999
+acc: 0.5182809493264914, f1: 0.5016492317278639
+acc: 0.5067350865939705, f1: 0.5143080217915111
+acc: 0.5202052597819115, f1: 0.5006511472197953
+acc: 0.5259781911481719, f1: 0.4968333496441265
+acc: 0.5221295702373316, f1: 0.5249835372750912
+acc: 0.5445798588838999, f1: 0.5307920710666971
+acc: 0.5169980756895446, f1: 0.48920723079541084
+acc: 0.5202052597819115, f1: 0.5315515005879008
+acc: 0.5028864656831302, f1: 0.511299769766141
+acc: 0.5202052597819115, f1: 0.5371534222398952
+acc: 0.5208466966003849, f1: 0.5143858917175058
+acc: 0.5060936497754971, f1: 0.5062671492971308
+acc: 0.5182809493264914, f1: 0.5308563223053431
+acc: 0.5182809493264914, f1: 0.5404255994310968
+acc: 0.5246953175112251, f1: 0.5267175714229706
+acc: 0.5214881334188582, f1: 0.510327385549168
+acc: 0.5099422706863374, f1: 0.500969772533051
+acc: 0.50096215522771, f1: 0.472810782674356
+acc: 0.5266196279666453, f1: 0.5236844219343346
+acc: 0.5137908915971777, f1: 0.5181060146592741
+acc: 0.5137908915971777, f1: 0.5054131788251458
+acc: 0.5189223861449648, f1: 0.5055130128460278
+acc: 0.5253367543296985, f1: 0.5154811162745591
+acc: 0.5195638229634381, f1: 0.5286169187006149
+acc: 0.5080179602309173, f1: 0.519219850636207

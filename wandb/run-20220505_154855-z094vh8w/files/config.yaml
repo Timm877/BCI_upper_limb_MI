@@ -1,0 +1,153 @@
+wandb_version: 1
+
+_artifact_callback:
+  desc: null
+  value: wandb.sdk.wandb_run.Run._config_artifact_callback
+_callback:
+  desc: null
+  value: wandb.sdk.wandb_run.Run._config_callback
+_items:
+  desc: null
+  value:
+    _wandb: {}
+    activation_type: elu
+    batch_size: 256
+    dropout: 0.2
+    epochs: 2
+    filter_sizing: 10
+    learning_rate: 0.0001
+    mean_pool: 15
+    receptive_field: 50
+    seed: 42
+_locked:
+  desc: null
+  value:
+    activation_type: 0
+    batch_size: 0
+    dropout: 0
+    epochs: 0
+    filter_sizing: 0
+    learning_rate: 0
+    mean_pool: 0
+    receptive_field: 0
+    seed: 0
+_settings:
+  desc: null
+  value: '<Settings {''_args'': [], ''_cli_only_mode'': None, ''_colab'': False, ''_config_dict'':
+    None, ''_console'': <SettingsConsole.WRAP: 1>, ''_cuda'': None, ''_disable_meta'':
+    None, ''_disable_stats'': None, ''_disable_viewer'': None, ''_except_exit'': True,
+    ''_executable'': ''C:\\Users\\Tim de Boer\\anaconda3\\envs\\UnicornBCI\\python.exe'',
+    ''_internal_check_process'': 8, ''_internal_queue_timeout'': 2, ''_jupyter'':
+    False, ''_jupyter_name'': None, ''_jupyter_path'': None, ''_jupyter_root'': None,
+    ''_kaggle'': True, ''_noop'': False, ''_offline'': False, ''_os'': ''Windows-10-10.0.19044-SP0'',
+    ''_platform'': ''windows'', ''_python'': ''3.9.7'', ''_require_service'': None,
+    ''_runqueue_item_id'': None, ''_save_requirements'': True, ''_service_transport'':
+    None, ''_start_datetime'': datetime.datetime(2022, 5, 5, 15, 48, 5, 925263), ''_start_time'':
+    1651758485.9252632, ''_tmp_code_dir'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154805-z094vh8w\\tmp\\code'',
+    ''_tracelog'': None, ''_unsaved_keys'': None, ''_windows'': True, ''allow_val_change'':
+    None, ''anonymous'': None, ''api_key'': ''***REDACTED***'', ''base_url'': ''https://api.wandb.ai'',
+    ''code_dir'': None, ''config_paths'': None, ''console'': ''auto'', ''deployment'':
+    ''cloud'', ''disable_code'': None, ''disable_git'': False, ''disabled'': False,
+    ''docker'': None, ''email'': ''timdb877@gmail.com'', ''entity'': ''timm877'',
+    ''files_dir'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154805-z094vh8w\\files'',
+    ''force'': None, ''git_remote'': ''https://github.com/Timm877/BCI_upper_limb_MI.git'',
+    ''heartbeat_seconds'': 30, ''host'': ''LAPTOP-JO6NFL4D'', ''ignore_globs'': (),
+    ''init_timeout'': 30, ''is_local'': False, ''label_disable'': None, ''launch'':
+    None, ''launch_config_path'': None, ''log_dir'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154805-z094vh8w\\logs'',
+    ''log_internal'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154805-z094vh8w\\logs\\debug-internal.log'',
+    ''log_symlink_internal'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\debug-internal.log'',
+    ''log_symlink_user'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\debug.log'',
+    ''log_user'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154805-z094vh8w\\logs\\debug.log'',
+    ''login_timeout'': None, ''magic'': None, ''mode'': ''online'', ''notebook_name'':
+    None, ''problem'': ''fatal'', ''program'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\scripts\\3_TL.py'',
+    ''program_relpath'': ''scripts\\3_TL.py'', ''project'': ''hp-sweeps-CNN-1trialpersubject_lasttry2-X01'',
+    ''project_url'': ''https://wandb.ai/timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01'',
+    ''quiet'': None, ''reinit'': None, ''relogin'': None, ''resume'': None, ''resume_fname'':
+    ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\wandb-resume.json'',
+    ''resumed'': False, ''root_dir'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI'',
+    ''run_group'': None, ''run_id'': ''z094vh8w'', ''run_job_type'': None, ''run_mode'':
+    ''run'', ''run_name'': ''stilted-sweep-2'', ''run_notes'': None, ''run_tags'':
+    None, ''run_url'': ''https://wandb.ai/timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01/runs/z094vh8w'',
+    ''sagemaker_disable'': None, ''save_code'': None, ''settings_system'': ''C:\\Users\\Tim
+    de Boer\\.config\\wandb\\settings'', ''settings_workspace'': ''C:\\Users\\Tim
+    de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\settings'',
+    ''show_colors'': None, ''show_emoji'': None, ''show_errors'': True, ''show_info'':
+    True, ''show_warnings'': True, ''silent'': False, ''start_method'': None, ''strict'':
+    None, ''summary_errors'': None, ''summary_warnings'': 5, ''sweep_id'': ''yt7e4rkh'',
+    ''sweep_param_path'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\sweep-yt7e4rkh\\config-z094vh8w.yaml'',
+    ''sweep_url'': ''https://wandb.ai/timm877/hp-sweeps-CNN-1trialpersubject_lasttry2-X01/sweeps/yt7e4rkh'',
+    ''symlink'': False, ''sync_dir'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154805-z094vh8w'',
+    ''sync_file'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154805-z094vh8w\\run-z094vh8w.wandb'',
+    ''sync_symlink_latest'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\latest-run'',
+    ''system_sample'': 15, ''system_sample_seconds'': 2, ''timespec'': ''20220505_154805'',
+    ''tmp_dir'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\run-20220505_154805-z094vh8w\\tmp'',
+    ''username'': ''Tim de Boer'', ''wandb_dir'': ''C:\\Users\\Tim de Boer\\Documents\\VU\\Master_Artificial_Intelligence\\9_BCI_MasterProject\\BCI_Code\\unicorn_MI_BCI\\wandb\\'',
+    ''table_raise_on_max_row_limit_exceeded'': False}>'
+_users:
+  desc: null
+  value:
+    sweep: 0
+_users_cnt:
+  desc: null
+  value: 1
+_users_inv:
+  desc: null
+  value:
+    '0': sweep
+_wandb:
+  desc: null
+  value:
+    cli_version: 0.12.16
+    framework: torch
+    is_jupyter_run: false
+    is_kaggle_kernel: true
+    python_version: 3.9.7
+    start_time: 1651758536
+    t:
+      1:
+      - 1
+      - 5
+      - 53
+      - 55
+      2:
+      - 1
+      - 5
+      - 53
+      - 55
+      3:
+      - 1
+      - 2
+      - 16
+      4: 3.9.7
+      5: 0.12.16
+      8:
+      - 2
+      - 3
+      - 5
+activation_type:
+  desc: null
+  value: elu
+batch_size:
+  desc: null
+  value: 256
+dropout:
+  desc: null
+  value: 0.2
+epochs:
+  desc: null
+  value: 2
+filter_sizing:
+  desc: null
+  value: 10
+learning_rate:
+  desc: null
+  value: 0.0001
+mean_pool:
+  desc: null
+  value: 15
+receptive_field:
+  desc: null
+  value: 50
+seed:
+  desc: null
+  value: 42
