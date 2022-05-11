@@ -22,7 +22,6 @@ class Flatten(nn.Module):
 class EEGNET(nn.Module):
     def __init__(self, receptive_field, filter_sizing, mean_pool, activation_type, dropout, D):
         super(EEGNET,self).__init__()
-        sample_duration = 500
         channel_amount = 8
         num_classes = 3
         self.temporal=nn.Sequential(
@@ -115,34 +114,30 @@ def data_setup(batch_size, test_subject, trial_num):
     return trainloader, valloader, testloader
 
 def run():
-    for subj in range(2,10):
+    for subj in range(1,10):
         # 🐝 initialise a wandb run
         test_subject = f'X0{subj}'
-        for instance in os.scandir(f"pretrain_models/{test_subject}"):
-            print(f'Getting pre-trained model from {instance.path}')
-            valsubjects = instance.path[-7:]
-            print(valsubjects)
-            for trial_num in range(2,6):
-                config={
-                'batch_size' : 256,
-                'epochs': 20,
-                'receptive_field': 64, 
-                'mean_pool':  8,
-                'activation_type':  'elu',
-                'network' : 'EEGNET',
-                'test_subject': test_subject,
-                'val_subjects': valsubjects,
-                'trial_num': trial_num,
-                'seed':  42,    
-                'learning_rate': 0.001,
-                'filter_sizing':  8,
-                'D':  2,
-                'dropout': 0.1}
-                train(config)
+
+        for trial_num in range(2,6):
+            config={
+            'batch_size' : 256,
+            'epochs': 30,
+            'receptive_field': 64, 
+            'mean_pool':  8,
+            'activation_type':  'elu',
+            'network' : 'EEGNET',
+            'test_subject': test_subject,
+            'trial_num': trial_num,
+            'seed':  42,    
+            'learning_rate': 0.001,
+            'filter_sizing':  8,
+            'D':  2,
+            'dropout': 0.1}
+            train(config)
     
 def train(config=None):
     # Initialize a new wandb run
-    with wandb.init(project=f"EEGNET-FineTune_highLR_earlystop5_allweights_subj{config['test_subject']}", config=config):
+    with wandb.init(project=f"EEGNET-DLfromScratch2_{config['test_subject']}", config=config):
         config = wandb.config
         pprint.pprint(config)
         trainloader, valloader, testloader = data_setup(config.batch_size, config.test_subject, config.trial_num)
@@ -174,13 +169,6 @@ def train(config=None):
         
 def build_network(config):
     net = EEGNET(config.receptive_field, config.filter_sizing, config.mean_pool, config.activation_type, config.dropout, config.D)
-    #TODO check if all this goes right.
-    net.load_state_dict(torch.load(f'pretrain_models/{config.test_subject}/EEGNET-PreTrain_val{config.val_subjects}'))
-    #for param in net.parameters():
-    #    param.requires_grad = False
-    #endsize = config.filter_sizing*config.D*15
-    #net.fc2 = nn.Linear(endsize, 3)
-
     pytorch_total_params_train = sum(p.numel() for p in net.parameters() if p.requires_grad)
     print(f'trainable parameters: {pytorch_total_params_train}')
 
@@ -228,13 +216,12 @@ def evaluate(net, loader):
     print(f"acc: {acc}, f1: {f1}")
     return running_loss, acc, f1
 
-
 class EarlyStopping():
     """
     Early stopping to stop the training when the loss does not improve after
     certain epochs.
     """
-    def __init__(self, patience=5, min_delta=1e-4):
+    def __init__(self, patience=7, min_delta=1e-4):
         """
         :param patience: how many epochs to wait before stopping when loss is
                not improving

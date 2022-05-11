@@ -20,10 +20,10 @@ pd.options.mode.chained_assignment = None  # default='warn'
 
 def execution(pipeline_type, subject):
     print(f'Initializing for {pipeline_type} machine learning...')
-    folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/{subject}_final')
-    result_path = Path(f'./results/intermediate_datafiles/openloop/{subject}_final')
+    folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/{subject}_TLcompare')
+    result_path = Path(f'./results/intermediate_datafiles/TLcompare/{subject}_TLcompare_all')
     result_path.mkdir(exist_ok=True, parents=True)
-    results_fname = f'{pipeline_type}_{subject}_comparingwithDL.csv'
+    results_fname = f'{pipeline_type}_{subject}_TLcompare.csv'
 
     results = {}
     for instance in os.scandir(folder_path):
@@ -42,7 +42,7 @@ def execution(pipeline_type, subject):
             for segment in range(len(X[df])): 
                 # upperlimb classification
                 if y[df][segment] == 0 or y[df][segment] == 1 or y[df][segment] == 2:
-                    if df < (trial_num - 1): 
+                    if df < (trial_num): 
                         # earlier trials in training
                         X_train.append(X[df][segment])
                         y_train.append(y[df][segment])  

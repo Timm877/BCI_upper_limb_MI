@@ -6,6 +6,19 @@ import latextable
 
 import pandas as pd
 
+df = pd.read_csv("results\intermediate_datafiles/finetune_results\X09.csv")
+
+print(round(df['test_accuracy'].mean(),3))
+print(round(df['test_accuracy'].std(),3))
+
+print(round(df['test_accuracy'].max(),3))
+print(round(df['test_accuracy'][0],3))
+print(df['Name'])
+
+#df['trial_num'] -= 1
+#print(round(df[['trial_num','test_accuracy']],3))
+
+'''
 df1 = pd.read_csv("results/intermediate_datafiles/openloop/X01_ML/csp_STD_multiclass.csv")
 df2 = pd.read_csv("results/intermediate_datafiles/openloop/X02_ML/csp_STD_multiclass.csv")
 df3 = pd.read_csv("results/intermediate_datafiles/openloop/X03_ML/csp_STD_multiclass.csv")
@@ -63,6 +76,7 @@ rf = np.array([df1.loc[2,'final_val_accuracy'], df2.loc[2,'final_val_accuracy'],
 print(slda)
 print(svm)
 print(rf)
+'''
 '''
 
 from tabulate import tabulate

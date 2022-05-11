@@ -87,11 +87,7 @@ def pre_processing(curr_segment,selected_electrodes_names ,filters, sample_durat
     # 4 FILTERING filter bank / bandpass
     segment_filt, filters = filter_1seg_statespace(curr_segment, selected_electrodes_names, filters, sample_duration, 
     freq_limits_names)
-    
-    #normalizing the signals
-    #segment_filt = segment_filt.T
-    #segment_filt=(segment_filt-segment_filt.mean())/segment_filt.std()
-    #segment_filt = segment_filt.T
+
     return segment_filt, outlier, filters
 
 def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_duration, freq_limits_names):
@@ -181,11 +177,12 @@ def init_pipelines_grid(pipeline_name = ['csp']):
     if 'csp' in pipeline_name:
         pipe= Pipeline(steps=[('csp', CSP()), 
                                             ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
+
         param_grid = {
             "csp__n_components" :[8,10,12]
                 }
         pipelines["csp+s_lda"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
-
+        '''
         pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC(decision_function_shape='ovo'))])
         param_grid = {
             "csp__n_components" :[8,10,12],
@@ -201,23 +198,26 @@ def init_pipelines_grid(pipeline_name = ['csp']):
             "rf__n_estimators": [50, 100, 200],
             "rf__criterion": ['gini', 'entropy']}
         pipelines["csp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
-
+        '''
     if 'riemann' in pipeline_name:  
+        '''
         pipelines["fgmdm"] = Pipeline(steps=[('cov', Covariances("oas")), 
                                     ('mdm', FgMDM(metric="riemann"))])
 
         pipelines["tgsp+slda"] = Pipeline(steps=[('cov', Covariances("oas")), 
                 ('tg', TangentSpace(metric="riemann")),
-                ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])   
+                ('slda', LDA(solver = 'lsqr', shrinkage='auto'))]) 
+        '''  
         pipe = Pipeline(steps=[('cov', Covariances("oas")), 
                                             ('tg', TangentSpace(metric="riemann")),
                                             ('svm', SVC(decision_function_shape='ovo'))])
+
         param_grid = {"svm__C": [0.1, 1, 10, 100],
             "svm__gamma": [0.1, 0.01, 0.001],
             "svm__kernel": ['rbf', 'linear']
                 }
         pipelines["tgsp+svm"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)  
-
+        '''
         pipe = Pipeline(steps=[('cov', Covariances("oas")), 
                                             ('tg', TangentSpace(metric="riemann")),
                                             ('rf', RFC(random_state=42))])
@@ -225,6 +225,7 @@ def init_pipelines_grid(pipeline_name = ['csp']):
             "rf__n_estimators": [10, 50, 100, 200],
             "rf__criterion": ['gini', 'entropy']}
         pipelines["tgsp+rf"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
+        '''
     return pipelines  
 
 def grid_search_execution(X_train, y_train, X_val, y_val, chosen_pipelines, clf):
