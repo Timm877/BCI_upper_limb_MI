@@ -56,9 +56,12 @@ class EEGNET(nn.Module):
         out = self.avgpool1(out)
         out = self.dropout(out)
         out = self.seperable(out)
+        print(out.size())
         out = self.avgpool2(out)
         out = self.dropout(out)
+        print(out.size())
         out = out.view(out.size(0), -1)
+        print(out.size())
         prediction = self.fc2(out)
         return prediction
 
@@ -169,8 +172,12 @@ def train(config=None):
         
 def build_network(config):
     net = EEGNET(config.receptive_field, config.filter_sizing, config.mean_pool, config.activation_type, config.dropout, config.D)
+    pytorch_total_params = sum(p.numel() for p in net.parameters())
     pytorch_total_params_train = sum(p.numel() for p in net.parameters() if p.requires_grad)
-    print(f'trainable parameters: {pytorch_total_params_train}')
+    print(pytorch_total_params)
+    print(pytorch_total_params_train)
+    for name, param in net.named_parameters():
+        print(f"{name}: {param.numel()}")
 
     return net.to(device)
 

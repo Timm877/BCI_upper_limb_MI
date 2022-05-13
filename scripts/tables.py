@@ -6,18 +6,96 @@ import latextable
 
 import pandas as pd
 
-df = pd.read_csv("results\intermediate_datafiles/finetune_results\X09.csv")
+'''
+df1 = pd.read_csv("results\intermediate_datafiles\TLcompare\X01_TLcompare_multipleruns/riemann_X01_trialnum_4.csv")
+df2 = pd.read_csv("results\intermediate_datafiles\TLcompare\X02_TLcompare_multipleruns/riemann_X02_trialnum_4.csv")
+df3 = pd.read_csv("results\intermediate_datafiles\TLcompare\X03_TLcompare_multipleruns/riemann_X03_trialnum_4.csv")
+df4 = pd.read_csv("results\intermediate_datafiles\TLcompare\X04_TLcompare_multipleruns/riemann_X04_trialnum_4.csv")
+df5 = pd.read_csv("results\intermediate_datafiles\TLcompare\X05_TLcompare_multipleruns/riemann_X05_trialnum_4.csv")
+df6 = pd.read_csv("results\intermediate_datafiles\TLcompare\X06_TLcompare_multipleruns/riemann_X06_trialnum_4.csv")
+df7 = pd.read_csv("results\intermediate_datafiles\TLcompare\X07_TLcompare_multipleruns/riemann_X07_trialnum_4.csv")
+df8 = pd.read_csv("results\intermediate_datafiles\TLcompare\X08_TLcompare_multipleruns/riemann_X08_trialnum_4.csv")
+df9 = pd.read_csv("results\intermediate_datafiles\TLcompare\X09_TLcompare_multipleruns/riemann_X09_trialnum_4.csv")
+means = []
+
+means.append(round(df1['final_test_accuracy'].mean(),3))
+means.append(round(df2['final_test_accuracy'].mean(),3))
+means.append(round(df3['final_test_accuracy'].mean(),3))
+means.append(round(df4['final_test_accuracy'].mean(),3))
+means.append(round(df5['final_test_accuracy'].mean(),3))
+means.append(round(df6['final_test_accuracy'].mean(),3))
+means.append(round(df7['final_test_accuracy'].mean(),3))
+means.append(round(df8['final_test_accuracy'].mean(),3))
+means.append(round(df9['final_test_accuracy'].mean(),3))
+print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
+
+
+liststuff = [0.535, 0.536, 0.544, 0.554 ]
+print(f"overall mean: {round(sum(liststuff) / len(liststuff), 3)} from {liststuff}")
+'''
+'''
+df1 = pd.read_csv("results/finetune_results/X01/trialnum4.csv")
+df2 = pd.read_csv("results/finetune_results/X02/trialnum4.csv")
+df3 = pd.read_csv("results/finetune_results/X03/trialnum4.csv")
+df4 = pd.read_csv("results/finetune_results/X04/trialnum4.csv")
+df5 = pd.read_csv("results/finetune_results/X05/trialnum4.csv")
+df6 = pd.read_csv("results/finetune_results/X06/trialnum4.csv")
+df7 = pd.read_csv("results/finetune_results/X07/trialnum4.csv")
+df8 = pd.read_csv("results/finetune_results/X08/trialnum4.csv")
+df9 = pd.read_csv("results/finetune_results/X09/trialnum4.csv")
+means = []
+
+means.append(round(df1['test_accuracy'].mean(),3))
+means.append(round(df2['test_accuracy'].mean(),3))
+means.append(round(df3['test_accuracy'].mean(),3))
+means.append(round(df4['test_accuracy'].mean(),3))
+means.append(round(df5['test_accuracy'].mean(),3))
+means.append(round(df6['test_accuracy'].mean(),3))
+means.append(round(df7['test_accuracy'].mean(),3))
+means.append(round(df8['test_accuracy'].mean(),3))
+means.append(round(df9['test_accuracy'].mean(),3))
+print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
+
+
+liststuff = [0.598, 0.589, 0.576, 0.556]
+print(f"overall mean: {round(sum(liststuff) / len(liststuff), 3)} from {liststuff}")
+'''
+
+
+df1 = pd.read_csv("results/finetune_results/X02_dry/trialnum1.csv")
+df2 = pd.read_csv("results/finetune_results/X02_dry/trialnum2.csv")
+df3 = pd.read_csv("results/finetune_results/X02_dry/trialnum3.csv")
+df4 = pd.read_csv("results/finetune_results/X02_dry/trialnum4.csv")
+means = []
+
+print("1")
+print(f"{round(df1['test_accuracy'].mean(),3)} - {round(df1['test_accuracy'].std(),3)}")
+means.append(round(df1['test_accuracy'].mean(),3))
+
+print("2")
+print(f"{round(df2['test_accuracy'].mean(),3)} - {round(df2['test_accuracy'].std(),3)}")
+means.append(round(df2['test_accuracy'].mean(),3))
+
+print("3")
+print(f"{round(df3['test_accuracy'].mean(),3)} - {round(df3['test_accuracy'].std(),3)}")
+means.append(round(df3['test_accuracy'].mean(),3))
+
+print("4")
+print(f"{round(df4['test_accuracy'].mean(),3)} - {round(df4['test_accuracy'].std(),3)}")
+means.append(round(df4['test_accuracy'].mean(),3))
+
+print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
+
+'''
+df = pd.read_csv("results/finetune_results\X09\models.csv")
 
 print(round(df['test_accuracy'].mean(),3))
 print(round(df['test_accuracy'].std(),3))
-
 print(round(df['test_accuracy'].max(),3))
-print(round(df['test_accuracy'][0],3))
+#print(round(df['test_accuracy'][0],3))
 print(df['Name'])
-
-#df['trial_num'] -= 1
 #print(round(df[['trial_num','test_accuracy']],3))
-
+'''
 '''
 df1 = pd.read_csv("results/intermediate_datafiles/openloop/X01_ML/csp_STD_multiclass.csv")
 df2 = pd.read_csv("results/intermediate_datafiles/openloop/X02_ML/csp_STD_multiclass.csv")

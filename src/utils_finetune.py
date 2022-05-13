@@ -63,11 +63,11 @@ class EEGNET(nn.Module):
         prediction = self.fc2(out)
         return prediction
 
-def data_setup(batch_size, test_subject, trial_num):
-    print(f'Adding data for {test_subject}...')
-    testsubj_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz/{test_subject}_deep.pkl')
+def data_setup(config):
+    print(f'Adding data for {config.test_subject}...')
+    testsubj_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz/{config.test_subject}_deep.pkl')
     X_train, y_train, X_val, y_val, X_test, y_test = [], [], [], [], [], []
-
+    print(testsubj_path)
     a_file = open(testsubj_path, "rb")
     data_dict = pickle.load(a_file)
     X = data_dict['data']
@@ -76,15 +76,15 @@ def data_setup(batch_size, test_subject, trial_num):
         for segment in range(len(X[df])): 
             # upperlimb classification
             if y[df][segment] == 0 or y[df][segment] == 1 or y[df][segment] == 2:
-                if df == (trial_num - 1):
+                if df in config.train_trials:
                     # put last trial of trial_num in validation set
-                    X_val.append(X[df][segment])
-                    y_val.append(y[df][segment]) 
-                elif df < (trial_num - 1): 
-                    #earlier trials in training
                     X_train.append(X[df][segment])
-                    y_train.append(y[df][segment])  
-                elif df > 4:
+                    y_train.append(y[df][segment]) 
+                elif df == config.val_trials: 
+                    #earlier trials in training
+                    X_val.append(X[df][segment])
+                    y_val.append(y[df][segment])  
+                elif df in config.test_trials:
                     X_test.append(X[df][segment])
                     y_test.append(y[df][segment])  
         print(f'Current length of X train: {len(X_train)}.')
@@ -108,44 +108,59 @@ def data_setup(batch_size, test_subject, trial_num):
     validation = torch.utils.data.TensorDataset(validationX, validationY)
     test = torch.utils.data.TensorDataset(testX, testY)
 
-    trainloader = torch.utils.data.DataLoader(train, batch_size=batch_size, shuffle=True)
-    valloader = torch.utils.data.DataLoader(validation, batch_size=batch_size, shuffle=True)
-    testloader = torch.utils.data.DataLoader(test, batch_size=batch_size, shuffle=True)
+    trainloader = torch.utils.data.DataLoader(train, batch_size=config.batch_size, shuffle=True)
+    valloader = torch.utils.data.DataLoader(validation, batch_size=config.batch_size, shuffle=True)
+    testloader = torch.utils.data.DataLoader(test, batch_size=config.batch_size, shuffle=True)
 
     return trainloader, valloader, testloader
 
 def run():
-    for subj in range(2,10):
+    for subj in range(2,3):
         # 🐝 initialise a wandb run
         test_subject = f'X0{subj}'
         for instance in os.scandir(f"pretrain_models/{test_subject}"):
             print(f'Getting pre-trained model from {instance.path}')
             valsubjects = instance.path[-7:]
             print(valsubjects)
-            for trial_num in range(2,6):
-                config={
-                'batch_size' : 256,
-                'epochs': 20,
-                'receptive_field': 64, 
-                'mean_pool':  8,
-                'activation_type':  'elu',
-                'network' : 'EEGNET',
-                'test_subject': test_subject,
-                'val_subjects': valsubjects,
-                'trial_num': trial_num,
-                'seed':  42,    
-                'learning_rate': 0.001,
-                'filter_sizing':  8,
-                'D':  2,
-                'dropout': 0.1}
-                train(config)
+            trials = [0,1,2,3,4,5,6,7,8,9]
+            random.seed(subj)
+            for trial_num in range(1,5):
+                total = 5
+                all_trial_list = []
+                while len(all_trial_list) < total:
+                    trial_list = random.sample(trials, len(trials)) 
+                    if trial_list not in all_trial_list:    
+                        all_trial_list.append(trial_list)
+                        train_trials = trial_list[:trial_num]
+                        val_trials = trial_list[trial_num]
+                        test_trials = trial_list[5:]
+                        print(f"{train_trials}, {val_trials}, {test_trials}")
+                        config={
+                        'batch_size' : 256,
+                        'epochs': 20,
+                        'receptive_field': 64, 
+                        'mean_pool':  8,
+                        'activation_type':  'elu',
+                        'network' : 'EEGNET',
+                        'test_subject': test_subject,
+                        'val_subjects': valsubjects,
+                        'train_trials': train_trials,
+                        'val_trials': val_trials,
+                        'test_trials': test_trials,
+                        'trial_num': trial_num,
+                        'seed':  42,    
+                        'learning_rate': 0.001,
+                        'filter_sizing':  8,
+                        'D':  2,
+                        'dropout': 0.1}
+                        train(config)
     
 def train(config=None):
     # Initialize a new wandb run
-    with wandb.init(project=f"EEGNET-FineTune_highLR_earlystop5_allweights_subj{config['test_subject']}", config=config):
+    with wandb.init(project=f"EEGNET-FineTuneWithoutErrors_5runs_{config['test_subject']}", config=config):
         config = wandb.config
         pprint.pprint(config)
-        trainloader, valloader, testloader = data_setup(config.batch_size, config.test_subject, config.trial_num)
+        trainloader, valloader, testloader = data_setup(config)
         net = build_network(config)
         wandb.watch(net, log_freq=100)
         optimizer = optim.Adam(net.parameters(), lr=config.learning_rate)
@@ -174,16 +189,9 @@ def train(config=None):
         
 def build_network(config):
     net = EEGNET(config.receptive_field, config.filter_sizing, config.mean_pool, config.activation_type, config.dropout, config.D)
-    #TODO check if all this goes right.
     net.load_state_dict(torch.load(f'pretrain_models/{config.test_subject}/EEGNET-PreTrain_val{config.val_subjects}'))
-    #for param in net.parameters():
-    #    param.requires_grad = False
-    #endsize = config.filter_sizing*config.D*15
-    #net.fc2 = nn.Linear(endsize, 3)
-
     pytorch_total_params_train = sum(p.numel() for p in net.parameters() if p.requires_grad)
     print(f'trainable parameters: {pytorch_total_params_train}')
-
     return net.to(device)
 
 def train_epoch(net, loader, optimizer):
