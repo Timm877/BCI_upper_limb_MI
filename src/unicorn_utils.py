@@ -136,6 +136,7 @@ def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, sel
             else:
                 segment_filt = pd.concat([segment_filt.iloc[:,-(sample_duration-window_hop):].reset_index(drop=True), 
                 segment_filt_new.reset_index(drop=True)], axis=1, ignore_index=True)
+
         if outlier > 0 or i == 0: 
             print(f'A segment was considered as an outlier due to bad signal in {outlier} channels')
             outliers +=1
@@ -144,6 +145,14 @@ def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, sel
             if (label[0] == sample_duration) and (label.index.tolist()[0] in ['0', '1','2', '3']):
                 # 0 relax 1 right arm 2 left arm 3 legs
                 outlier_labels.append(int(label.index.tolist()[0])) 
+            #if outlier > 3:
+                #print(segment_filt.head())
+                #segment_filt = segment_filt.T
+                #segment_filt.columns = ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
+                #plot_dataset(segment_filt, ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8'],
+                #                  ['like', 'like', 'like','like', 'like', 'like','like', 'like'],
+                #                  ['line','line', 'line','line','line', 'line','line','line'])
+            
         else:
             label_row = dataset_c.iloc[frame_idx-sample_duration:frame_idx, -1]
             label = label_row.value_counts()[:1]
@@ -252,7 +261,7 @@ def plot_dataset(data_table, columns, match='like', display='line'):
         f, xar = plt.subplots()
         xar = [xar]
     f.subplots_adjust(hspace=0.4)
-    f.suptitle(r'Example of an segment of EEG signals', fontsize=16)
+    f.suptitle(r'Example of EEG segment marked as outlier', fontsize=16)
 
     # Pass through the columns specified.
     for i in range(0, len(columns)):
@@ -293,8 +302,8 @@ def plot_dataset(data_table, columns, match='like', display='line'):
             else:
                 xar[i].plot(data_table.index[mask], data_table[relevant_cols[j]][mask],
                             line_displays[j%len(line_displays)])
-                xar[i].set_xlabel('Datapoints (250Hz)')
-                xar[i].set_ylabel('EEG signal (\u03BCV)')
+                #xar[i].set_xlabel('Datapoints (250Hz)')
+                #xar[i].set_ylabel('EEG signal (\u03BCV)')
 
         xar[i].tick_params(axis='y', labelsize=10)
         xar[i].legend(relevant_cols, fontsize='x-small', numpoints=1, loc='upper center',
@@ -304,6 +313,9 @@ def plot_dataset(data_table, columns, match='like', display='line'):
                             max(max_values) + 0.1*(max(max_values) - min(min_values))])
 
     # Make sure we get a nice figure with only a single x-axis and labels there.
+    f.text(0.5, 0.04, 'Datapoints (250Hz)', ha='center')
+    f.text(0.04, 0.5, 'EEG signal (\u03BCV)', va='center', rotation='vertical')
+
     plt.setp([a.get_xticklabels() for a in f.axes[:-1]], visible=False)
 
 

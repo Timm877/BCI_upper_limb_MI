@@ -62,16 +62,17 @@ print(f"overall mean: {round(sum(liststuff) / len(liststuff), 3)} from {liststuf
 '''
 
 
-df1 = pd.read_csv("results/finetune_results/X02_dry/trialnum1.csv")
-df2 = pd.read_csv("results/finetune_results/X02_dry/trialnum2.csv")
-df3 = pd.read_csv("results/finetune_results/X02_dry/trialnum3.csv")
-df4 = pd.read_csv("results/finetune_results/X02_dry/trialnum4.csv")
+df1 = pd.read_csv("results\pre_train_results\X09.csv")
+#df2 = pd.read_csv("results/finetune_results/X02_dry/trialnum2.csv")
+#df3 = pd.read_csv("results/finetune_results/X02_dry/trialnum3.csv")
+#df4 = pd.read_csv("results/finetune_results/X02_dry/trialnum4.csv")
 means = []
 
 print("1")
-print(f"{round(df1['test_accuracy'].mean(),3)} - {round(df1['test_accuracy'].std(),3)}")
-means.append(round(df1['test_accuracy'].mean(),3))
-
+print(f"{round(df1['val/vaL_acc'].mean(),3)} - {round(df1['val/vaL_acc'].std(),3)}")
+print(f"{round(df1['val/vaL_acc'].max(),3)} - {df1['val_subjects'][0]}")
+#means.append(round(df1['test_accuracy'].mean(),3))
+'''
 print("2")
 print(f"{round(df2['test_accuracy'].mean(),3)} - {round(df2['test_accuracy'].std(),3)}")
 means.append(round(df2['test_accuracy'].mean(),3))
@@ -85,6 +86,7 @@ print(f"{round(df4['test_accuracy'].mean(),3)} - {round(df4['test_accuracy'].std
 means.append(round(df4['test_accuracy'].mean(),3))
 
 print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
+'''
 
 '''
 df = pd.read_csv("results/finetune_results\X09\models.csv")

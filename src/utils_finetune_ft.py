@@ -11,6 +11,7 @@ import wandb
 import pprint
 import pickle
 import os
+import random
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -42,13 +43,14 @@ class EEGNET(nn.Module):
             nn.BatchNorm2d(filter_sizing*D),
             nn.ELU(True),
         )
-        self.avgpool1 = nn.AvgPool2d([1, 4], stride=[1, 4], padding=0)   
-        self.avgpool2 = nn.AvgPool2d([1, 8], stride=[1, 8], padding=0)
+        self.avgpool1 = nn.AvgPool2d([1, 5], stride=[1, 5], padding=0)   
+        self.avgpool2 = nn.AvgPool2d([1, 5], stride=[1, 5], padding=0)
         self.dropout = nn.Dropout(dropout)
         self.view = nn.Sequential(Flatten())
 
-        endsize = filter_sizing*D*15
+        endsize = 320#filter_sizing*D*15
         self.fc2 = nn.Linear(endsize, num_classes)
+
 
     def forward(self,x):
         out = self.temporal(x)
@@ -62,129 +64,109 @@ class EEGNET(nn.Module):
         prediction = self.fc2(out)
         return prediction
 
-
-class CNN(nn.Module):
-    def __init__(self, receptive_field, filter_sizing, mean_pool, activation_type, dropout):
-        super(CNN,self).__init__()
-        sample_duration = 500
-        channel_amount = 8
-        num_classes = 3
-        if activation_type == 'relu':
-            self.temporal=nn.Sequential(
-                nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, padding=0), 
-                nn.BatchNorm2d(filter_sizing),
-                nn.ReLU(),
-            )
-            self.spatial=nn.Sequential(
-                nn.Conv2d(filter_sizing,filter_sizing,kernel_size=[channel_amount,1],padding=0),
-                nn.BatchNorm2d(filter_sizing),
-                nn.ReLU(),
-            )
-        else:
-            self.temporal=nn.Sequential(
-                nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, padding=0), 
-                nn.BatchNorm2d(filter_sizing),
-                nn.ELU(True),
-            )
-            self.spatial=nn.Sequential(
-                nn.Conv2d(filter_sizing,filter_sizing,kernel_size=[channel_amount,1],padding=0),
-                nn.BatchNorm2d(filter_sizing),
-                nn.ELU(True),
-            )
-            
-        self.avgpool = nn.AvgPool2d([1, mean_pool], stride=[1, mean_pool], padding=0)
-        self.dropout = nn.Dropout(dropout)
-        self.view = nn.Sequential(Flatten())
-
-        endsize = filter_sizing*((sample_duration-receptive_field+1)//mean_pool)
-        self.fc2= nn.Linear(endsize, num_classes)
-
-    def forward(self,x):
-        out = self.temporal(x)
-        out = self.dropout(out)
-        out = self.spatial(out)
-        out = self.dropout(out)
-        out = self.avgpool(out)
-        out = out.view(out.size(0), -1)
-        prediction = self.fc2(out)
-        return prediction
-
-def data_setup(batch_size, subject):
-    result_path = Path(f'./results/intermediate_datafiles/openloopTL/TL_valtrial_{subject}')
-    result_path.mkdir(exist_ok=True, parents=True)
-    alldata_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz')
-    X_train, y_train, X_val, y_val = [], [], [], []
-    for instance in os.scandir(alldata_path):
-        print(f'Adding data for {instance.path}...')
-        a_file = open(instance.path, "rb")
-        data_dict = pickle.load(a_file)
-        X = data_dict['data']
-        y = data_dict['labels']
-        for df in X: 
-            for segment in range(len(X[df])): 
-                # upperlimb classification
-                if y[df][segment] == 0 or y[df][segment] == 1 or y[df][segment] == 2:
-                    if subject[0] in instance.path or subject[1] in instance.path:
-                        # put trials of unseen subject
-                        X_val.append(X[df][segment])
-                        y_val.append(y[df][segment]) 
-                    else:
-                        X_train.append(X[df][segment])
-                        y_train.append(y[df][segment])      
+def data_setup(config):
+    print(f'Adding data for {config.test_subject}...')
+    testsubj_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz/{config.test_subject}_deep.pkl')
+    X_train, y_train, X_val, y_val, X_test, y_test = [], [], [], [], [], []
+    print(testsubj_path)
+    a_file = open(testsubj_path, "rb")
+    data_dict = pickle.load(a_file)
+    X = data_dict['data']
+    y = data_dict['labels']
+    for df in X:
+        for segment in range(len(X[df])): 
+            # upperlimb classification
+            if y[df][segment] == 0 or y[df][segment] == 1 or y[df][segment] == 2:
+                if df in config.train_trials:
+                    # put last trial of trial_num in validation set
+                    X_train.append(X[df][segment])
+                    y_train.append(y[df][segment]) 
+                elif df == config.val_trials: 
+                    #earlier trials in training
+                    X_val.append(X[df][segment])
+                    y_val.append(y[df][segment])  
+                elif df in config.test_trials:
+                    X_test.append(X[df][segment])
+                    y_test.append(y[df][segment])  
         print(f'Current length of X train: {len(X_train)}.')
         print(f'Current length of X val: {len(X_val)}.')
+        print(f'Current length of X test: {len(X_test)}.')
     X_train_np = np.stack(X_train)
     X_val_np = np.stack(X_val)
+    X_test_np = np.stack(X_test)
     y_train_np = np.array(y_train)
     y_val_np = np.array(y_val)
+    y_test_np = np.array(y_test)
+
     trainX = torch.from_numpy(X_train_np)
     trainY = torch.from_numpy(y_train_np)
     validationX = torch.from_numpy(X_val_np)
     validationY = torch.from_numpy(y_val_np)
+    testX = torch.from_numpy(X_test_np)
+    testY = torch.from_numpy(y_test_np)
 
     train = torch.utils.data.TensorDataset(trainX, trainY)
     validation = torch.utils.data.TensorDataset(validationX, validationY)
-    trainloader = torch.utils.data.DataLoader(train, batch_size=batch_size, shuffle=True)
-    valloader = torch.utils.data.DataLoader(validation, batch_size=batch_size, shuffle=True)
-    return trainloader, valloader
+    test = torch.utils.data.TensorDataset(testX, testY)
+
+    trainloader = torch.utils.data.DataLoader(train, batch_size=config.batch_size, shuffle=True)
+    valloader = torch.utils.data.DataLoader(validation, batch_size=config.batch_size, shuffle=True)
+    testloader = torch.utils.data.DataLoader(test, batch_size=config.batch_size, shuffle=True)
+
+    return trainloader, valloader, testloader
 
 def run():
-    sweep_config = {
-    'method': 'random'
-    }
-    metric = {
-    'name': 'val/val_loss',
-    'goal': 'minimize'
-    }
-    sweep_config['metric'] = metric
-    parameters_dict = {
-    'learning_rate': {'values': [0.001, 0.005, 0.01]},
-    'filter_sizing': {'values': [8, 16, 32]},
-    'D': {'values': [2,3,4]},
-    'dropout': {'values': [0.4, 0.25, 0.1]}}
-    sweep_config['parameters'] = parameters_dict
-    parameters_dict.update({
-    'batch_size' : {'value' : 256},
-    'epochs': {'value': 40},
-    'receptive_field': {'value': 64}, 
-    'mean_pool': {'value': 8},
-    'activation_type': {'value': 'elu'},
-    'network' : {'value':'EEGNET'},
-    'val_subjects': {'value':['X05']},
-    'seed': {'value': 42}})
-    sweep_id = wandb.sweep(sweep_config, project=f"realsweep-EEGNET")
-    wandb.agent(sweep_id, train, count = 20)
-
+    for subj in range(3,10):
+        # 🐝 initialise a wandb run
+        test_subject = f'X0{subj}'
+        for instance in os.scandir(f"pretrain_models/{test_subject}/EEGNET_ft_v2"):
+            print(f'Getting pre-trained model from {instance.path}')
+            valsubjects = instance.path[-3:]
+            print(valsubjects)
+            trials = [0,1,2,3,4,5,6,7,8,9]
+            random.seed(subj)
+            for trial_num in range(1,5):
+                total = 5
+                all_trial_list = []
+                while len(all_trial_list) < total:
+                    trial_list = random.sample(trials, len(trials)) 
+                    if trial_list not in all_trial_list:    
+                        all_trial_list.append(trial_list)
+                        train_trials = trial_list[:trial_num]
+                        val_trials = trial_list[trial_num]
+                        test_trials = trial_list[5:]
+                        print(f"{train_trials}, {val_trials}, {test_trials}")
+                        config={
+                        'batch_size' : 256,
+                        'epochs': 20,
+                        'receptive_field': 64, 
+                        'mean_pool':  8,
+                        'activation_type':  'elu',
+                        'network' : 'EEGNET',
+                        'test_subject': test_subject,
+                        'val_subjects': valsubjects,
+                        'train_trials': train_trials,
+                        'val_trials': val_trials,
+                        'test_trials': test_trials,
+                        'trial_num': trial_num,
+                        'seed':  42,    
+                        'learning_rate': 0.001,
+                        'filter_sizing':  8,
+                        'D':  2,
+                        'dropout': 0.25}
+                        train(config)
+    
 def train(config=None):
     # Initialize a new wandb run
-    with wandb.init(config=config):
+    with wandb.init(project=f"EEGNET_v2-FinalFineTune_{config['test_subject']}", config=config):
         config = wandb.config
         pprint.pprint(config)
-        early_stopping = EarlyStopping()
-        trainloader, valloader = data_setup(config.batch_size, config.val_subjects)
+        trainloader, valloader, testloader = data_setup(config)
         net = build_network(config)
         wandb.watch(net, log_freq=100)
         optimizer = optim.Adam(net.parameters(), lr=config.learning_rate)
+        early_stopping = EarlyStopping()
+        # TRAINING
         for epoch in range(config.epochs):
             train_loss, train_acc, train_f1 = train_epoch(net, trainloader, optimizer)
             val_loss, val_acc, val_f1 = evaluate(net, valloader)
@@ -194,17 +176,21 @@ def train(config=None):
             "train/train_f1": train_f1,
             "val/val_loss": val_loss,
             "val/vaL_acc": val_acc,
-            "val/val_f1": val_f1})   
+            "val/val_f1": val_f1})  
 
             early_stopping(val_loss)
             if early_stopping.early_stop:
                 break
 
+        # TESTING
+        test_loss, test_acc, test_f1 = evaluate(net, testloader)
+        print(f'test loss: {test_loss}, test acc: {test_acc}, test f1: {test_f1}')
+        wandb.summary['test_accuracy'] = test_acc
+        wandb.summary['test_f1'] = test_f1
+        
 def build_network(config):
-    if config.network == 'CNN':
-        net = CNN(config.receptive_field, config.filter_sizing, config.mean_pool, config.activation_type, config.dropout)
-    elif config.network == 'EEGNET':
-        net = EEGNET(config.receptive_field, config.filter_sizing, config.mean_pool, config.activation_type, config.dropout, config.D)
+    net = EEGNET(config.receptive_field, config.filter_sizing, config.mean_pool, config.activation_type, config.dropout, config.D)
+    net.load_state_dict(torch.load(f'pretrain_models/{config.test_subject}/EEGNET_ft_v2/EEGNET-PreTrain_val{config.val_subjects}'))
     pytorch_total_params_train = sum(p.numel() for p in net.parameters() if p.requires_grad)
     print(f'trainable parameters: {pytorch_total_params_train}')
     return net.to(device)
@@ -251,12 +237,13 @@ def evaluate(net, loader):
     print(f"acc: {acc}, f1: {f1}")
     return running_loss, acc, f1
 
+
 class EarlyStopping():
     """
     Early stopping to stop the training when the loss does not improve after
     certain epochs.
     """
-    def __init__(self, patience=7, min_delta=1e-4):
+    def __init__(self, patience=5, min_delta=1e-4):
         """
         :param patience: how many epochs to wait before stopping when loss is
                not improving

@@ -1,20 +1,5 @@
 import argparse
-import os
-import time
-from pathlib import Path
-import numpy as np
-import pandas as pd
-import mne
-from meegkit.asr import ASR
-import pickle
-import scipy.io
-from scipy import signal
-from sklearn.model_selection import KFold, cross_validate
-import matplotlib.pyplot as plt
-import src.unicorn_utils as utils
-import src.utils_TL as utils_TL
-
-pd.options.mode.chained_assignment = None  # default='warn'
+import src.utils_sweep_ft as utils_TL
 
 def execution(pipeline_type, subject, type):
     print(f'Initializing for Transfer learning...')

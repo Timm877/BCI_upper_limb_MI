@@ -115,7 +115,7 @@ def data_setup(config):
     return trainloader, valloader, testloader
 
 def run():
-    for subj in range(2,3):
+    for subj in range(1,10):
         # 🐝 initialise a wandb run
         test_subject = f'X0{subj}'
         for instance in os.scandir(f"pretrain_models/{test_subject}"):
@@ -157,7 +157,7 @@ def run():
     
 def train(config=None):
     # Initialize a new wandb run
-    with wandb.init(project=f"EEGNET-FineTuneWithoutErrors_5runs_{config['test_subject']}", config=config):
+    with wandb.init(project=f"EEGNET-FineTune_{config['test_subject']}", config=config):
         config = wandb.config
         pprint.pprint(config)
         trainloader, valloader, testloader = data_setup(config)

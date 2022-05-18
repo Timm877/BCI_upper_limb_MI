@@ -1,27 +1,8 @@
 import argparse
-import os
-import time
-from pathlib import Path
-import numpy as np
-import pandas as pd
-import mne
-from meegkit.asr import ASR
-import pickle
-import scipy.io
-from scipy import signal
-from sklearn.model_selection import KFold, cross_validate
-import matplotlib.pyplot as plt
-import src.unicorn_utils as utils
-import src.utils_finetune as utils_finetune
-
-pd.options.mode.chained_assignment = None  # default='warn'
+import src.utils_finetune_ft as utils_finetune
 
 def execution(type):
     print(f'Initializing for Finetune Transfer learning...')
-    # step 1: Run 3 times, save best: pre-train all DL models for whole population minus 1 w 3 random validation sets?
-    # step 2: Run 3 times, get avg: finetune for 3 epochs on 1, 2, 3, 4, or 5 trials w random validation set, test on remaining 5
-    # step 3: also train CSP and RG model for 1,2,3,4,or 5 trials --> random validation set?
-    # step 4: test ML models on remaining as well
     utils_finetune.run()
     print('Finished')
 
