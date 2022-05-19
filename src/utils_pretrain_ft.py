@@ -68,7 +68,7 @@ def data_setup(batch_size, val_subjects, test_subject):
     print(test_subject)
     result_path = Path(f"./results/intermediate_datafiles/openloopTL/TL_pretrain_for_{test_subject}")
     result_path.mkdir(exist_ok=True, parents=True)
-    alldata_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz')
+    alldata_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz_onlygood')
     X_train, y_train, X_val, y_val, X_test, y_test = [], [], [], [], [], []
     for instance in os.scandir(alldata_path):
         print(f'Adding data for {instance.path}...')
@@ -119,10 +119,10 @@ def data_setup(batch_size, val_subjects, test_subject):
     return trainloader, valloader, testloader
 
 def run():
-    for subj in range(1,10):
+    for subj in range(1,2):
         test_subject = f'X0{subj}'
-        other_subjects = [1,2,3,4,5,6,7,8,9]
-        other_subjects.remove(subj)
+        other_subjects = [2,4,5]#[1,2,3,4,5,6,7,8,9]
+        #other_subjects.remove(subj)
         print(other_subjects)
         random.seed(subj)
 
@@ -130,7 +130,7 @@ def run():
             val_subjects = [f"X0{i}"]
             config={
             'batch_size' : 256,
-            'epochs': 15,
+            'epochs': 30,
             'receptive_field': 64, 
             'mean_pool':  8,
             'activation_type':  'elu',
@@ -146,9 +146,10 @@ def run():
 
 def train(config=None):
     # Initialize a new wandb run
-    with wandb.init(project=f"EEGNET_v2-ft_PreTrain_for_{config['test_subject']}",config=config):
+    with wandb.init(project=f"onlygoodsubj_EEGNET_v2-ft_PreTrain_for_{config['test_subject']}",config=config):
         config = wandb.config
         pprint.pprint(config)
+        early_stopping = EarlyStopping()
         trainloader, valloader, testloader = data_setup(config.batch_size, config.val_subjects, config.test_subject)
         net = build_network(config)
         wandb.watch(net, log_freq=100)
@@ -167,7 +168,11 @@ def train(config=None):
             "val/vaL_acc": val_acc,
             "val/val_f1": val_f1,
             "val_finetune_acc": ft_acc}) 
-        torch.save(net.state_dict(), f'pretrain_models/{config.test_subject}/EEGNET_ft_v2/EEGNET-PreTrain_val{config.val_subjects[0]}')
+
+            early_stopping(val_loss)
+            if early_stopping.early_stop:
+                break
+        torch.save(net.state_dict(), f'pretrain_models/{config.test_subject}/EEGNET_ft_v2_onlygood/EEGNET-PreTrain_val{config.val_subjects[0]}')
 
 def build_network(config):
     if config.network == 'EEGNET':
@@ -247,7 +252,7 @@ class EarlyStopping():
     Early stopping to stop the training when the loss does not improve after
     certain epochs.
     """
-    def __init__(self, patience=5, min_delta=1e-4):
+    def __init__(self, patience=5, min_delta=1e-8):
         """
         :param patience: how many epochs to wait before stopping when loss is
                not improving

@@ -48,7 +48,7 @@ class EEGNET(nn.Module):
         self.dropout = nn.Dropout(dropout)
         self.view = nn.Sequential(Flatten())
 
-        endsize = 320
+        endsize = 320#filter_sizing*D*15
         self.fc2 = nn.Linear(endsize, num_classes)
 
 
@@ -125,40 +125,40 @@ def run():
             print(valsubjects)
             trials = [0,1,2,3,4,5,6,7,8,9]
             random.seed(subj)
-            for trial_num in range(1,5):
-                total = 5
-                all_trial_list = []
-                while len(all_trial_list) < total:
-                    trial_list = random.sample(trials, len(trials)) 
-                    if trial_list not in all_trial_list:    
-                        all_trial_list.append(trial_list)
-                        train_trials = trial_list[:trial_num]
-                        val_trials = trial_list[trial_num]
-                        test_trials = trial_list[5:]
-                        print(f"{train_trials}, {val_trials}, {test_trials}")
-                        config={
-                        'batch_size' : 256,
-                        'epochs': 20,
-                        'receptive_field': 64, 
-                        'mean_pool':  8,
-                        'activation_type':  'elu',
-                        'network' : 'EEGNET',
-                        'test_subject': test_subject,
-                        'val_subjects': valsubjects,
-                        'train_trials': train_trials,
-                        'val_trials': val_trials,
-                        'test_trials': test_trials,
-                        'trial_num': trial_num,
-                        'seed':  42,    
-                        'learning_rate': 0.001,
-                        'filter_sizing':  8,
-                        'D':  2,
-                        'dropout': 0.25}
-                        train(config)
+            trial_num = 1
+            total = 5
+            all_trial_list = []
+            while len(all_trial_list) < total:
+                trial_list = random.sample(trials, len(trials)) 
+                if trial_list not in all_trial_list:    
+                    all_trial_list.append(trial_list)
+                    train_trials = trial_list[:trial_num]
+                    val_trials = trial_list[trial_num]
+                    test_trials = trial_list[5:]
+                    print(f"{train_trials}, {val_trials}, {test_trials}")
+                    config={
+                    'batch_size' : 256,
+                    'epochs': 1,
+                    'receptive_field': 64, 
+                    'mean_pool':  8,
+                    'activation_type':  'elu',
+                    'network' : 'EEGNET',
+                    'test_subject': test_subject,
+                    'val_subjects': valsubjects,
+                    'train_trials': train_trials,
+                    'val_trials': val_trials,
+                    'test_trials': test_trials,
+                    'trial_num': trial_num,
+                    'seed':  42,    
+                    'learning_rate': 0.001,
+                    'filter_sizing':  8,
+                    'D':  2,
+                    'dropout': 0.25}
+                    train(config)
     
 def train(config=None):
     # Initialize a new wandb run
-    with wandb.init(project=f"EEGNET_v2-FinalFineTune_{config['test_subject']}", config=config):
+    with wandb.init(project=f"EEGNET_v2-NoFineTune", config=config):
         config = wandb.config
         pprint.pprint(config)
         trainloader, valloader, testloader = data_setup(config)
@@ -168,12 +168,12 @@ def train(config=None):
         early_stopping = EarlyStopping()
         # TRAINING
         for epoch in range(config.epochs):
-            train_loss, train_acc, train_f1 = train_epoch(net, trainloader, optimizer)
+            #train_loss, train_acc, train_f1 = train_epoch(net, trainloader, optimizer)
             val_loss, val_acc, val_f1 = evaluate(net, valloader)
             wandb.log({"epoch": epoch,
-            "train/train_loss": train_loss,
-            "train/train_acc": train_acc,
-            "train/train_f1": train_f1,
+            #"train/train_loss": train_loss,
+            #"train/train_acc": train_acc,
+            #"train/train_f1": train_f1,
             "val/val_loss": val_loss,
             "val/vaL_acc": val_acc,
             "val/val_f1": val_f1})  

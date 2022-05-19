@@ -1,4 +1,3 @@
-
 from tabulate import tabulate
 from texttable import Texttable
 
@@ -32,17 +31,16 @@ print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
 
 liststuff = [0.535, 0.536, 0.544, 0.554 ]
 print(f"overall mean: {round(sum(liststuff) / len(liststuff), 3)} from {liststuff}")
-'''
-'''
-df1 = pd.read_csv("results/finetune_results/X01/trialnum4.csv")
-df2 = pd.read_csv("results/finetune_results/X02/trialnum4.csv")
-df3 = pd.read_csv("results/finetune_results/X03/trialnum4.csv")
-df4 = pd.read_csv("results/finetune_results/X04/trialnum4.csv")
-df5 = pd.read_csv("results/finetune_results/X05/trialnum4.csv")
-df6 = pd.read_csv("results/finetune_results/X06/trialnum4.csv")
-df7 = pd.read_csv("results/finetune_results/X07/trialnum4.csv")
-df8 = pd.read_csv("results/finetune_results/X08/trialnum4.csv")
-df9 = pd.read_csv("results/finetune_results/X09/trialnum4.csv")
+
+df1 = pd.read_csv("results/finetune_results/X01/4.csv")
+df2 = pd.read_csv("results/finetune_results/X02/4.csv")
+df3 = pd.read_csv("results/finetune_results/X03/4.csv")
+df4 = pd.read_csv("results/finetune_results/X04/4.csv")
+df5 = pd.read_csv("results/finetune_results/X05/4.csv")
+df6 = pd.read_csv("results/finetune_results/X06/4.csv")
+df7 = pd.read_csv("results/finetune_results/X07/4.csv")
+df8 = pd.read_csv("results/finetune_results/X08/4.csv")
+df9 = pd.read_csv("results/finetune_results/X09/4.csv")
 means = []
 
 means.append(round(df1['test_accuracy'].mean(),3))
@@ -55,24 +53,25 @@ means.append(round(df7['test_accuracy'].mean(),3))
 means.append(round(df8['test_accuracy'].mean(),3))
 means.append(round(df9['test_accuracy'].mean(),3))
 print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
-
-
-liststuff = [0.598, 0.589, 0.576, 0.556]
+liststuff = [0.551  , 0.568  ,0.571   , 0.593]
 print(f"overall mean: {round(sum(liststuff) / len(liststuff), 3)} from {liststuff}")
 '''
-
-
-df1 = pd.read_csv("results\pre_train_results\X09.csv")
-#df2 = pd.read_csv("results/finetune_results/X02_dry/trialnum2.csv")
-#df3 = pd.read_csv("results/finetune_results/X02_dry/trialnum3.csv")
-#df4 = pd.read_csv("results/finetune_results/X02_dry/trialnum4.csv")
+df0 = pd.read_csv("results/finetune_results/X09/mod_0.csv")
+df1 = pd.read_csv("results/finetune_results/X02/0.csv")
+df2 = pd.read_csv("results/finetune_results/X02/0.csv")
+df3 = pd.read_csv("results/finetune_results/X02/0.csv")
+df4 = pd.read_csv("results/finetune_results/X02/0.csv")
 means = []
 
-print("1")
-print(f"{round(df1['val/vaL_acc'].mean(),3)} - {round(df1['val/vaL_acc'].std(),3)}")
-print(f"{round(df1['val/vaL_acc'].max(),3)} - {df1['val_subjects'][0]}")
-#means.append(round(df1['test_accuracy'].mean(),3))
+print("models")
+print(f"{round(df0['test_accuracy'].mean(),3)} - {round(df0['test_accuracy'].std(),3)}")
+print(round(df0['test_accuracy'].max(),3))
+print(df0['Name'][0])
 '''
+print("1")
+print(f"{round(df1['test_accuracy'].mean(),3)} - {round(df1['test_accuracy'].std(),3)}")
+means.append(round(df1['test_accuracy'].mean(),3))
+
 print("2")
 print(f"{round(df2['test_accuracy'].mean(),3)} - {round(df2['test_accuracy'].std(),3)}")
 means.append(round(df2['test_accuracy'].mean(),3))
@@ -89,16 +88,8 @@ print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
 '''
 
 '''
-df = pd.read_csv("results/finetune_results\X09\models.csv")
 
-print(round(df['test_accuracy'].mean(),3))
-print(round(df['test_accuracy'].std(),3))
-print(round(df['test_accuracy'].max(),3))
-#print(round(df['test_accuracy'][0],3))
-print(df['Name'])
-#print(round(df[['trial_num','test_accuracy']],3))
-'''
-'''
+
 df1 = pd.read_csv("results/intermediate_datafiles/openloop/X01_ML/csp_STD_multiclass.csv")
 df2 = pd.read_csv("results/intermediate_datafiles/openloop/X02_ML/csp_STD_multiclass.csv")
 df3 = pd.read_csv("results/intermediate_datafiles/openloop/X03_ML/csp_STD_multiclass.csv")
@@ -156,8 +147,6 @@ rf = np.array([df1.loc[2,'final_val_accuracy'], df2.loc[2,'final_val_accuracy'],
 print(slda)
 print(svm)
 print(rf)
-'''
-'''
 
 from tabulate import tabulate
 from texttable import Texttable

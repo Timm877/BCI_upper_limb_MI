@@ -188,13 +188,13 @@ def init_pipelines_grid(pipeline_name = ['csp']):
                                             ('slda', LDA(solver = 'lsqr', shrinkage='auto'))])
 
         param_grid = {
-            "csp__n_components" :[8,10,12]
+            "csp__n_components" :[2, 4, 8],
                 }
         pipelines["csp+s_lda"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
         '''
         pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC(decision_function_shape='ovo'))])
         param_grid = {
-            "csp__n_components" :[8,10,12],
+            "csp__n_components" :[2, 4, 8],
             "svm__C": [1, 10],
             "svm__gamma": [0.1, 0.01, 0.001]
                 }
@@ -202,7 +202,7 @@ def init_pipelines_grid(pipeline_name = ['csp']):
 
         pipe = Pipeline(steps=[('csp', CSP()), ('rf', RFC(random_state=42))])
         param_grid = {
-            "csp__n_components" :[8,10,12],
+            "csp__n_components" :[2, 4, 8],
             "rf__min_samples_leaf": [1, 2, 3],
             "rf__n_estimators": [50, 100, 200],
             "rf__criterion": ['gini', 'entropy']}
