@@ -1,7 +1,6 @@
-#TODO transport DL models to here
-class EEGNET(nn.Module):
+class Inception(nn.Module):
     def __init__(self, receptive_field, filter_sizing, mean_pool, activation_type, dropout, D):
-        super(EEGNET,self).__init__()
+        super(Inception,self).__init__()
         sample_duration = 500
         channel_amount = 8
         num_classes = 3

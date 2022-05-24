@@ -11,12 +11,11 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
     print(f'Preprocessing for {pipeline_type} experimentation...')
     # INIT
     sampling_frequency = 250 
-    # testing here for 8 electrodes:
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
-    folder_path = Path(f'./data/openloop/{subject}/outlier_data')
+    folder_path = Path(f'./data/openloop/{subject}/openloop')
     env_noise_path = Path(f'./data/openloop/{subject}/Envdata')
-    #result_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz')
-    #result_path.mkdir(exist_ok=True, parents=True)  
+    result_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz_2')
+    result_path.mkdir(exist_ok=True, parents=True)  
     dataset_full = {}
     trials_amount = 0
 
@@ -29,7 +28,6 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
             y = sig.loc[:,'Class']
             dataset_full[str(instance)] = pd.concat([X, y], axis=1)
     
-  
     for window_size in window_sizes:
         for filt_ord in filt_orders:
             for freq_limit_instance in range(len(list_of_freq_lim)):
@@ -51,9 +49,9 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
                         data_dict['labels'][df_num].append(y_temp[segment]) 
                     df_num += 1
                 results_fname = f'{subject}_{pipeline_type}.pkl'
-                #save_file = open(result_path / results_fname, "wb")
-                #pickle.dump(data_dict, save_file)
-                #save_file.close()
+                save_file = open(result_path / results_fname, "wb")
+                pickle.dump(data_dict, save_file)
+                save_file.close()
                 print('Finished a preprocess pipeline.')
 
 def main():
@@ -63,14 +61,12 @@ def main():
             # filterbank
             list_of_freq_lim = [[[5, 10], [10, 15], [15, 20], [20, 25]]]
             freq_limits_names_list = [['10_15Hz','15_20Hz','20_25Hz', '25_30Hz', '30_35Hz'],]
-            #['5_10Hz', '10_15Hz','15_20Hz','20_25Hz'],
-            #['4_8Hz', '8_12Hz','12_16Hz','16_20Hz', '20_24Hz','24_28Hz', '28_32Hz', '32_36Hz', '36_40Hz']]
             filt_orders = [2]
             window_sizes = [500]
             execution('csp', list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes, subj)
         if 'deep' in FLAGS.pline:
-            list_of_freq_lim = [[[1,100]]]#, [[8,35]]]
-            freq_limits_names_list = [['1_100Hz']]#, '8_35Hz']
+            list_of_freq_lim = [[[1,100]]]
+            freq_limits_names_list = [['1_100Hz']]
             filt_orders = [2]
             window_sizes = [500]
             execution('deep', list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes, subj)

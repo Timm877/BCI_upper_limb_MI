@@ -48,7 +48,7 @@ class EEGNET(nn.Module):
         self.dropout = nn.Dropout(dropout)
         self.view = nn.Sequential(Flatten())
 
-        endsize = 320#filter_sizing*D*15
+        endsize = filter_sizing*D*20
         self.fc2 = nn.Linear(endsize, num_classes)
 
 
@@ -113,31 +113,32 @@ def data_setup(batch_size, val_subjects):
     return trainloader, valloader, testloader
 
 def run():
-    sweep_config = {
-    'method': 'grid'
-    }
-    metric = {
-    'name': 'val/val_loss',
-    'goal': 'minimize'
-    }
-    sweep_config['metric'] = metric
-    parameters_dict = {
-    'learning_rate': {'values': [0.001, 0.005]},
-    'filter_sizing': {'values': [8, 16]},
-    'D': {'values': [2,3]},
-    'dropout': {'values': [0.25, 0.1]}}
-    sweep_config['parameters'] = parameters_dict
-    parameters_dict.update({
-    'batch_size' : {'value' : 256},
-    'epochs': {'value': 40},
-    'receptive_field': {'value': 64}, 
-    'mean_pool': {'value': 8},
-    'activation_type': {'value': 'elu'},
-    'network' : {'value':'EEGNET'},
-    'val_subjects': {'value':['X08']},
-    'seed': {'value': 42}})
-    sweep_id = wandb.sweep(sweep_config, project=f"realsweep_EEGNET")
-    wandb.agent(sweep_id, train)
+    for val_subject in [['X03']]:#, ['X05'], ['X08']]:
+        sweep_config = {
+        'method': 'grid'
+        }
+        metric = {
+        'name': 'val/val_loss',
+        'goal': 'minimize'
+        }
+        sweep_config['metric'] = metric
+        parameters_dict = {
+        'learning_rate': {'values': [0.001, 0.005, 0.01]},
+        'filter_sizing': {'values': [4, 8, 16]},
+        'D': {'values': [1, 2, 3]},
+        'dropout': {'values': [0.4, 0.25, 0.1]}}
+        sweep_config['parameters'] = parameters_dict
+        parameters_dict.update({
+        'batch_size' : {'value' : 256},
+        'epochs': {'value': 40},
+        'receptive_field': {'value': 64}, 
+        'mean_pool': {'value': 8},
+        'activation_type': {'value': 'elu'},
+        'network' : {'value':'EEGNET'},
+        'val_subjects': {'value':val_subject},
+        'seed': {'value': 42}})
+        sweep_id = wandb.sweep(sweep_config, project=f"realsweep_EEGNET")
+        wandb.agent(sweep_id, train)
 
 def train(config=None):
     # Initialize a new wandb run

@@ -12,6 +12,8 @@ import pprint
 import pickle
 import os
 import random
+import pandas as pd
+import seaborn as sn
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -36,6 +38,7 @@ class EEGNET(nn.Module):
             nn.BatchNorm2d(filter_sizing*D),
             nn.ELU(True),
         )
+
         self.seperable=nn.Sequential(
             nn.Conv2d(filter_sizing*D,filter_sizing*D,kernel_size=[1,16],\
                 padding='same',groups=filter_sizing*D, bias=False),
@@ -50,7 +53,6 @@ class EEGNET(nn.Module):
 
         endsize = 320
         self.fc2 = nn.Linear(endsize, num_classes)
-
 
     def forward(self,x):
         out = self.temporal(x)
@@ -116,13 +118,14 @@ def data_setup(config):
     return trainloader, valloader, testloader
 
 def run():
-    for subj in range(1,10):
+    for subj in range(1,3):
         # 🐝 initialise a wandb run
         test_subject = f'X0{subj}'
         for instance in os.scandir(f"pretrain_models/{test_subject}/EEGNET_ft_v2"):
             print(f'Getting pre-trained model from {instance.path}')
             valsubjects = instance.path[-3:]
             print(valsubjects)
+
             trials = [0,1,2,3,4,5,6,7,8,9]
             random.seed(subj)
             for trial_num in range(1,5):
@@ -148,6 +151,7 @@ def run():
                         'train_trials': train_trials,
                         'val_trials': val_trials,
                         'test_trials': test_trials,
+                        'ablation': 'all',
                         'trial_num': trial_num,
                         'seed':  42,    
                         'learning_rate': 0.001,
@@ -155,10 +159,10 @@ def run():
                         'D':  2,
                         'dropout': 0.25}
                         train(config)
-    
+
 def train(config=None):
     # Initialize a new wandb run
-    with wandb.init(project=f"EEGNET_v2-FinalFineTune_{config['test_subject']}", config=config):
+    with wandb.init(project=f"EEGNET_v2-GoodFineTune_{config['test_subject']}", config=config):
         config = wandb.config
         pprint.pprint(config)
         trainloader, valloader, testloader = data_setup(config)
@@ -168,8 +172,10 @@ def train(config=None):
         early_stopping = EarlyStopping()
         # TRAINING
         for epoch in range(config.epochs):
+            net.train()
             train_loss, train_acc, train_f1 = train_epoch(net, trainloader, optimizer)
-            val_loss, val_acc, val_f1 = evaluate(net, valloader)
+            net.eval()
+            val_loss, val_acc, val_f1, _ = evaluate(net, valloader)
             wandb.log({"epoch": epoch,
             "train/train_loss": train_loss,
             "train/train_acc": train_acc,
@@ -182,11 +188,29 @@ def train(config=None):
             if early_stopping.early_stop:
                 break
 
-        # TESTING
-        test_loss, test_acc, test_f1 = evaluate(net, testloader)
+        # Evaluating TESTING
+        net.eval()
+        test_loss, test_acc, test_f1, conf_mat = evaluate(net, testloader)
+
         print(f'test loss: {test_loss}, test acc: {test_acc}, test f1: {test_f1}')
         wandb.summary['test_accuracy'] = test_acc
         wandb.summary['test_f1'] = test_f1
+
+        # make confusion matrix figure
+        '''
+        classes = ('Relax', "Right arm", "Left arm")
+        df_cm = pd.DataFrame(conf_mat/np.sum(conf_mat)*3, index = [i for i in classes],
+                     columns = [i for i in classes])
+        plt.figure(figsize = (12,7))
+        sn.set(font_scale=1.8)
+        sn.heatmap(df_cm, annot=True, cbar=False)
+        plt.savefig(f'./figures/confmat_{config.test_subject}_trialnum{config.trial_num}.png')
+        ft_path = Path(f"finetuned_models/{config.test_subject}")
+        model_name = f"EEGNET_trialnum{config.trial_num}"
+        ft_path.mkdir(exist_ok=True, parents=True)  
+        #torch.save(net.state_dict(), ft_path / model_name)
+        '''
+
         
 def build_network(config):
     net = EEGNET(config.receptive_field, config.filter_sizing, config.mean_pool, config.activation_type, config.dropout, config.D)
@@ -220,6 +244,7 @@ def train_epoch(net, loader, optimizer):
 
 def evaluate(net, loader):
     acc, running_loss, f1, batches, total = 0, 0, 0, 0, 0
+    y_pred, y_true = [], []
     for _, (data, target) in enumerate(loader):
         data = data[:, np.newaxis, :, :]
         data, target = data.to(device, dtype=torch.float), target.to(device, dtype=torch.long)
@@ -227,6 +252,9 @@ def evaluate(net, loader):
         loss = F.cross_entropy(output, target)
         running_loss += loss.item()
         _, predicted = torch.max(output.data, 1)
+        y_pred.extend(predicted)
+        y_true.extend(target)
+
         acc += (predicted == target).sum().item()
         f1 += f1_score(target.data, predicted, average='macro')
         batches += 1
@@ -235,8 +263,8 @@ def evaluate(net, loader):
     acc =  acc / total
     f1 =  f1 / batches
     print(f"acc: {acc}, f1: {f1}")
-    return running_loss, acc, f1
-
+    cf_matrix = confusion_matrix(y_true, y_pred)
+    return running_loss, acc, f1, cf_matrix
 
 class EarlyStopping():
     """

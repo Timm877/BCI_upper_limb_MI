@@ -4,61 +4,109 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pickle
-import src.unicorn_utils as utils
+import src.realtime_utils as utils
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import time
+import matplotlib.pyplot as plt
 pd.options.mode.chained_assignment = None  # default='warn'
 
-def execution(subject):
-    sampling_frequency = 250
-    electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
-    folder_path = Path(f'./data/openloop/{subject}/openloop')
-    result_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/closedloop')
-    result_path.mkdir(exist_ok=True, parents=True)  
-    dataset_full = {}
-    trials_amount = 0
-
+def main():
+    # INIT
     filt_ord = 2
-    window_size = 500
     freq_limits = np.asarray([[1,100]]) 
     freq_limits_names = ['1_100Hz']
-
+    sample_duration = 125
+    sampling_frequency = 250
+    subject = FLAGS.subjects[0]
+    electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
     filters = utils.init_filters(freq_limits, sampling_frequency, filt_type = 'bandpass', order=filt_ord)
+    segments, labels, predictions = [], [], []
+    total_outlier = 0
+
+    # init DL model
+    net = utils.EEGNET()
+    net.load_state_dict(torch.load(f'finetuned_models/{subject}/EEGNET_trialnum4'))
+    net = net.float()
+    net.eval()
+
+    folder_path = Path(f'./data/openloop/{subject}/openloop') 
+    accuracies, elapsed_times = [], []
+    counter = 0
+
     for instance in os.scandir(folder_path):
-        if instance.path.endswith('.csv'): 
-            trials_amount +=1
-            print(f'adding_{instance} to dataset...')
-            sig = pd.read_csv(instance.path)
-            X = sig.loc[:,electrode_names]
-            y = sig.loc[:,'Class']
-            dataset_full = pd.concat([X, y], axis=1)
+        sig = pd.read_csv(instance.path)
+        X = sig.loc[:,electrode_names]
+        y = sig.loc[:,'Class']
+        dataset_full = pd.concat([X, y], axis=1)
+        current_seg = pd.DataFrame()
+        current_label = pd.DataFrame()
+        
+        for frame_id in range(sample_duration, dataset_full.shape[0] , sample_duration):
+            start = time.time()
+            counter +=1
 
-            #start data collection
-            #data_segment = add datapoints
-            # every 0.5 seconds:
-            # TODO change function below
-            X_temp, y_temp = utils.realtime_filt(dataset_full, window_size, filters,
-                            electrode_names, freq_limits_names, sampling_frequency, subject)
-            # print time
-            #if seg == 0:
-            # add 4x 0.5sec together -->TODO plot data to see if overlap is good
-            #else: 
-            #remove first 0.5, add new 0.5
-            # if y_temp == 0 or 1 or 2:
-                # if outlier: predict nothing
-                # else: predict
-                # ball to left, ball to right, or circle bigger (relax)
-                # if predict == y_temp: save data segment to data-dict for further training
+            data_segment = dataset_full.iloc[frame_id-sample_duration:frame_id, :-1] 
+            label = dataset_full.iloc[frame_id-sample_duration:frame_id, -1]
+            segment_filt, outlier, filters = utils.pre_processing(data_segment, electrode_names, filters, 
+                        sample_duration, freq_limits_names, sampling_frequency)
 
+            if len(current_seg) == 0:
+                current_seg = segment_filt
+                current_label = label
 
-def main():
-    list_of_freq_lim = [[[1,100]]]
-    freq_limits_names_list = [['1_100Hz']]
-    filt_orders = [2]
-    window_sizes = [500]
-    execution('deep', list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes, FLAGS.subj[0])
+            else:
+                current_seg = pd.concat([current_seg.reset_index(drop=True), segment_filt.reset_index(drop=True)],
+                    axis=1, ignore_index=True)
+                current_label = pd.concat([current_label.reset_index(drop=True), label.reset_index(drop=True)],
+                    axis=0, ignore_index=True)
 
+            if len(current_seg.columns) == 500:
+                # only when we have 2 second of data, move on
+                current_label = current_label.T
+                label_count = current_label.value_counts()[:1]
+                label_num = label_count.index.tolist()[0]
+
+                if (label_count[0] == 500) and (label_num in ['0', '1', '2']):
+                    # 0 relax 1 right arm 2 left arm
+                    if outlier > 0:
+                        total_outlier +=1
+                        print('OUTLIER')
+                    else:
+                        segments.append(current_seg)
+                        labels.append(int(label_num)) 
+
+                        current_tensor = torch.from_numpy(np.array(current_seg))
+                        current_tensor = current_tensor[np.newaxis, np.newaxis, :, :]
+
+                        output = net(current_tensor.float())
+                        _, predicted = torch.max(output.data, 1)
+                        #print(f'PREDICTED CLASS: {predicted[0]}')
+                        predictions.append(int(predicted[0]))
+                else:
+                    pass
+                    #print("Not a valid MI segment")
+
+                # TODO save data here to CSV before deleting first 0.5 sec
+                # not so difficult with pd.save_csv or smthng
+
+                # lastly delete first 0.5 sec to later add 0.5 sec more
+                current_seg = current_seg.iloc[:,125:]
+                current_label = current_label.iloc[125:]
+                # and calculate elapsed time
+                elapsed_times.append(time.time() - start)
+
+        print(f"amount of outliers during MI: {total_outlier}")
+        print(f"accuracy: {(sum([x==y for (x,y) in zip(predictions,labels)]))/len(labels)}")
+        accuracies.append((sum([x==y for (x,y) in zip(predictions,labels)]))/len(labels))
+
+    print(f"average elapsed time: {sum(elapsed_times) / len(elapsed_times)}")
+    print(accuracies)    
+                
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run offline BCI analysis experiments.")
-    parser.add_argument("--subjects", nargs='+', default=['X02_wet'], help="The variant of pipelines used. \
+    parser.add_argument("--subjects", nargs='+', default=['X02'], help="The variant of pipelines used. \
     This variable is a list containing the name of the variants. Options are in the data folder.")
     FLAGS, unparsed = parser.parse_known_args()
     main()

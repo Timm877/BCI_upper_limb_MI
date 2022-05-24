@@ -148,7 +148,9 @@ def train(config=None):
         wandb.watch(net, log_freq=100)
         optimizer = optim.Adam(net.parameters(), lr=config.learning_rate)
         for epoch in range(config.epochs):
+            net.train()
             train_loss, train_acc, train_f1 = train_epoch(net, trainloader, optimizer)
+            net.eval()
             val_loss, val_acc, val_f1 = evaluate(net, valloader)
             wandb.log({"epoch": epoch,
             "train/train_loss": train_loss,

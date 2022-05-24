@@ -145,14 +145,7 @@ def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, sel
             if (label[0] == sample_duration) and (label.index.tolist()[0] in ['0', '1','2', '3']):
                 # 0 relax 1 right arm 2 left arm 3 legs
                 outlier_labels.append(int(label.index.tolist()[0])) 
-            #if outlier > 3:
-                #print(segment_filt.head())
-                #segment_filt = segment_filt.T
-                #segment_filt.columns = ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
-                #plot_dataset(segment_filt, ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8'],
-                #                  ['like', 'like', 'like','like', 'like', 'like','like', 'like'],
-                #                  ['line','line', 'line','line','line', 'line','line','line'])
-            
+    
         else:
             label_row = dataset_c.iloc[frame_idx-sample_duration:frame_idx, -1]
             label = label_row.value_counts()[:1]

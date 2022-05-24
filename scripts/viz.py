@@ -16,6 +16,17 @@ folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/X02_RG_mo
 result_path = Path(f'./results/intermediate_datafiles/openloop/X02')
 result_path.mkdir(exist_ok=True, parents=True)
 
+#current_seg = current_seg.T
+#current_seg.columns = ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
+#utils2.plot_dataset(current_seg, ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8'],
+#              ['like', 'like', 'like','like', 'like', 'like','like', 'like'],
+#              ['line','line', 'line','line','line', 'line','line','line'])
+#current_seg = current_seg.T
+
+#print(len(current_seg.columns))
+#print(current_label)
+# And add time comparison
+
 for instance in os.scandir(folder_path):
     if 'riemann' in instance.path and '500' in instance.path: 
         print(f'Running for {instance.path}...')
