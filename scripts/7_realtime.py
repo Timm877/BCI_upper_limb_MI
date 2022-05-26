@@ -49,6 +49,7 @@ def main():
 
             data_segment = dataset_full.iloc[frame_id-sample_duration:frame_id, :-1] 
             label = dataset_full.iloc[frame_id-sample_duration:frame_id, -1]
+            
             segment_filt, outlier, filters = utils.pre_processing(data_segment, electrode_names, filters, 
                         sample_duration, freq_limits_names, sampling_frequency)
 

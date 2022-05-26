@@ -1,3 +1,71 @@
+       
+class CNN(nn.Module):
+    def __init__(self, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool, num_classes):
+        super(CNN,self).__init__()
+        self.temporal=nn.Sequential(
+            nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, padding=0), 
+            nn.BatchNorm2d(filter_sizing),
+            nn.ELU(True),
+        )
+        self.spatial=nn.Sequential(
+            nn.Conv2d(filter_sizing,filter_sizing,kernel_size=[channel_amount,1],padding=0),
+            nn.BatchNorm2d(filter_sizing),
+            nn.ELU(True),
+        )
+        self.avgpool = nn.AvgPool2d([1, mean_pool], stride=[1, mean_pool], padding=0)
+        self.dropout = nn.Dropout(0.25)
+        self.view = nn.Sequential(Flatten())
+
+        endsize = filter_sizing*((sample_duration-receptive_field+1)//mean_pool)
+        print(endsize)
+        #self.fc1= nn.Sequential(nn.Linear(endsize, 100), nn.ReLU())
+        self.fc2= nn.Linear(endsize, num_classes)
+
+    def forward(self,x):
+        out = self.temporal(x)
+        out = self.dropout(out)
+        out = self.spatial(out)
+        out = self.dropout(out)
+        out = self.avgpool(out)
+        out = out.view(out.size(0), -1)
+        #out = self.fc1(out)
+        prediction = self.fc2(out)
+        return prediction
+       
+class CNN(nn.Module):
+    def __init__(self, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool, num_classes):
+        super(CNN,self).__init__()
+        self.temporal=nn.Sequential(
+            nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, padding=0), 
+            nn.BatchNorm2d(filter_sizing),
+            nn.ELU(True),
+        )
+        self.spatial=nn.Sequential(
+            nn.Conv2d(filter_sizing,filter_sizing,kernel_size=[channel_amount,1],padding=0),
+            nn.BatchNorm2d(filter_sizing),
+            nn.ELU(True),
+        )
+        self.avgpool = nn.AvgPool2d([1, mean_pool], stride=[1, mean_pool], padding=0)
+        self.dropout = nn.Dropout(0.25)
+        self.view = nn.Sequential(Flatten())
+
+        endsize = filter_sizing*((sample_duration-receptive_field+1)//mean_pool)
+        print(endsize)
+        #self.fc1= nn.Sequential(nn.Linear(endsize, 100), nn.ReLU())
+        self.fc2= nn.Linear(endsize, num_classes)
+
+    def forward(self,x):
+        out = self.temporal(x)
+        out = self.dropout(out)
+        out = self.spatial(out)
+        out = self.dropout(out)
+        out = self.avgpool(out)
+        out = out.view(out.size(0), -1)
+        #out = self.fc1(out)
+        prediction = self.fc2(out)
+        return prediction
+
+
 class Inception(nn.Module):
     def __init__(self, receptive_field, filter_sizing, mean_pool, activation_type, dropout, D):
         super(Inception,self).__init__()

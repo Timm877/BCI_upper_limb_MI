@@ -11,97 +11,6 @@ class Flatten(nn.Module):
     def forward(self, input):
         return input.view(input.size(0), -1)
 
-class Inception(nn.Module):
-    def __init__(self, sample_duration = 500, fs = 250, channel_amount = 8, filter_sizing = 8, 
-    kernel_sizes=[256, 128, 64], dropout_rate = 0.25, num_classes = 3):
-        super(Inception,self).__init__()
-
-        # Layer 1
-        # ------------------------------
-        self.temporal0 = nn.Conv2d(1,filter_sizing,kernel_size=[1,kernel_sizes[0]],stride=1, padding="same")
-        self.temporal1 = nn.Conv2d(1,filter_sizing,kernel_size=[1,kernel_sizes[1]],stride=1, padding="same") 
-        self.temporal2 = nn.Conv2d(1,filter_sizing,kernel_size=[1,kernel_sizes[2]],stride=1, padding="same")
-
-        self.after_temporal= nn.Sequential(
-                nn.BatchNorm2d(filter_sizing),
-                nn.ELU(True),
-                nn.Dropout(dropout_rate)
-        ) 
-        self.spatial= nn.Sequential(
-                nn.Conv2d(filter_sizing,2*filter_sizing,kernel_size=[channel_amount,1],padding=0),
-                nn.BatchNorm2d(2*filter_sizing),
-                nn.ELU(True),
-                nn.Dropout(dropout_rate)
-        )
-        self.avgpool1 = nn.AvgPool2d([1, 4], stride=[1, 4], padding=0)
-        # ------------------------------
-
-        # Layer 2
-        # ------------------------------
-        self.temporal10 = nn.Conv2d(48,filter_sizing,kernel_size=[1,int(kernel_sizes[0]/4)],stride=1, padding="same")
-        self.temporal11 = nn.Conv2d(48,filter_sizing,kernel_size=[1,int(kernel_sizes[1]/4)],stride=1, padding="same") 
-        self.temporal12 = nn.Conv2d(48,filter_sizing,kernel_size=[1,int(kernel_sizes[2]/4)],stride=1, padding="same")
-        self.avgpool2 = nn.AvgPool2d([1, 2], stride=[1, 2], padding=0)
-        # ------------------------------
-
-        # Layer 3
-        # ------------------------------
-        self.temporal20 = nn.Conv2d(24,12,kernel_size=[1,8],stride=1, padding="same")
-        self.after_temporal20 = nn.Sequential(
-                nn.BatchNorm2d(12),
-                nn.ELU(True),
-                nn.Dropout(dropout_rate)
-        ) 
-        # ------------------------------
-
-        # Layer 4
-        # ------------------------------
-        self.temporal30 = nn.Conv2d(12,6,kernel_size=[1,4],stride=1, padding="same")
-        self.after_temporal30 = nn.Sequential(
-                nn.BatchNorm2d(6),
-                nn.ELU(True),
-                nn.Dropout(dropout_rate)
-        ) 
-        # ------------------------------
-
-        # Layer 5
-        # ------------------------------
-        self.view = nn.Sequential(Flatten())
-        self.fc= nn.Linear(90, num_classes)
-        
-
-    def forward(self,x):
-        # 1ST INCEPTION
-        out1_block = [self.spatial(self.after_temporal(self.temporal0(x))), 
-                    self.spatial(self.after_temporal(self.temporal1(x))),
-                    self.spatial(self.after_temporal(self.temporal2(x)))
-        ]
-        out1 = torch.cat(out1_block, axis=1)
-        #print(out1.shape)
-        out1 = self.avgpool1(out1)
-        # 2ND INCEPTION
-        out2_block = [self.after_temporal(self.temporal10(out1)), 
-                    self.after_temporal(self.temporal11(out1)),
-                    self.after_temporal(self.temporal12(out1))
-        ]
-        out2 = torch.cat(out2_block, axis=1)
-        #print(out2.shape)
-        out2 = self.avgpool2(out2)
-        #print(out2.shape)
-
-        # 3 OUTPUT
-        out3 = self.after_temporal20(self.temporal20(out2))
-        #print(out3.shape)
-        out3 = self.avgpool2(out3)
-        #print(out3.shape)
-        out3 = self.after_temporal30(self.temporal30(out3))
-        #print(out3.shape)
-        out3 = self.avgpool2(out3)
-        #print(out3.shape)
-        out = out3.view(out3.size(0), -1)
-        prediction = self.fc(out)
-        return prediction
-        
 class EEGNET(nn.Module):
     def __init__(self, receptive_field, filter_sizing, mean_pool, activation_type, dropout):
         super(EEGNET,self).__init__()
@@ -142,12 +51,12 @@ class EEGNET(nn.Module):
                 nn.BatchNorm2d(filter_sizing),
                 nn.ELU(True),
             )
-        self.avgpool1 = nn.AvgPool2d([1, 4], stride=[1, 4], padding=0)   
-        self.avgpool2 = nn.AvgPool2d([1, 8], stride=[1, 8], padding=0)
+        self.avgpool1 = nn.AvgPool2d([1, 5], stride=[1, 5], padding=0)   
+        self.avgpool2 = nn.AvgPool2d([1, 5], stride=[1, 5], padding=0)
         self.dropout = nn.Dropout(dropout)
         self.view = nn.Sequential(Flatten())
 
-        endsize = filter_sizing*((sample_duration-receptive_field+1)//mean_pool)
+        endsize = 320
         self.fc2= nn.Linear(endsize, num_classes)
 
     def forward(self,x):
@@ -161,39 +70,7 @@ class EEGNET(nn.Module):
         out = out.view(out.size(0), -1)
         prediction = self.fc2(out)
         return prediction
-class CNN(nn.Module):
-    def __init__(self, sample_duration, channel_amount, receptive_field, filter_sizing, mean_pool, num_classes):
-        super(CNN,self).__init__()
-        self.temporal=nn.Sequential(
-            nn.Conv2d(1,filter_sizing,kernel_size=[1,receptive_field],stride=1, padding=0), 
-            nn.BatchNorm2d(filter_sizing),
-            nn.ELU(True),
-        )
-        self.spatial=nn.Sequential(
-            nn.Conv2d(filter_sizing,filter_sizing,kernel_size=[channel_amount,1],padding=0),
-            nn.BatchNorm2d(filter_sizing),
-            nn.ELU(True),
-        )
-        self.avgpool = nn.AvgPool2d([1, mean_pool], stride=[1, mean_pool], padding=0)
-        self.dropout = nn.Dropout(0.25)
-        self.view = nn.Sequential(Flatten())
-
-        endsize = filter_sizing*((sample_duration-receptive_field+1)//mean_pool)
-        print(endsize)
-        #self.fc1= nn.Sequential(nn.Linear(endsize, 100), nn.ReLU())
-        self.fc2= nn.Linear(endsize, num_classes)
-
-    def forward(self,x):
-        out = self.temporal(x)
-        out = self.dropout(out)
-        out = self.spatial(out)
-        out = self.dropout(out)
-        out = self.avgpool(out)
-        out = out.view(out.size(0), -1)
-        #out = self.fc1(out)
-        prediction = self.fc2(out)
-        return prediction
-
+ 
 def data_setup(X_train, y_train, X_val, y_val):
     trainX = torch.from_numpy(X_train)
     trainY = torch.from_numpy(y_train)
@@ -226,32 +103,16 @@ mean_pool, num_classes, pipeline_type):
         print(f'Running iteration {iteration+1}...')
 
         if pipeline_type == 'deep':
-            net = CNN(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
+            net = EEGNET(sample_duration=sample_duration, channel_amount=channel_amount, receptive_field=receptive_field, 
             filter_sizing = filter_sizing, mean_pool=mean_pool, num_classes=num_classes)
-        elif pipeline_type == 'deep_inception':
-            net = Inception(sample_duration = sample_duration, fs = 250, channel_amount = 8, filter_sizing = 8, 
-                kernel_sizes=[256, 128, 64], dropout_rate = 0.25, num_classes = num_classes)
+
         pytorch_total_params = sum(p.numel() for p in net.parameters())
         pytorch_total_params_train = sum(p.numel() for p in net.parameters() if p.requires_grad)
         print(pytorch_total_params)
         print(pytorch_total_params_train)
         for name, param in net.named_parameters():
             print(f"{name}: {param.numel()}")
-        '''
-        net.load_state_dict(torch.load('Weibo_1dcnn_multiclass'))
-        for param in net.parameters():
-            param.requires_grad = False
-        net.temporal4=nn.Sequential(
-            nn.Conv1d(32,32,kernel_size=6,stride=1, padding=0), 
-            nn.BatchNorm1d(32),
-            nn.ReLU(),
-            nn.Dropout2d(0.5)
-        )
-        net.linear1=nn.Sequential(nn.Linear(7456, 296), nn.ReLU(), nn.Dropout(0.5))
-        net.linear2=nn.Sequential(nn.Linear(296, 148), nn.ReLU(), nn.Dropout(0.5))
-        net.linear3=nn.Sequential(nn.Linear(148, 74), nn.ReLU(), nn.Dropout(0.5))
-        net.pred = nn.Linear(74, num_classes)
-        '''
+
         device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
         net = net.to(device)
         optimizer = optim.Adam(net.parameters(), lr=lr, betas=(0.9, 0.999), eps=1e-08, weight_decay=0, amsgrad=False)
@@ -348,10 +209,6 @@ mean_pool, num_classes, pipeline_type):
         validation_recall_iters.append(validation_recall[-1])
         validation_roc_auc_iters.append(validation_roc_auc[-1])
 
-        # save model for TL experiment
-        #torch.save(net.state_dict(), 'Weibo_1dcnn_all_electrodes_multiclass')
-        #torch.save(net.state_dict(), 'Weibo_deep_multiclass')
-
     return train_accuracy_iters, val_accuracy_iters, train_f1_iters, val_f1_iters, train_classacc_iters, val_classacc_iters, \
     training_precision_iters, training_recall_iters, validation_precision_iters, validation_recall_iters, validation_roc_auc_iters
 
@@ -376,9 +233,6 @@ def calculate_metrics(loader, device, net, num_classes, pipeline_type):
         f1 += f1_score(labels.data, predicted, average='macro') 
         prec += precision_score(labels.data, predicted, average='macro', zero_division = 0)
         rec += recall_score(labels.data, predicted, average='macro')
-        #roc_auc += roc_auc_score(labels.data, predicted, average='macro')
-        #acc_classes += confusion_matrix(labels.data, predicted, normalize="true").diagonal() * 32
-        #print(confusion_matrix(labels.data, predicted))
     correct =  correct / total
     prec =  prec / batches
     rec = rec / batches

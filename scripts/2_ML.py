@@ -1,28 +1,27 @@
 import argparse
 import os
-import time
 from pathlib import Path
-
 import numpy as np
 import pandas as pd
-import mne
-from meegkit.asr import ASR
 import pickle
-import scipy.io
-from scipy import signal
-from sklearn.model_selection import KFold, cross_validate
-import matplotlib.pyplot as plt
 
-import src.unicorn_utils as utils
+import src.utils_preprocess as utils
 import src.utils_deep as utils_deep
 
 pd.options.mode.chained_assignment = None  # default='warn'
 
+def main():
+    for subj in FLAGS.subjects:
+        print(subj)
+        for type in FLAGS.type:
+            print(type)
+            for pline in FLAGS.pline:
+                print(pline)
+                execution(pline, subj, type)
+
 def execution(pipeline_type, subject, type):
     print(f'Initializing for {pipeline_type} machine learning...')
     # INIT
-    sampling_frequency = 250 
-    # testing here for 8 electrodes:
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
     n_electrodes = len(electrode_names)
     folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/{subject}_freqbands')
@@ -51,6 +50,7 @@ def execution(pipeline_type, subject, type):
             X = data_dict['data']
             y = data_dict['labels']
             window_size = int(instance.path.split("ws",1)[1][:3]) 
+
             if pipeline_type[:4] == 'deep':
                 train_acc_cv, val_acc_cv, val_prec_cv, val_rec_cv, train_f1_cv, val_f1_cv, \
                 val_roc_auc_cv, acc_classes_cv, train_acc_std_cv, val_acc_std_cv = \
@@ -102,12 +102,7 @@ def execution(pipeline_type, subject, type):
                                 else:
                                     X_train.append(X[df][segment])
                                     y_train.append(y[df][segment]) 
-                                    if y[df][segment] == 1:
-                                        X[df][segment]= X[df][segment].T
-                                        X[df][segment].columns = ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
-                                        utils.plot_dataset(X[df][segment], ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8'],
-                                    ['like', 'like', 'like','like', 'like', 'like','like', 'like'],
-                                    ['line','line', 'line','line','line', 'line','line','line'])    
+                                    
                         elif type == 'all':
                             # classify everything (relax, left arm, right arm, legs)
                             if df == cross_val:
@@ -130,12 +125,7 @@ def execution(pipeline_type, subject, type):
                     # deep learning pipeline
                     trainloader, valloader = utils_deep.data_setup(X_train_np, y_train_np, X_val_np, y_val_np) 
 
-                    lr = 0.0005
-                    if pipeline_type == 'deep':
-                        receptive_field = [100, 75, 50, 25]
-                        filter_sizing = [10,20,30,40] 
-                        mean_pool = [5,15,25,35]                 
-                                            
+                    lr = 0.0005                                                     
                     receptive_field = 50 
                     filter_sizing = 20 
                     mean_pool = 15 
@@ -193,15 +183,6 @@ def execution(pipeline_type, subject, type):
     results_df = pd.DataFrame.from_dict(results, orient='index').sort_values('final_val_accuracy', ascending=False)  
     results_df.to_csv(result_path / results_fname)
     print('Finished')
-
-def main():
-    for subj in FLAGS.subjects:
-        print(subj)
-        for type in FLAGS.type:
-            print(type)
-            for pline in FLAGS.pline:
-                print(pline)
-                execution(pline, subj, type)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run offline BCI analysis experiments.")
