@@ -62,6 +62,7 @@ def main():
                     axis=1, ignore_index=True)
                 current_label = pd.concat([current_label.reset_index(drop=True), label.reset_index(drop=True)],
                     axis=0, ignore_index=True)
+                print(current_label)
 
             if len(current_seg.columns) == 500:
                 # only when we have 2 second of data, move on
