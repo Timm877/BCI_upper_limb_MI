@@ -1,9 +1,15 @@
 import pygame
 import time
 import random
+from pylsl import StreamInlet, resolve_stream
 
 pygame.init()
 
+# -------------------INIT BCI STUFF-------------------
+#streams = resolve_stream()
+#inlet = StreamInlet(streams[0])
+#sig_tot = ''
+# ----------------------------------------------------
 
 # colors
 blue = (0,0,255)
@@ -24,8 +30,7 @@ pygame.display.set_caption('THE DODGE GAME')
 gameDisplay = pygame.display.set_mode((display_width, display_height))
 clock = pygame.time.Clock()
 
-# Car Image
-carImage = pygame.image.load('./racecar005.png')
+# Car
 car_width = 40
 
 
@@ -84,15 +89,11 @@ def game_loop():
     x_right = 0
     
     # obects parameters
-
-    #object4_start_x = random.randrange(0, display_width)
-    #object4_start_y = -750
     object_speed = 75
     object_height = 100
     object_width = 150
     car_height = 40
     car_width = 60
-
     object_start_x = random.randrange(object_width//2, display_width - (object_width//2))
     object_start_y = -900
     object2_start_x = random.randrange(object_width//2, display_width - (object_width//2))
@@ -111,18 +112,6 @@ def game_loop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 quit()
-
-        prediction = random.randrange(0,3)
-        print(prediction)
-        if prediction == 0:
-            x_right = 0
-        elif prediction == 1: #right arm
-            x_right = 40
-            x_left = 0
-        elif prediction == 2:
-            x_left = -40
-            x_right = 0
-            '''
             if event.type == pygame.KEYDOWN:                        # when a key is pressed down
                 if event.key == pygame.K_LEFT:                      # left arrow key
                     x_left = -40
@@ -134,7 +123,26 @@ def game_loop():
                     x_left = 0
                 if event.key == pygame.K_RIGHT:                     # right arrow key
                     x_right = 0
-                '''
+                
+
+        # -----------ADD BCI STREAM CODE HERE-----------------
+        #prediction = 0
+        #sample, timestamp = inlet.pull_sample()
+        # ----------------------------------------------------
+        '''
+        prediction = random.randrange(0,3)
+        print(prediction)
+        if prediction == 0:
+            x_right = 0
+        elif prediction == 1: #right arm
+            x_right = 1
+            x_left = 0
+        elif prediction == 2:
+            x_left = -1
+            x_right = 0
+        '''
+
+
         # change the position of the car
         x += x_left
         x += x_right

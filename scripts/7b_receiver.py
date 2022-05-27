@@ -4,6 +4,9 @@ import src.realtime_utils as utils
 import torch
 import torch.nn as nn
 from pylsl import StreamInlet, resolve_stream
+from pynput.keyboard import Key, Controller
+import time
+keyboard = Controller()
 
 # Classes and functions
 class Flatten(nn.Module):
@@ -113,16 +116,18 @@ finished = False
 streams = resolve_stream()
 inlet = StreamInlet(streams[0])
 sig_tot = ''
-
+#key = Key.up
+#keyboard.press(key)
+key = False
 while not finished:
     sample, timestamp = inlet.pull_sample()
     data = update_data(data, sample)
-
     # TODO change to actual label:
     labels.append(1) 
 
     # every 0.5 sec do filtering and concat to current seg
     if len(data['FZ']) == 125:
+
         df = pd.DataFrame.from_dict(data)
         segment_filt, outlier, filters = utils.pre_processing(df, columns, filters, 
                         sample_duration, freq_limits_names, sampling_frequency)
@@ -131,6 +136,8 @@ while not finished:
         # re-initialize variables
         data = dict((k, []) for k in columns)
         index = 0
+
+
 
     # every 2 sec: get labels and check if segment is 100% MI segment
     # then: if not outlier, do predictions
@@ -141,13 +148,27 @@ while not finished:
             if outlier > 0:
                 total_MI_outliers +=1
                 print('OUTLIER')
+                if key:
+                    keyboard.release(key)
+                #key = Key.up
+                #keyboard.press(key)
             else:
                 all_MI_segments.append(current_seg)
                 all_MI_labels.append(int(current_label)) 
                 prediction = do_prediction(current_seg, net)
                 predictions.append(int(prediction[0]))
-                print(f"prediction: {prediction}, true label: {current_label}")
+                print(f"prediction: {prediction[0]}, true label: {current_label}")
+                if key:
+                    keyboard.release(key)
+                if prediction[0] == 1:
+                    key = Key.right 
+                    keyboard.press(key)
+                elif prediction[0] == 2:
+                    key = Key.left
+                    keyboard.press(key)
         else:
+            if key:
+                keyboard.release(key)
             pass
 
         # lastly, delete first 0.5 seconds
