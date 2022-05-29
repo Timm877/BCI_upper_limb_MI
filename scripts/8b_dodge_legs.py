@@ -113,13 +113,10 @@ def game_loop():
             if event.type == pygame.KEYDOWN:                        # when a key is pressed down
                 if event.key == pygame.K_DOWN:                      # left arrow key
                     y_down  = 40
+                    y_up = 0
                 if event.key == pygame.K_UP:                     # right arrow key
                     y_up = -40
-            if event.type == pygame.KEYUP:                        # when a key is pressed down
-                if event.key == pygame.K_DOWN:                      # left arrow key
-                    y_down  = 0
-                if event.key == pygame.K_UP:                     # right arrow key
-                    y_up = 0
+                    y_down = 0
                 
         # change the position of the car
         y += y_down
@@ -172,7 +169,7 @@ def game_loop():
             dodged += 1
 
         pygame.display.update()
-        clock.tick(25)
+        clock.tick(2)
 
 # Quit Game
 def game_quit(dodged) :
