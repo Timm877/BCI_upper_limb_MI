@@ -51,7 +51,7 @@ def objects3(object_x, object_y, object_width, object_height, color):
 #Score Function
 def objects_dodged(count):
     font = pygame.font.SysFont(None,40)
-    text = font.render("Score :"+str(count),True,gray)
+    text = font.render("Score : "+str(count),True,gray)
     gameDisplay.blit(text,(0, 0))
 
 # Game Menu
@@ -88,15 +88,15 @@ def game_loop():
     
     # obects parameters
     object_speed = -75
-    object_height = 150
+    object_height1, object_height2, object_height3 = 150, 150, 150
     object_width = 100
     car_height = 60
     car_width = 40
-    object_start_y = random.randrange(object_height//2, display_height - (object_height//2))
+    object_start_y = random.randrange(object_height1//2, display_height - (object_height1//2))
     object_start_x = display_width + 1440
-    object2_start_y = random.randrange(object_height//2, display_height - (object_height//2))
+    object2_start_y = random.randrange(object_height2//2, display_height - (object_height2//2))
     object2_start_x = display_width + 1440 + 1440 + 720
-    object3_start_y = random.randrange(object_height//2, display_height - (object_height//2))
+    object3_start_y = random.randrange(object_height3//2, display_height - (object_height3//2))
     object3_start_x = display_width + 1400 + 1440 + 1440 + 360
 
     #Objects Dodged
@@ -122,16 +122,16 @@ def game_loop():
         y += y_down
         y += y_up
 
-        if x+car_width > (object_start_x + object_width): # object crash logic
-            if (y+car_height > object_start_y and y < object_start_y + object_height) or (y+car_height > object_start_y and y + car_height < object_start_y+object_height):
+        if x+car_width > (object_start_x + object_width + object_speed): # object crash logic
+            if (y+car_height > object_start_y and y < object_start_y + object_height1) or (y+car_height > object_start_y and y + car_height < object_start_y+object_height1):
                 crashed(dodged)
                 game_quit(dodged)
-        elif x+car_width > (object2_start_x + object_width): # object crash logic
-            if  (y+car_height > object2_start_y and y < object2_start_y + object_height) or (y+car_height > object2_start_y and y + car_height < object2_start_y+object_height):
+        elif x+car_width > (object2_start_x + object_width + object_speed): # object crash logic
+            if  (y+car_height > object2_start_y and y < object2_start_y + object_height2) or (y+car_height > object2_start_y and y + car_height < object2_start_y+object_height2):
                 crashed(dodged)
                 game_quit(dodged)  
-        elif x+car_width > (object3_start_x + object_width): # object crash logic
-            if  (y+car_height > object3_start_y and y < object3_start_y + object_height) or (y+car_height > object3_start_y and y + car_height < object3_start_y+object_height):
+        elif x+car_width > (object3_start_x + object_width + object_speed): # object crash logic
+            if  (y+car_height > object3_start_y and y < object3_start_y + object_height3) or (y+car_height > object3_start_y and y + car_height < object3_start_y+object_height3):
                 crashed(dodged)
                 game_quit(dodged)
 
@@ -139,9 +139,9 @@ def game_loop():
         gameDisplay.fill(black)
 
         # objects location
-        objects(object_start_x, object_start_y, object_width, object_height, gray)
-        objects2(object2_start_x, object2_start_y, object_width, object_height, gray)
-        objects3(object3_start_x, object3_start_y, object_width, object_height, gray)
+        objects(object_start_x, object_start_y, object_width, object_height1, gray)
+        objects2(object2_start_x, object2_start_y, object_width, object_height2, gray)
+        objects3(object3_start_x, object3_start_y, object_width, object_height3, gray)
         object_start_x += object_speed
         object2_start_x += object_speed
         object3_start_x += object_speed
@@ -153,20 +153,23 @@ def game_loop():
             crashed(dodged)
             game_quit(dodged)
 
-        if object_start_x+object_width < x-50:                               # object repeats itself
+        if object_start_x + object_width < x-50:                               # object repeats itself
             object_start_x = display_width + object_width
-            object_start_y = random.randrange(object_height//2, display_height- (object_height)//2)
+            object_start_y = random.randrange(object_height1//2, display_height- (object_height1)//2)
             dodged += 1
+            object_height1 += 2
 
-        if object2_start_x+object_width < x-50:                               # object repeats itself
+        if object2_start_x + object_width < x-50:                               # object repeats itself
             object2_start_x = display_width + object_width
-            object2_start_y = random.randrange(object_height//2, display_height- (object_height)//2)
+            object2_start_y = random.randrange(object_height2//2, display_height- (object_height2)//2)
             dodged += 1
+            object_height2 += 2
         
-        if object3_start_x+object_width < x-50:                               # object repeats itself
+        if object3_start_x + object_width < x-50:                               # object repeats itself
             object3_start_x = display_width + object_width
-            object3_start_y = random.randrange(object_height//2, display_height- (object_height)//2)
+            object3_start_y = random.randrange(object_height3//2, display_height- (object_height3)//2)
             dodged += 1
+            object_height3 += 2
 
         pygame.display.update()
         clock.tick(2)
