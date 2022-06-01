@@ -1,2 +1,0 @@
-
-{'batch_size': {'value': 256}, 'epochs': {'value': 30}, 'receptive_field': {'value': 64}, 'mean_pool': {'value': 8}, 'activation_type': {'value': 'elu'}, 'network': {'value': 'EEGNET'}, 'val_subjects': {'value': ['X04', 'X06']}, 'test_subject': {'value': ['X01']}, 'seed': {'value': 42}, 'learning_rate': {'value': 0.001}, 'filter_sizing': {'value': 8}, 'D': {'value': 2}, 'dropout': {'value': 0.4}}
