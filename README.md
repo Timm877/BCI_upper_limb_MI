@@ -3,19 +3,24 @@ In this project, a pipeline will be developed to accurately detect motor imagery
 
 ## Description
 Brain-machine interfaces can be very useful for physically-impaired users.
-Earlier, a pipeline for upper limb motor imagery has been developed using a SVM-based pipeline (see [here](https://www.sciencedirect.com/science/article/pii/S092523121401323X)), which was used to control movements of a robot arm. 
-In this project, this pipeline will be re-avaluated and tried to improve.
+Upper limb motor imagery BMIs can be used to control movements of a robotic arm. 
+In this project, open loop and closed loop experiments for controlling a dot on the screen are done.
+Later, the goal is to implement the pipilines for control of a robotic arm.
 
 ## Installation instructions
+Create a virtual environment with required packages:
 ```
 conda env create -f environment.yml
 ```
 
 ## Usage instruction
+All scripts for open loop are visible in the scripts folder.
+Scripts can be ran by using the command line, as example for pre-processing of subject X01 for CSP pipeline:
 ```
-python scripts/main.py
+python scripts/1_pre.py --subjects X01 --pline csp
 ```
+All scripts for doing the experiments, for open loop as well as closed loop, can be found in the closed_loop folder.
+Jupyter notebooks can be ran in the notebook interface. 
+Scripts can again be run from the command line, same as above.
 
 ## References
-[SVM-based Brain–Machine Interface for controlling a robot arm
-through four mental tasks](https://www.sciencedirect.com/science/article/pii/S092523121401323X)

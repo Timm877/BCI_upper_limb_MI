@@ -4,5 +4,17 @@ data
 results
 outliers
 pretrain_models
+best_pretrain_models
 wandb
 figures
+wandb
+tests
+results
+finetuned_models
+docs
+build
+closed_loop/Expdata
+closedloop/final_models
+closed_loop/intermediate_files
+closed_loop/.ipynb_checkpoints
+closed_loop/__pycache__
