@@ -106,7 +106,7 @@ def data_setup(config):
 
 def train(config=None):
     # Initialize a new wandb run
-    with wandb.init(project=f"test_EEGNET_ClosedLoopFT_{config['test_subject']}_session{config['CLsession']}", config=config):
+    with wandb.init(project=f"compare_EEGNET_ClosedLoopFT_{config['test_subject']}_session{config['CLsession']}", config=config):
         config = wandb.config
         pprint.pprint(config)
         trainloader, valloader = data_setup(config)
@@ -137,7 +137,7 @@ def train(config=None):
         wandb.summary['final_val_accuracy'] = val_acc
         wandb.summary['final_val_f1'] = val_f1
 
-        torch.save(net.state_dict(), config.savepath_newmodel)
+        #torch.save(net.state_dict(), config.savepath_newmodel)
 
         
 def build_network(config):
@@ -192,6 +192,7 @@ def evaluate(net, loader):
     f1 =  f1 / batches
     print(f"acc: {acc}, f1: {f1}")
     cf_matrix = confusion_matrix(y_true, y_pred)
+    print(cf_matrix)
     return running_loss, acc, f1, cf_matrix
 
 class EarlyStopping():

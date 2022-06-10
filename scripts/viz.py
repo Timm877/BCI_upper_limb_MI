@@ -1,12 +1,17 @@
-import argparse
-import os
 from pathlib import Path
-import numpy as np
+from numpy import size
 import pandas as pd
 import pickle
-import src.unicorn_utils as utils
-from scipy import signal, stats
+import matplotlib.pyplot as plt
 pd.options.mode.chained_assignment = None  # default='warn'
+# Load packages
+import pandas as pd
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import seaborn as sns 
+sns.set_style('darkgrid')
+
+
 
 sampling_frequency = 250 
 # testing here for 8 electrodes:
@@ -16,8 +21,28 @@ folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/X02_RG_mo
 result_path = Path(f'./results/intermediate_datafiles/openloop/X02')
 result_path.mkdir(exist_ok=True, parents=True)
 
-#current_seg = current_seg.T
-#current_seg.columns = ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
+file_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz/X01_deep.pkl')
+a_file = open(file_path, "rb")
+data_dict = pickle.load(a_file)
+X = data_dict['data']
+y = data_dict['labels']
+
+for df in X: 
+    segments=0
+    for segment in range(len(X[df])):
+        if y[df][segment] == 1:
+            current_seg = X[df][segment].T
+            current_seg.columns = ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
+            current_seg.drop(['CZ', 'C4', 'PZ', 'PO7', 'OZ'], axis=1, inplace=True)
+            plt.rcParams['figure.figsize'] = (12, 8)
+            plt.rcParams["legend.loc"] = 'upper right'
+            current_seg.plot(subplots=True, legend=True, color='tab:blue', sharex=True, sharey=True)
+            plt.xlabel('Datapoints of 2 seconds, captured with 250Hz', size=16)
+            plt.ylabel('Processed EEG signal (\u03BCV)', size=16)
+            plt.suptitle("Example of a 2 second segment of EEG signals for electrodes FZ, C3, and PO8",    # Set plot title
+             size=25)
+            plt.show()
+            
 #utils2.plot_dataset(current_seg, ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8'],
 #              ['like', 'like', 'like','like', 'like', 'like','like', 'like'],
 #              ['line','line', 'line','line','line', 'line','line','line'])
@@ -26,7 +51,7 @@ result_path.mkdir(exist_ok=True, parents=True)
 #print(len(current_seg.columns))
 #print(current_label)
 # And add time comparison
-
+'''
 for instance in os.scandir(folder_path):
     if 'riemann' in instance.path and '500' in instance.path: 
         print(f'Running for {instance.path}...')
@@ -82,3 +107,4 @@ for instance in os.scandir(folder_path):
             utils.plot_dataset(data, ['CZ', 'C3', 'C4', 'label_'],
                                   ['like', 'like', 'like', 'like'],
                                   ['line','line', 'line', 'points'])
+                                  '''

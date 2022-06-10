@@ -156,14 +156,14 @@ def movedot(prediction,focus,pos,size):
 def movedotwhen(prediction,focus,pos,size,cue):
     if cue == 1:
         if prediction ==1 : # right
-            pos = (pos[0]+0.05,pos[1])
+            pos = (pos[0]+0.01,pos[1])
             focus.setPos(pos)
         else :
             focus.setPos(pos)
             focus.setSize(size)
     elif cue == 2:
         if prediction ==2: # left
-            pos = (pos[0]-0.05,pos[1])
+            pos = (pos[0]-0.01,pos[1])
             focus.setPos(pos)
         else :
             focus.setPos(pos)

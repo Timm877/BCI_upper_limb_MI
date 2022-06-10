@@ -83,6 +83,6 @@ if __name__ == '__main__':
     This variable is a list containing the name of the variants. Options are: 'csp', 'riemann', 'deep'")
     parser.add_argument("--subjects", nargs='+', default=['X01'], help="The variant of pipelines used. \
     This variable is a list containing the name of the variants. Options are in the data folder.")
-    parser.add_argument("--session", type=str, default='session0', help="The session number of closed loop experiments.")
+    parser.add_argument("--session", type=str, default='session3', help="The session number of closed loop experiments.")
     FLAGS, unparsed = parser.parse_known_args()
     main()

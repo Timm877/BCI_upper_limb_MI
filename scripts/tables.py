@@ -57,19 +57,19 @@ liststuff = [0.551  , 0.568  ,0.571   , 0.593]
 print(f"overall mean: {round(sum(liststuff) / len(liststuff), 3)} from {liststuff}")
 '''
 
-df0 = pd.read_csv("results/ablation\X01.csv")
-df1 = pd.read_csv("results/finetune_results/X02/0.csv")
-df2 = pd.read_csv("results/finetune_results/X02/0.csv")
-df3 = pd.read_csv("results/finetune_results/X02/0.csv")
-df4 = pd.read_csv("results/finetune_results/X02/0.csv")
+df0 = pd.read_csv("results/cl/x01_ses3_ft.csv")
+#df1 = pd.read_csv("results/finetune_results/X02/0.csv")
+#df2 = pd.read_csv("results/finetune_results/X02/0.csv")
+#df3 = pd.read_csv("results/finetune_results/X02/0.csv")
+#df4 = pd.read_csv("results/finetune_results/X02/0.csv")
 means = []
 
 #print("models")
 #print(f"{round(df0['test_accuracy'].mean(),3)} - {round(df0['test_accuracy'].std(),3)}")
 #print(round(df0['test_accuracy'].max(),3))
-
-print(round(df0['test_accuracy'],3))
-print(df0['Name'])
+print(f"{round(df0['train/train_acc'].mean(),3)} - {round(df0['train/train_acc'].std(),3)}")
+print(f"{round(df0['final_val_accuracy'].mean(),3)} - {round(df0['final_val_accuracy'].std(),3)}")
+#print(df0['Name'])
 
 
 

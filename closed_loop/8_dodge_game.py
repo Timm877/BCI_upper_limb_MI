@@ -2,8 +2,10 @@ import pygame
 import time
 import random
 from pylsl import StreamInlet, resolve_stream
+import os
 
 pygame.init()
+
 
 # -------------------INIT BCI STUFF-------------------
 #streams = resolve_stream()
@@ -25,9 +27,12 @@ gray  = (128, 128, 128)#(0,0,255)
 display_width = 1440
 display_height = 900
 
+
+os .environ['SDL_VIDEO_WINDOW_POS'] = "1440, 0"
+
 # game display
-pygame.display.set_caption('THE DODGE GAME')
-gameDisplay = pygame.display.set_mode((display_width, display_height))
+#pygame.display.set_caption('THE DODGE GAME')
+gameDisplay = pygame.display.set_mode((display_width,display_height), pygame.FULLSCREEN)
 clock = pygame.time.Clock()
 
 # Car
