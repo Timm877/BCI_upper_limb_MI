@@ -1,1 +1,0 @@
-{"batch loss": 1.0901033878326416, "_timestamp": 1651837987, "_runtime": 31, "_step": 22, "epoch": 0, "train/train_loss": 1.1061619357629255, "train/train_acc": 0.3488158619423536, "train/train_f1": 0.3450855165867239, "val/val_loss": 1.0846830947058541, "val/vaL_acc": 0.39384220654265556, "val/val_f1": 0.40624218320267297, "_wandb": {"runtime": 29}}
