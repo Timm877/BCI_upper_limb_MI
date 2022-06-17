@@ -135,6 +135,9 @@ while not finished:
                 print(f"prediction: {prediction}") 
                 if key:
                     keyboard_game.release(key)
+                if prediction[0] == 0:
+                    key = Key.right 
+                    keyboard_game.press(key)
                 if prediction[0] == 1:
                     key = Key.right 
                     keyboard_game.press(key)

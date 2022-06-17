@@ -101,12 +101,10 @@ smmap==5.0.0
 sounddevice==0.4.4
 SoundFile==0.10.3.post1
 SpeechRecognition==3.8.1
--e git+https://github.com/Timm877/BCI_upper_limb_MI.git@630eb2e500bfb3572ae1b52bac692d3c8f147358#egg=src
+-e git+https://github.com/Timm877/BCI_upper_limb_MI.git@cba9a2c9529bb0f3484e4b7669770eb56219cc45#egg=src
 tables==3.7.0
-tensorboard==2.7.0
 tensorboard-data-server==0.6.1
 tensorboard-plugin-wit==1.8.0
-tensorflow==2.7.0
 tensorflow-estimator==2.7.0
 tensorflow-io-gcs-filesystem==0.21.0
 termcolor==1.1.0
