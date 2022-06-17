@@ -4,7 +4,6 @@ from collections import Counter
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from joblib import dump, load
 from mne.decoding import CSP
 from pyriemann.classification import MDM, FgMDM
 from pyriemann.estimation import Covariances
@@ -75,6 +74,11 @@ def pre_processing(curr_segment,selected_electrodes_names ,filters, sample_durat
             if stats.kurtosis(j) > 4*np.std(j):
                 print('due to kurtosis')
             outlier +=1
+            
+    #if outlier > 5:
+    #    plot_dataset(curr_segment.T, ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8'],
+    #                              ['like', 'like', 'like','like', 'like', 'like','like', 'like'],
+    #                              ['line','line', 'line','line','line', 'line','line','line'])
     
     # 3 APPLY COMMON AVERAGE REFERENCE (CAR) per segment only for deep learning pipeline   
     # CAR doesnt work for csp and riemann, so only use for deep
@@ -105,8 +109,13 @@ def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_du
                 A, B, C, D, Xnn[0,electrode])         
                 for data_point in filt_result_temp:
                     filter_results[selected_electrodes_names[electrode] + '_' + freq_limits_names[f]].append(data_point) 
+
             filters[f] = [A, B, C, D, Xnn]
-    filtered_dataset = pd.DataFrame.from_dict(filter_results).transpose()    
+    filtered_dataset = pd.DataFrame.from_dict(filter_results).transpose() 
+    #keys = []
+    #for key, value in filter_results.items():
+    #    keys.append(key)
+    #print(keys)
     return filtered_dataset, filters
 
 def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, selected_electrodes_names, freq_limits_names, 
@@ -184,6 +193,7 @@ def init_pipelines_grid(pipeline_name = ['csp']):
             "csp__n_components" :[2, 4, 8],
                 }
         pipelines["csp+s_lda"] = GridSearchCV(pipe, param_grid, cv=4, scoring='accuracy',n_jobs=-1)
+        
         '''
         pipe = Pipeline(steps=[('csp', CSP()), ('svm', SVC(decision_function_shape='ovo'))])
         param_grid = {
@@ -233,6 +243,7 @@ def init_pipelines_grid(pipeline_name = ['csp']):
 def grid_search_execution(X_train, y_train, X_val, y_val, chosen_pipelines, clf):
     start_time = time.time()
     chosen_pipelines[clf].fit(X_train, y_train)
+
     preds = chosen_pipelines[clf].predict(X_val)
 
     acc = np.mean(preds == y_val)

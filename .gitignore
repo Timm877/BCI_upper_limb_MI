@@ -14,7 +14,7 @@ finetuned_models
 docs
 build
 closed_loop/Expdata
-closedloop/final_models
+closedloop/final_models/
 closed_loop/intermediate_files
 closed_loop/.ipynb_checkpoints
 closed_loop/__pycache__

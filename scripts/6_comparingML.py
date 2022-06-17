@@ -1,21 +1,11 @@
 import argparse
 import os
-import time
 from pathlib import Path
-
 import numpy as np
 import pandas as pd
-import mne
-from meegkit.asr import ASR
 import pickle
-import scipy.io
-from scipy import signal
-from sklearn.model_selection import KFold, cross_validate
-import matplotlib.pyplot as plt
 import random
-
 import src.utils_preprocess as utils
-import src.utils_deep as utils_deep
 
 pd.options.mode.chained_assignment = None  # default='warn'
 

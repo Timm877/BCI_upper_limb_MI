@@ -13,7 +13,7 @@ def main():
         if 'csp' in FLAGS.pline:
             # filterbank
             list_of_freq_lim = [[[5, 10], [10, 15], [15, 20], [20, 25]]]
-            freq_limits_names_list = [['10_15Hz','15_20Hz','20_25Hz', '25_30Hz', '30_35Hz'],]
+            freq_limits_names_list = [['5_10Hz','10_15Hz','15_20Hz', '20_25Hz']]
             filt_orders = [2]
             window_sizes = [500]
             execution('csp', list_of_freq_lim, freq_limits_names_list, filt_orders, window_sizes, subj)
@@ -37,7 +37,7 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
     sampling_frequency = 250 
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
     folder_path = Path(f'./data/openloop/{subject}/openloop')
-    result_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/TL_1_100Hz_2')
+    result_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/csp_fb_noCAR')
     result_path.mkdir(exist_ok=True, parents=True)  
     dataset_full = {}
 

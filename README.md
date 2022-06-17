@@ -10,7 +10,13 @@ Later, the goal is to implement the pipilines for control of a robotic arm.
 ## Installation instructions
 Create a virtual environment with required packages:
 ```
-conda env create -f environment.yml
+# install src to run scripts in src folder:
+pip install -e .
+# install required packages:
+pip install -r requirements.txt --user
+# for running experiments with psychopy with data collection using pylsl:
+conda install -c conda-forge psychopy
+pip install pylsl
 ```
 
 ## Usage instruction
@@ -22,5 +28,4 @@ python scripts/1_pre.py --subjects X01 --pline csp
 All scripts for doing the experiments, for open loop as well as closed loop, can be found in the closed_loop folder.
 Jupyter notebooks can be ran in the notebook interface. 
 Scripts can again be run from the command line, same as above.
-
 ## References

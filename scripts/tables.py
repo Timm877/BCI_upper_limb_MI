@@ -5,6 +5,22 @@ import latextable
 
 import pandas as pd
 
+from pathlib import Path
+from numpy import size
+import pandas as pd
+import pickle
+import matplotlib.pyplot as plt
+pd.options.mode.chained_assignment = None  # default='warn'
+# Load packages
+import pandas as pd
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import seaborn as sns 
+sns.set_style('darkgrid')
+import numpy as np
+import os
+
+
 '''
 df1 = pd.read_csv("results\intermediate_datafiles\TLcompare\X01_TLcompare_multipleruns/riemann_X01_trialnum_4.csv")
 df2 = pd.read_csv("results\intermediate_datafiles\TLcompare\X02_TLcompare_multipleruns/riemann_X02_trialnum_4.csv")
@@ -17,15 +33,15 @@ df8 = pd.read_csv("results\intermediate_datafiles\TLcompare\X08_TLcompare_multip
 df9 = pd.read_csv("results\intermediate_datafiles\TLcompare\X09_TLcompare_multipleruns/riemann_X09_trialnum_4.csv")
 means = []
 
-means.append(round(df1['final_test_accuracy'].mean(),3))
-means.append(round(df2['final_test_accuracy'].mean(),3))
-means.append(round(df3['final_test_accuracy'].mean(),3))
-means.append(round(df4['final_test_accuracy'].mean(),3))
-means.append(round(df5['final_test_accuracy'].mean(),3))
-means.append(round(df6['final_test_accuracy'].mean(),3))
-means.append(round(df7['final_test_accuracy'].mean(),3))
-means.append(round(df8['final_test_accuracy'].mean(),3))
-means.append(round(df9['final_test_accuracy'].mean(),3))
+means.append(round(df1['final_test_accuracy'].mean(),1))
+means.append(round(df2['final_test_accuracy'].mean(),1))
+means.append(round(df3['final_test_accuracy'].mean(),1))
+means.append(round(df4['final_test_accuracy'].mean(),1))
+means.append(round(df5['final_test_accuracy'].mean(),1))
+means.append(round(df6['final_test_accuracy'].mean(),1))
+means.append(round(df7['final_test_accuracy'].mean(),1))
+means.append(round(df8['final_test_accuracy'].mean(),1))
+means.append(round(df9['final_test_accuracy'].mean(),1))
 print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
 
 
@@ -43,52 +59,512 @@ df8 = pd.read_csv("results/finetune_results/X08/4.csv")
 df9 = pd.read_csv("results/finetune_results/X09/4.csv")
 means = []
 
-means.append(round(df1['test_accuracy'].mean(),3))
-means.append(round(df2['test_accuracy'].mean(),3))
-means.append(round(df3['test_accuracy'].mean(),3))
-means.append(round(df4['test_accuracy'].mean(),3))
-means.append(round(df5['test_accuracy'].mean(),3))
-means.append(round(df6['test_accuracy'].mean(),3))
-means.append(round(df7['test_accuracy'].mean(),3))
-means.append(round(df8['test_accuracy'].mean(),3))
-means.append(round(df9['test_accuracy'].mean(),3))
+means.append(round(df1['test_accuracy'].mean(),1))
+means.append(round(df2['test_accuracy'].mean(),1))
+means.append(round(df3['test_accuracy'].mean(),1))
+means.append(round(df4['test_accuracy'].mean(),1))
+means.append(round(df5['test_accuracy'].mean(),1))
+means.append(round(df6['test_accuracy'].mean(),1))
+means.append(round(df7['test_accuracy'].mean(),1))
+means.append(round(df8['test_accuracy'].mean(),1))
+means.append(round(df9['test_accuracy'].mean(),1))
 print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
 liststuff = [0.551  , 0.568  ,0.571   , 0.593]
 print(f"overall mean: {round(sum(liststuff) / len(liststuff), 3)} from {liststuff}")
 '''
+#from scipy.stats import wilcoxon
+#rg = [0.445, 0.717, 0.402,  0.66, 0.809, 0.543, 0.385,  0.49, 0.414]
+#csp = [0.45, 0.695 , 0.427, 0.716, 0.78, 0.548, 0.373, 0.525, 0.4]
+#dl = [0.40 , 0.799, 0.521, 0.78, 0.866, 0.597, 0.382, 0.542, 0.419 ]
+#w, p = wilcoxon(csp, dl)
+#print(w)
+#print(p)
 
-df0 = pd.read_csv("results/cl/x01_ses3_ft.csv")
+df11_pre = pd.read_csv("results/cl/x01_ses1_pre.csv")
+df12_pre = pd.read_csv("results/cl/x01_ses2_pre.csv")
+df13_pre = pd.read_csv("results/cl/x01_ses3_pre.csv")
+
+df11_ft = pd.read_csv("results/cl/x01_ses1_ft.csv")
+df12_ft = pd.read_csv("results/cl/x01_ses2_ft.csv")
+df13_ft = pd.read_csv("results/cl/x01_ses3_ft.csv")
+
+df21_pre = pd.read_csv("results/cl/x02_ses1_pre.csv")
+df22_pre = pd.read_csv("results/cl/x02_ses2_pre.csv")
+df23_pre = pd.read_csv("results/cl/x02_ses3_pre.csv")
+
+df21_ft = pd.read_csv("results/cl/x02_ses1_ft.csv")
+df22_ft = pd.read_csv("results/cl/x02_ses2_ft.csv")
+df23_ft = pd.read_csv("results/cl/x02_ses3_ft.csv")
+
+df31_pre = pd.read_csv("results/cl/x03_ses1_pre.csv")
+df32_pre = pd.read_csv("results/cl/x03_ses2_pre.csv")
+df33_pre = pd.read_csv("results/cl/x03_ses3_pre.csv") 
+
+df31_ft = pd.read_csv("results/cl/x03_ses1_ft.csv")
+df32_ft = pd.read_csv("results/cl/x03_ses2_ft.csv")
+df33_ft = pd.read_csv("results/cl/x03_ses3_ft.csv")
+
+df41_pre = pd.read_csv("results/cl/x04_ses1_pre.csv")
+df42_pre = pd.read_csv("results/cl/x04_ses2_pre.csv")
+df43_pre = pd.read_csv("results/cl/x04_ses3_pre.csv")
+
+df41_ft = pd.read_csv("results/cl/x04_ses1_ft.csv")
+df42_ft = pd.read_csv("results/cl/x04_ses2_ft.csv")
+df43_ft = pd.read_csv("results/cl/x04_ses3_ft.csv")
+
+
+plt.rcParams['figure.figsize'] = (12,4)
+plt.rcParams["legend.loc"] = 'upper right'
+plt.rcParams['font.size'] =  16
+fig, (ax1, ax2,ax3,ax4)  = plt.subplots(1,4)
+t = np.arange(1,4,1,dtype=int)
+
+means = []
+stds = []
+means.append(round(df11_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df11_pre['final_val_accuracy'].std(),1))
+means.append(round(df12_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df12_pre['final_val_accuracy'].std(),1))
+means.append(round(df13_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df13_pre['final_val_accuracy'].std(),1))
+
+
+
+
+means = np.asarray(means)
+std = np.asarray(stds)
+width = 0.3
+ax1.plot(t, means, lw=2, ls='--', label='GenFT', color= 'blue')
+#ax.fill_between(t, means+stds, means-stds, facecolor='blue', alpha=0.5)
+for i in range(3):
+        print(f'{means[i]} - {stds[i]}')
+means = []
+stds = []
+
+means.append(round(df11_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df11_ft['final_val_accuracy'].std()*100,1))
+means.append(round(df12_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df12_ft['final_val_accuracy'].std()*100,1))
+means.append(round(df13_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df13_ft['final_val_accuracy'].std()*100,1))
+means = np.asarray(means)
+std = np.asarray(stds)
+#ax1.bar(t, means, lw=2, label='ConFT', color= 'yellow', width=width)
+ax1.plot(t, means, lw=2, label='ConFT', color= 'blue')
+#ax1.fill_between(t, means+stds, means-stds, facecolor='yellow', alpha=0.5)
+for i in range(3):
+        print(f'{means[i]} - {stds[i]}')
+
+cl_means = []
+cl_stds = []
+folder_path1 = Path(f'closed_loop\Expdata\Subjects\wet\X01\session1\closedloop')
+folder_path2 = Path(f'closed_loop\Expdata\Subjects\wet\X01\session2\closedloop')
+folder_path3 = Path(f'closed_loop\Expdata\Subjects\wet\X01\session3\closedloop')
+total_acc = []
+for folder_path in [folder_path1, folder_path2, folder_path3]:
+        for instance in os.scandir(folder_path):
+                if instance.path.endswith('.pkl'): 
+                        a_file = open(instance.path, "rb")
+                        data_dict = pickle.load(a_file)
+                        mi_seg = data_dict['MI_segments']
+                        labels = data_dict['MI_labels']
+                        pred = data_dict['predictions']
+
+                        acc = sum(1 for x,y in zip(labels,pred) if x == y) / len(pred)
+                        #print(acc)
+                        total_acc.append(acc)
+
+        cl_means.append(round(sum(total_acc)/len(total_acc)*100,1))
+        cl_stds.append(round(np.std(total_acc)*100,1))
+cl_means = np.asarray(cl_means)
+cl_stds = np.asarray(cl_stds)
+for i in range(3):
+        print(f'{cl_means[i]} - {cl_stds[i]}')
+
+#ax1.bar(t+0.3, cl_means, lw=2, label='ConFT', color= 'red', width=width)
+ax1.plot(t, cl_means, lw=2, label='Closed loop', color= 'red')
+#ax.fill_between(t, cl_means+cl_stds, cl_means-cl_stds, facecolor='black', alpha=0.5)
+ax1.set_title(r'X01')
+ax1.legend(loc='lower left')
+ax1.set_xlabel('Session number')
+ax1.set_ylabel('Validation accuracy (\%)')
+ax1.set_ylim((0, 100)) 
+ax1.set_xticks(t)
+#ax.grid()
+
+
+means = []
+stds = []
+means.append(round(df21_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df21_pre['final_val_accuracy'].std()*100,1))
+means.append(round(df22_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df22_pre['final_val_accuracy'].std()*100,1))
+means.append(round(df23_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df23_pre['final_val_accuracy'].std()*100,1))
+for i in range(3):
+        print(f'{means[i]} - {stds[i]}')
+
+means = np.asarray(means)
+std = np.asarray(stds)
+ax2.plot(t, means, lw=2, label='GenFT', color= 'blue')
+#ax.fill_between(t, means+stds, means-stds, facecolor='blue', alpha=0.5)
+
+means = []
+stds = []
+
+means.append(round(df21_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df21_ft['final_val_accuracy'].std()*100,1))
+means.append(round(df22_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df22_ft['final_val_accuracy'].std()*100,1))
+means.append(round(df23_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df23_ft['final_val_accuracy'].std()*100,1))
+means = np.asarray(means)
+std = np.asarray(stds)
+ax2.plot(t, means, lw=2, ls='--', label='ConFT', color= 'blue')
+#ax.fill_between(t, means+stds, means-stds, facecolor='yellow', alpha=0.5)
+for i in range(3):
+        print(f'{means[i]} - {stds[i]}')
+
+cl_means = []
+cl_stds = []
+folder_path1 = Path(f'closed_loop\Expdata\Subjects\wet\X02\session1\closedloop')
+folder_path2 = Path(f'closed_loop\Expdata\Subjects\wet\X02\session2\closedloop')
+folder_path3 = Path(f'closed_loop\Expdata\Subjects\wet\X02\session3\closedloop')
+total_acc = []
+for folder_path in [folder_path1, folder_path2, folder_path3]:
+        for instance in os.scandir(folder_path):
+                if instance.path.endswith('.pkl'): 
+                        a_file = open(instance.path, "rb")
+                        data_dict = pickle.load(a_file)
+                        mi_seg = data_dict['MI_segments']
+                        labels = data_dict['MI_labels']
+                        pred = data_dict['predictions']
+
+                        acc = sum(1 for x,y in zip(labels,pred) if x == y) / len(pred)
+                        #print(acc)
+                        total_acc.append(acc)
+
+        cl_means.append(round(sum(total_acc)/len(total_acc)*100,1))
+        cl_stds.append(round(np.std(total_acc)*100,1))
+cl_means = np.asarray(cl_means)
+cl_stds = np.asarray(cl_stds)
+for i in range(3):
+        print(f'{cl_means[i]} - {cl_stds[i]}')
+
+ax2.plot(t, cl_means, lw=2, label='Closed loop', color= 'red')
+#ax.fill_between(t, cl_means+cl_stds, cl_means-cl_stds, facecolor='black', alpha=0.5)
+ax2.set_title(r'X02')
+ax2.legend(loc='lower left')
+ax2.set_xlabel('Session number')
+ax2.set_ylabel('Validation accuracy (\%)')
+ax2.set_ylim((0, 100)) 
+ax2.set_xticks(t)
+#ax.grid()
+
+
+means = []
+stds = []
+means.append(round(df31_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df31_pre['final_val_accuracy'].std()*100,1))
+means.append(round(df32_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df32_pre['final_val_accuracy'].std()*100,1))
+means.append(round(df33_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df33_pre['final_val_accuracy'].std()*100,1))
+for i in range(3):
+        print(f'{means[i]} - {stds[i]}')
+
+means = np.asarray(means)
+std = np.asarray(stds)
+ax3.plot(t, means, lw=2, ls='--', label='GenFT', color= 'blue')
+#ax.fill_between(t, means+stds, means-stds, facecolor='blue', alpha=0.5)
+
+means = []
+stds = []
+
+means.append(round(df31_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df31_ft['final_val_accuracy'].std()*100,1))
+means.append(round(df32_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df32_ft['final_val_accuracy'].std()*100,1))
+means.append(round(df33_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df33_ft['final_val_accuracy'].std()*100,1))
+means = np.asarray(means)
+std = np.asarray(stds)
+ax3.plot(t, means, lw=2, label='ConFT', color= 'blue')
+#ax.fill_between(t, means+stds, means-stds, facecolor='yellow', alpha=0.5)
+for i in range(3):
+        print(f'{means[i]} - {stds[i]}')
+
+cl_means = []
+cl_stds = []
+folder_path1 = Path(f'closed_loop\Expdata\Subjects\wet\X03\session1\closedloop')
+folder_path2 = Path(f'closed_loop\Expdata\Subjects\wet\X03\session2\closedloop')
+folder_path3 = Path(f'closed_loop\Expdata\Subjects\wet\X03\session3\closedloop')
+total_acc = []
+for folder_path in [folder_path1, folder_path2, folder_path3]:
+        for instance in os.scandir(folder_path):
+                if instance.path.endswith('.pkl'): 
+                        a_file = open(instance.path, "rb")
+                        data_dict = pickle.load(a_file)
+                        mi_seg = data_dict['MI_segments']
+                        labels = data_dict['MI_labels']
+                        pred = data_dict['predictions']
+
+                        acc = sum(1 for x,y in zip(labels,pred) if x == y) / len(pred)
+                        #print(acc)
+                        total_acc.append(acc)
+
+        cl_means.append(round(sum(total_acc)/len(total_acc)*100,1))
+        cl_stds.append(round(np.std(total_acc)*100,1))
+cl_means = np.asarray(cl_means)
+cl_stds = np.asarray(cl_stds)
+for i in range(3):
+        print(f'{cl_means[i]} - {cl_stds[i]}')
+
+ax3.plot(t, cl_means, lw=2, label='Closed loop', color= 'red')
+#ax.fill_between(t, cl_means+cl_stds, cl_means-cl_stds, facecolor='black', alpha=0.5)
+ax3.set_title(r'X03')
+ax3.legend(loc='lower left')
+ax3.set_xlabel('Session number')
+ax3.set_ylabel('Validation accuracy (\%)')
+ax3.set_ylim((0, 100)) 
+ax3.set_xticks(t)
+#ax.grid()
+
+
+means = []
+stds = []
+means.append(round(df41_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df41_pre['final_val_accuracy'].std()*100,1))
+means.append(round(df42_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df42_pre['final_val_accuracy'].std()*100,1))
+means.append(round(df43_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df43_pre['final_val_accuracy'].std()*100,1))
+for i in range(3):
+        print(f'{means[i]} - {stds[i]}')
+
+
+means = np.asarray(means)
+std = np.asarray(stds)
+ax4.plot(t, means, lw=2, ls='--', label='GenFT', color= 'blue')
+#ax.fill_between(t, means+stds, means-stds, facecolor='blue', alpha=0.5)
+
+means = []
+stds = []
+
+means.append(round(df41_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df41_ft['final_val_accuracy'].std()*100,1))
+means.append(round(df42_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df42_ft['final_val_accuracy'].std()*100,1))
+means.append(round(df43_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df43_ft['final_val_accuracy'].std()*100,1))
+means = np.asarray(means)
+std = np.asarray(stds)
+ax4.plot(t, means, lw=2, label='ConFT', color= 'blue')
+#ax.fill_between(t, means+stds, means-stds, facecolor='yellow', alpha=0.5)
+for i in range(3):
+        print(f'{means[i]} - {stds[i]}')
+
+cl_means = []
+cl_stds = []
+folder_path1 = Path(f'closed_loop\Expdata\Subjects\wet\X04\session1\closedloop')
+folder_path2 = Path(f'closed_loop\Expdata\Subjects\wet\X04\session2\closedloop')
+folder_path3 = Path(f'closed_loop\Expdata\Subjects\wet\X04\session3\closedloop')
+total_acc = []
+for folder_path in [folder_path1, folder_path2, folder_path3]:
+        for instance in os.scandir(folder_path):
+                if instance.path.endswith('.pkl'): 
+                        a_file = open(instance.path, "rb")
+                        data_dict = pickle.load(a_file)
+                        mi_seg = data_dict['MI_segments']
+                        labels = data_dict['MI_labels']
+                        pred = data_dict['predictions']
+
+                        acc = sum(1 for x,y in zip(labels,pred) if x == y) / len(pred)
+                        #print(acc)
+                        total_acc.append(acc)
+
+        cl_means.append(round(sum(total_acc)/len(total_acc)*100,1))
+        cl_stds.append(round(np.std(total_acc)*100,1))
+cl_means = np.asarray(cl_means)
+cl_stds = np.asarray(cl_stds)
+for i in range(3):
+        print(f'{cl_means[i]} - {cl_stds[i]}')
+
+ax4.plot(t, cl_means, lw=2, label='Closed loop', color= 'red')
+#ax.fill_between(t, cl_means+cl_stds, cl_means-cl_stds, facecolor='black', alpha=0.5)
+ax4.set_title(r'X04')
+ax4.legend(loc='lower left')
+ax4.set_xlabel('Session number')
+ax4.set_ylabel('Validation accuracy (\%)')
+ax4.set_ylim((0, 100)) 
+ax4.set_xticks(t)
+#ax.grid()
+
+
+
+
+
+
+
+plt.suptitle('Validation accuracy for open-loop fine-tuning with GenFT or ConFT, together with average closed-loop accuracy')
+fig.tight_layout()
+plt.show()
+#
+
+
+'''
+
+
+
+
+
+means = []
+stds = []
+means.append(round(df21_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df21_pre['final_val_accuracy'].std(),1))
+means.append(round(df22_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df22_pre['final_val_accuracy'].std(),1))
+means.append(round(df23_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df23_pre['final_val_accuracy'].std(),1))
+means = np.asarray(means)
+std = np.asarray(stds)
+ax.plot(t, means, lw=2, label='GenFT X02', color= 'black')
+#ax.fill_between(t, means+stds, means-stds, facecolor='green', alpha=0.5)
+
+means = []
+stds = []
+means.append(round(df21_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df21_ft['final_val_accuracy'].std(),1))
+means.append(round(df22_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df22_ft['final_val_accuracy'].std(),1))
+means.append(round(df23_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df23_ft['final_val_accuracy'].std(),1))
+means = np.asarray(means)
+std = np.asarray(stds)
+ax.plot(t, means, lw=2, label='ConFT X02', color= 'black')
+
+cl_means = []
+cl_stds = []
+folder_path1 = Path(f'closed_loop\Expdata\Subjects\wet\X01\session1\closedloop')
+folder_path2 = Path(f'closed_loop\Expdata\Subjects\wet\X01\session2\closedloop')
+folder_path3 = Path(f'closed_loop\Expdata\Subjects\wet\X01\session3\closedloop')
+total_acc = []
+for folder_path in [folder_path1, folder_path2, folder_path3]:
+        for instance in os.scandir(folder_path):
+                if instance.path.endswith('.pkl'): 
+                        a_file = open(instance.path, "rb")
+                        data_dict = pickle.load(a_file)
+                        mi_seg = data_dict['MI_segments']
+                        labels = data_dict['MI_labels']
+                        pred = data_dict['predictions']
+
+                        acc = sum(1 for x,y in zip(labels,pred) if x == y) / len(pred)
+                        #print(acc)
+                        total_acc.append(acc)
+
+        cl_means.append(round(sum(total_acc)/len(total_acc),1))
+        cl_stds.append(round(np.std(total_acc),1))
+cl_means = np.asarray(cl_means)
+cl_stds = np.asarray(cl_stds)
+
+#ax.plot(t, cl_means, lw=2, ls=':', label='Closed loop', color= 'black')
+#ax.fill_between(t, means+stds, means-stds, facecolor='darkgreen', alpha=0.5)
+
+means = []
+stds = []
+means.append(round(df31_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df31_pre['final_val_accuracy'].std(),1))
+means.append(round(df32_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df32_pre['final_val_accuracy'].std(),1))
+means.append(round(df33_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df33_pre['final_val_accuracy'].std(),1))
+means = np.asarray(means)
+std = np.asarray(stds)
+ax.plot(t, means, lw=2, ls='--', label='GenFT X03', color= 'red')
+#ax.fill_between(t, means+stds, means-stds, facecolor='red', alpha=0.5)
+
+means = []
+stds = []
+means.append(round(df31_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df31_ft['final_val_accuracy'].std(),1))
+means.append(round(df32_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df32_ft['final_val_accuracy'].std(),1))
+means.append(round(df33_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df33_ft['final_val_accuracy'].std(),1))
+means = np.asarray(means)
+std = np.asarray(stds)
+ax.plot(t, means, lw=2, label='ConFT X03', color= 'red')
+#ax.fill_between(t, means+stds, means-stds, facecolor='darkred', alpha=0.5)
+
+means = []
+stds = []
+means.append(round(df41_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df41_pre['final_val_accuracy'].std(),1))
+means.append(round(df42_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df42_pre['final_val_accuracy'].std(),1))
+means.append(round(df43_pre['final_val_accuracy'].mean()*100,1))
+stds.append(round(df43_pre['final_val_accuracy'].std(),1))
+means = np.asarray(means)
+std = np.asarray(stds)
+ax.plot(t, means, lw=2, ls='--', label='GenFT X04', color= 'lightgreen')
+#ax.fill_between(t, means+stds, means-stds, facecolor='lightyellow', alpha=0.5)
+
+means = []
+stds = []
+means.append(round(df41_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df41_ft['final_val_accuracy'].std(),1))
+means.append(round(df42_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df42_ft['final_val_accuracy'].std(),1))
+means.append(round(df43_ft['final_val_accuracy'].mean()*100,1))
+stds.append(round(df43_ft['final_val_accuracy'].std(),1))
+means = np.asarray(means)
+std = np.asarray(stds)
+ax.plot(t, means, lw=2, label='ConFT X04', color= 'lightgreen')
+#ax.fill_between(t, means+stds, means-stds, facecolor='yellow', alpha=0.5)
+
+ax.set_title(r'Average validation accuracy for open-loop fine-tuning $\pm \sigma$ with GenFT or ConFT')
+ax.legend(loc='lower left')
+ax.set_xlabel('Session number')
+ax.set_ylabel('Validation accuracy')
+ax.set_ylim((0, 1)) 
+ax.grid()
+plt.xticks(t)
+plt.show()
+
+
+'''
+#df0 = pd.read_csv("results/cl/x03_ses2_ft.csv")
 #df1 = pd.read_csv("results/finetune_results/X02/0.csv")
 #df2 = pd.read_csv("results/finetune_results/X02/0.csv")
 #df3 = pd.read_csv("results/finetune_results/X02/0.csv")
 #df4 = pd.read_csv("results/finetune_results/X02/0.csv")
-means = []
+#means = []
 
 #print("models")
-#print(f"{round(df0['test_accuracy'].mean(),3)} - {round(df0['test_accuracy'].std(),3)}")
-#print(round(df0['test_accuracy'].max(),3))
-print(f"{round(df0['train/train_acc'].mean(),3)} - {round(df0['train/train_acc'].std(),3)}")
-print(f"{round(df0['final_val_accuracy'].mean(),3)} - {round(df0['final_val_accuracy'].std(),3)}")
+#print(f"{round(df0['test_accuracy'].mean(),1)} - {round(df0['test_accuracy'].std(),1)}")
+#print(round(df0['test_accuracy'].max(),1))
+#print(f"{round(df0['train/train_acc'].mean(),1)} - {round(df0['train/train_acc'].std(),1)}")
+#print(f"{round(df0['final_val_accuracy'].mean(),1)} - {round(df0['final_val_accuracy'].std(),1)}")
 #print(df0['Name'])
 
 
 
 '''
 print("1")
-print(f"{round(df1['test_accuracy'].mean(),3)} - {round(df1['test_accuracy'].std(),3)}")
-means.append(round(df1['test_accuracy'].mean(),3))
+print(f"{round(df1['test_accuracy'].mean(),1)} - {round(df1['test_accuracy'].std(),1)}")
+means.append(round(df1['test_accuracy'].mean(),1))
 
 print("2")
-print(f"{round(df2['test_accuracy'].mean(),3)} - {round(df2['test_accuracy'].std(),3)}")
-means.append(round(df2['test_accuracy'].mean(),3))
+print(f"{round(df2['test_accuracy'].mean(),1)} - {round(df2['test_accuracy'].std(),1)}")
+means.append(round(df2['test_accuracy'].mean(),1))
 
 print("3")
-print(f"{round(df3['test_accuracy'].mean(),3)} - {round(df3['test_accuracy'].std(),3)}")
-means.append(round(df3['test_accuracy'].mean(),3))
+print(f"{round(df3['test_accuracy'].mean(),1)} - {round(df3['test_accuracy'].std(),1)}")
+means.append(round(df3['test_accuracy'].mean(),1))
 
 print("4")
-print(f"{round(df4['test_accuracy'].mean(),3)} - {round(df4['test_accuracy'].std(),3)}")
-means.append(round(df4['test_accuracy'].mean(),3))
+print(f"{round(df4['test_accuracy'].mean(),1)} - {round(df4['test_accuracy'].std(),1)}")
+means.append(round(df4['test_accuracy'].mean(),1))
 
 print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
 '''

@@ -4,7 +4,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pickle
-
+from mne.decoding import CSP
+import mne
 import src.utils_preprocess as utils
 import src.utils_deep as utils_deep
 
@@ -24,8 +25,8 @@ def execution(pipeline_type, subject, type):
     # INIT
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
     n_electrodes = len(electrode_names)
-    folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/{subject}_freqbands')
-    result_path = Path(f'./results/intermediate_datafiles/openloop/{subject}_freqbands')
+    folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/csp_fb_noCAR/{subject}')
+    result_path = Path(f'./results/intermediate_datafiles/openloop/{subject}_freqbands_noCAR')
     result_path.mkdir(exist_ok=True, parents=True)
 
     if type == 'arms':
@@ -49,7 +50,7 @@ def execution(pipeline_type, subject, type):
             data_dict = pickle.load(a_file)
             X = data_dict['data']
             y = data_dict['labels']
-            window_size = int(instance.path.split("ws",1)[1][:3]) 
+            #window_size = int(instance.path.split("ws",1)[1][:3]) 
 
             if pipeline_type[:4] == 'deep':
                 train_acc_cv, val_acc_cv, val_prec_cv, val_rec_cv, train_f1_cv, val_f1_cv, \
@@ -149,6 +150,8 @@ def execution(pipeline_type, subject, type):
                 else:
                     # gridsearch experimentation csp or riemann
                     chosen_pipelines = utils.init_pipelines_grid(pipeline_type)
+                    
+
                     for clf in chosen_pipelines:
                         print(f'applying {clf} with gridsearch...')
                         val_accuracy, prec, rec, roc_auc, acc_classes, f1, elapsed_time, chosen_pipelines = utils.grid_search_execution(
@@ -183,6 +186,7 @@ def execution(pipeline_type, subject, type):
     results_df = pd.DataFrame.from_dict(results, orient='index').sort_values('final_val_accuracy', ascending=False)  
     results_df.to_csv(result_path / results_fname)
     print('Finished')
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="Run offline BCI analysis experiments.")
