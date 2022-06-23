@@ -16,6 +16,10 @@ from sklearn.pipeline import Pipeline
 from sklearn.svm import SVC
 from sklearn.metrics import f1_score, precision_score, recall_score, confusion_matrix, roc_auc_score
 from pathlib import Path
+import matplotlib.pyplot as plt
+import plotly.graph_objects as go
+import seaborn as sns 
+sns.set_style('darkgrid')
 
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2, state_space=True):
@@ -43,19 +47,6 @@ def apply_filter_statespace(sig, A, B, C, D, Xnn):
     for sample in sig: 
         filt_sig = np.append(filt_sig, C@Xnn + D * sample)
         Xnn = A@Xnn + B * sample
-
-    #b,a = signal.butter(4, [8/(250/2), 35/(250/2)], 'bandpass')
-    #filt_sig = signal.filtfilt(b, a, sig)
-    '''
-    plt.plot(filt_sig)
-    plt.plot(filt_sig2)
-    plt.ylim(ymax = 50, ymin = -50)
-    plt.title('EEG signal FZ - 3rd segment - bandpass filtered 8 to 35Hz, order 8')
-    plt.xlabel('Datapoints of 0.5 seconds, captured with 250Hz')
-    plt.ylabel('EEG signal (\u03BCV)')
-    plt.legend(['State space filtered signal', 'Butter filtfilt filtered signal'])
-    plt.show()
-    '''
     return filt_sig, Xnn
 
 def pre_processing(curr_segment,selected_electrodes_names ,filters, sample_duration, freq_limits_names, pipeline_type, 
@@ -74,19 +65,10 @@ def pre_processing(curr_segment,selected_electrodes_names ,filters, sample_durat
             if stats.kurtosis(j) > 4*np.std(j):
                 print('due to kurtosis')
             outlier +=1
-            
-    #if outlier > 5:
-    #    plot_dataset(curr_segment.T, ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8'],
-    #                              ['like', 'like', 'like','like', 'like', 'like','like', 'like'],
-    #                              ['line','line', 'line','line','line', 'line','line','line'])
-    
+
     # 3 APPLY COMMON AVERAGE REFERENCE (CAR) per segment only for deep learning pipeline   
-    # CAR doesnt work for csp and riemann, so only use for deep
-    if 'deep' in pipeline_type: 
+    if  'deep' in pipeline_type: 
         curr_segment -= curr_segment.mean()
-    #plot_dataset(curr_segment.T, ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8'],
-    #                              ['like', 'like', 'like','like', 'like', 'like','like', 'like'],
-    #                              ['line','line', 'line','line','line', 'line','line','line'])
 
     # 4 FILTERING filter bank / bandpass
     segment_filt, filters = filter_1seg_statespace(curr_segment, selected_electrodes_names, filters, sample_duration, 
@@ -112,10 +94,6 @@ def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_du
 
             filters[f] = [A, B, C, D, Xnn]
     filtered_dataset = pd.DataFrame.from_dict(filter_results).transpose() 
-    #keys = []
-    #for key, value in filter_results.items():
-    #    keys.append(key)
-    #print(keys)
     return filtered_dataset, filters
 
 def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, selected_electrodes_names, freq_limits_names, 
@@ -171,7 +149,7 @@ def unicorn_segmentation_overlap_withfilt(dataset, sample_duration, filters, sel
     print(f"Outliers - relax: {outlier_amounts[0]}, rightarm: {outlier_amounts[1]}, leftarm: {outlier_amounts[2]},\
     legs: {outlier_amounts[3]}")
 
-    # save output:
+    # save amount of outliers:
     path_outlier = Path(f"./outliers/{subject}_openloop")
     path_outlier.mkdir(exist_ok=True, parents=True) 
     print(f"Good - relax: {label_amounts[0]}, rightarm: {label_amounts[1]}, leftarm: {label_amounts[2]}, \
