@@ -1,29 +1,13 @@
-import copy
-import time
-from collections import Counter
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from joblib import dump, load
-from mne.decoding import CSP
-from pyriemann.classification import MDM, FgMDM
-from pyriemann.estimation import Covariances
-from pyriemann.tangentspace import TangentSpace
 from scipy import signal, stats
-from sklearn.discriminant_analysis import LinearDiscriminantAnalysis as LDA
-from sklearn.ensemble import RandomForestClassifier as RFC
-from sklearn.model_selection import GridSearchCV, train_test_split
-from sklearn.pipeline import Pipeline
-from sklearn.svm import SVC
-from sklearn.metrics import f1_score, precision_score, recall_score, confusion_matrix, roc_auc_score
 from pathlib import Path
-
 import torch
 import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 
-
+# preprocessing functions
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2, state_space=True):
     filters = []
     for f in range(freq_lim.shape[0]):
@@ -95,6 +79,7 @@ def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_du
     filtered_dataset = pd.DataFrame.from_dict(filter_results).transpose()    
     return filtered_dataset, filters
 
+# neural net functions
 class Flatten(nn.Module):
     def forward(self, input):
         return input.view(input.size(0), -1)
@@ -150,7 +135,99 @@ class EEGNET(nn.Module):
         prediction = self.fc2(out)
         return prediction
 
+# closed loop functions
+def movedot(prediction,focus,pos,size):
+    if prediction ==0 :
+        size = (size[0]+0.01,size[1]+0.01)
+        focus.setSize(size)
+    elif prediction ==1 :
+        pos = (pos[0]+0.05,pos[1])
+        focus.setPos(pos)
+    elif prediction ==2:
+        pos = (pos[0]-0.05,pos[1])
+        focus.setPos(pos)
+    else :
+        focus.setPos(pos)
+        focus.setSize(size)
+        
+    return focus, pos, size
 
+def movedotwhen(prediction,focus,pos,size,cue):
+    if cue == 1:
+        if prediction ==1 : # right
+            pos = (pos[0]+0.01,pos[1])
+            focus.setPos(pos)
+        else :
+            focus.setPos(pos)
+            focus.setSize(size)
+    elif cue == 2:
+        if prediction ==2: # left
+            pos = (pos[0]-0.01,pos[1])
+            focus.setPos(pos)
+        else :
+            focus.setPos(pos)
+            focus.setSize(size)
+    elif cue == 0:
+        if prediction ==0 : # relax
+            size = (size[0]+0.01,size[1]+0.01)
+            focus.setSize(size)
+        else :
+            focus.setPos(pos)
+            focus.setSize(size)
+        
+    return focus, pos, size
 
+import random
+def Genrandom(num):
+    randomlist = []
+    for i in range(0,num):
+        n = random.randint(0,3)
+        randomlist.append(n)
+    print(randomlist)
+    return randomlist
 
+def concatdata(current_seg, segment_filt):
+    if current_seg.shape[1] == 0:
+        current_seg = segment_filt
+        
+    elif current_seg.shape[1] == 500:
+        current_seg = pd.concat([current_seg.iloc[: , 125:].reset_index(drop=True), segment_filt.reset_index(drop=True)],
+                    axis=1, ignore_index=True)        
+    else:
+        current_seg = pd.concat([current_seg.reset_index(drop=True), segment_filt.reset_index(drop=True)],
+                    axis=1, ignore_index=True)
+    return current_seg
 
+#updating database with captured data from EEG
+def update_data(data,res):
+    i = 0
+    for key in list(data.keys()):
+        data[key].append(res[i])
+        i = i +1
+    return data
+
+def is_MI_segment(labels):
+    #label_count = labels.shape[0]
+    label_num = labels.label.unique()[0]
+    if label_num in [0,1,2]:
+        return True, label_num
+    else:
+        return False, 'noMI'
+
+def do_prediction(current_seg, net):
+    current_tensor = torch.from_numpy(np.array(current_seg))
+    current_tensor = current_tensor[np.newaxis, np.newaxis, :, :]
+    output = net(current_tensor.float())
+    _, predicted = torch.max(output.data, 1)
+    return predicted
+
+def segment_dict(initial, final, hop, data):
+    electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
+    temp_dict = dict((k, []) for k in electrode_names)
+    #gives out 125 length dicts
+    for channel in electrode_names :
+        temp_dict[channel] = data[channel][initial:final]
+    initial = initial + hop
+    final = final + hop
+    df = pd.DataFrame.from_dict(temp_dict)
+    return df, initial, final

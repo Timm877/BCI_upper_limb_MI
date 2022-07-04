@@ -1,13 +1,14 @@
+import numpy as np
+import pandas as pd
+import src.realtime_utils as utils
+import torch
+
+#INIT EXPDATA -- change to preference
 expName = 'game'
 exType = 'wet'
 expInfo = {'participant': 'X02','type': exType, 'expName' : expName, 'sessionNum': 'session3'}
 
-import numpy as np
-import pandas as pd
-import realtime_utils as utils
-import torch
-import pickle
-#INIT
+#INIT VARIABLES
 filt_ord = 2
 freq_limits = np.asarray([[1,100]]) 
 freq_limits_names = ['1_100Hz']

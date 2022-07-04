@@ -10,10 +10,6 @@ from pathlib import Path
 import wandb
 import pprint
 import pickle
-import os
-import random
-import pandas as pd
-import seaborn as sn
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
@@ -108,47 +104,9 @@ def data_setup(config):
 
     return trainloader, valloader
 
-def run(test_subject):
-    for model_type in ['best_pretrain', 'best_finetune']:
-        # here, best_finetune is the most recent fine_tuned model, thus for session 2 this is FTsession1
-
-        # NOTE change model path and subjpath for future sessions
-        model_path = f"closed_loop/final_models/{model_type}\EEGNET_{test_subject}"
-
-        # TODO change testsubj path below
-        testsubj_path = Path(f'./closed_loop\Openloop\intermediate_files/cl_session0/{test_subject}_deep.pkl')
- 
-        print(f'Getting {model_type} for {test_subject}..')
-        train_trials = [[0, 1], [0, 2], [1, 2]]
-        val_trials = [2, 1, 0]
-        for cv in range(3):
-            train_trial = train_trials[cv]
-            val_trial = val_trials[cv]
-            config={
-            'batch_size' : 256,
-            'epochs': 20,
-            'receptive_field': 64, 
-            'mean_pool':  8,
-            'activation_type':  'elu',
-            'network' : 'EEGNET',
-            'model_type': model_type,
-            'model_path': model_path,
-            'test_subj_path' : testsubj_path,
-            'test_subject': test_subject,
-            'train_trials': train_trial,
-            'val_trial': val_trial,
-            'CLsession': 0, #NOTE change num according to session
-            'ablation': 'all',
-            'seed':  42,    
-            'learning_rate': 0.001,
-            'filter_sizing':  8,
-            'D':  2,
-            'dropout': 0.25}
-            train(config)
-
 def train(config=None):
     # Initialize a new wandb run
-    with wandb.init(project=f"test_EEGNET_ClosedLoopFT_{config['test_subject']}_session{config['CLsession']}", config=config):
+    with wandb.init(project=f"compare_EEGNET_ClosedLoopFT_{config['test_subject']}_session{config['CLsession']}", config=config):
         config = wandb.config
         pprint.pprint(config)
         trainloader, valloader = data_setup(config)
@@ -179,8 +137,7 @@ def train(config=None):
         wandb.summary['final_val_accuracy'] = val_acc
         wandb.summary['final_val_f1'] = val_f1
 
-        torch.save(net.state_dict(),
-        f"closed_loop/final_models/{config.model_type}\session{config.CLsession}\EEGNET_{config.test_subject}_valtrial{config.val_trial}")
+        #torch.save(net.state_dict(), config.savepath_newmodel)
 
         
 def build_network(config):
@@ -235,6 +192,7 @@ def evaluate(net, loader):
     f1 =  f1 / batches
     print(f"acc: {acc}, f1: {f1}")
     cf_matrix = confusion_matrix(y_true, y_pred)
+    print(cf_matrix)
     return running_loss, acc, f1, cf_matrix
 
 class EarlyStopping():

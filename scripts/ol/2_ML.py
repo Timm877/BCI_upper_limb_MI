@@ -4,11 +4,8 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import pickle
-from mne.decoding import CSP
-import mne
 import src.utils_preprocess as utils
 import src.utils_deep as utils_deep
-
 pd.options.mode.chained_assignment = None  # default='warn'
 
 def main():

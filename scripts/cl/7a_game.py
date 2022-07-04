@@ -1,17 +1,9 @@
 import pygame
 import time
 import random
-from pylsl import StreamInlet, resolve_stream
 import os
 
 pygame.init()
-
-
-# -------------------INIT BCI STUFF-------------------
-#streams = resolve_stream()
-#inlet = StreamInlet(streams[0])
-#sig_tot = ''
-# ----------------------------------------------------
 
 # colors
 blue = (0,0,255)

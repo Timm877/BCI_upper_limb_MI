@@ -1,30 +1,22 @@
 from pylsl import StreamInlet, resolve_stream
-from psychopy import gui, visual, core, data, event, logging, clock, colors, layout
-# GUI for saving data # Store info about the experiment session
-expName = 'practice'
-exType = 'wet'
-expInfo = {'participant': 'X02','type': exType, 'sessionNum': 'session4'}
-
+from psychopy import  visual, core, event
 import numpy as np
 import pandas as pd
-
 from numpy.random import random, shuffle
 from datetime import date
 from pathlib import Path
 import os
 
-
-
-# Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
+# INIT exp data
+expName = 'practice'
+exType = 'wet'
+expInfo = {'participant': 'X02','type': exType, 'sessionNum': 'session4'}
 result_path = Path(f'closed_loop/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
 result_path.mkdir(exist_ok=True, parents=True)
 
-# ----------- columns of recorded eeg data ----------
-#columns=['Time','EEG1', 'EEG2', 'EEG3','EEG4','EEG5','EEG6','EEG7','EEG8','AccX','AccY','AccZ','Gyro1','Gyro2','Gyro3',
-#                                 'Battery','Counter','Validation']
+
 columns=['Time','FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8','AccX','AccY','AccZ','Gyro1','Gyro2','Gyro3',
                                   'Battery','Counter','Validation']
-
 data_dict = dict((k, []) for k in columns)
 
 def update_data(data,res):

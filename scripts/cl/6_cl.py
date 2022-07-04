@@ -1,11 +1,14 @@
 import numpy as np
 import pandas as pd
-import realtime_utils as utils
+import src.realtime_utils as utils
 import torch
 import pickle
+
+#INIT EXPDATA -- change to preference
 expName = 'closedloop'
 exType = 'wet'
 expInfo = {'participant': 'X02','type': exType, 'expName' : expName, 'sessionNum': 'session3'}
+
 #INIT
 filt_ord = 2
 freq_limits = np.asarray([[1,100]]) 

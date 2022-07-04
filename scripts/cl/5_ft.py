@@ -1,5 +1,5 @@
 import argparse
-import utils_finetune_closedloop as utils_finetune
+import src.utils_finetune_closedloop as utils_finetune
 from pathlib import Path
 
 def execution(test_subject, session):
