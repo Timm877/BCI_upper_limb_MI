@@ -24,7 +24,7 @@ from pylsl import StreamInlet, resolve_stream
 
 
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-result_path = Path(f'closed_loop/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
+result_path = Path(f'scripts/cl/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
 result_path.mkdir(exist_ok=True, parents=True)
 
 # ----------- columns of recorded eeg data ----------
@@ -167,6 +167,6 @@ else :
 
 #results_fname = expInfo['participant']+'_'+str(date.today())+'_'+expName+'_'+ expInfo['type']+'_'+session+'.csv'
 #fname = Path('./Expdata/Subjects/'+expInfo['participant']+'/'+ expName + '/'+results_fname)
-fname = Path('closed_loop/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/'+results_fname)
+fname = Path('scripts/cl/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/'+results_fname)
 record_data.to_csv(fname, index = False)
 print('Trial Ended')

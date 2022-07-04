@@ -71,7 +71,7 @@ means.append(round(df9['test_accuracy'].mean(),1))
 print(f"overall mean: {round(sum(means) / len(means), 3)} from {means}")
 liststuff = [0.551  , 0.568  ,0.571   , 0.593]
 print(f"overall mean: {round(sum(liststuff) / len(liststuff), 3)} from {liststuff}")
-'''
+
 from scipy.stats import wilcoxon
 list = [0.478, 0.788, 0.433] 
 list = [50.0,56.4,60.7,69.2,93.9,60.8,36.1,68.9,67.8,88.0,86.3,84.2]
@@ -95,7 +95,7 @@ list = [41.9, 31.6, 37.2]
 list = [42.7, 33.3 , 41.0]
 print(round(sum(list)/len(list),1))
 print(round(np.asarray(list).std(),1))
-'''
+
 from scipy.stats import wilcoxon
 
 conFT = [42.7, 33.3 , 41.0, 59.4, 90.6 , 72.6 ,49.1 ,61.1 ,51.4, 85.9, 84.6 ,89.3]  
@@ -161,7 +161,7 @@ print(f'{s1}, {s2}, {s3}')
 w, p = wilcoxon(s3,s1, alternative='greater')
 print(p)
 '''
-'''
+
 df11_pre = pd.read_csv("results/cl/x01_ses1_pre.csv")
 df12_pre = pd.read_csv("results/cl/x01_ses2_pre.csv")
 df13_pre = pd.read_csv("results/cl/x01_ses3_pre.csv")
@@ -288,7 +288,7 @@ for i in range(3):
 
 means = np.asarray(means)
 std = np.asarray(stds)
-ax2.plot(t, means, lw=2, label='GenFT', color= 'blue')
+ax2.plot(t, means, lw=2, ls='--',label='GenFT', color= 'blue')
 #ax.fill_between(t, means+stds, means-stds, facecolor='blue', alpha=0.5)
 
 means = []
@@ -302,7 +302,7 @@ means.append(round(df23_ft['final_val_accuracy'].mean()*100,1))
 stds.append(round(df23_ft['final_val_accuracy'].std()*100,1))
 means = np.asarray(means)
 std = np.asarray(stds)
-ax2.plot(t, means, lw=2, ls='--', label='ConFT', color= 'blue')
+ax2.plot(t, means, lw=2, label='ConFT', color= 'blue')
 #ax.fill_between(t, means+stds, means-stds, facecolor='yellow', alpha=0.5)
 for i in range(3):
         print(f'{means[i]} - {stds[i]}')
@@ -494,7 +494,6 @@ plt.show()
 #
 
 
-'''
 
 '''
 

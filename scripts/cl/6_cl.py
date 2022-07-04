@@ -20,7 +20,7 @@ total_outlier = 0
 # init DL model
 subject = expInfo['participant']
 net = utils.EEGNET()
-path = r'closed_loop/final_models/models_for_closedloop/EEGNET_X02_best_finetune_session3' # TODO update path later
+path = r'scripts/cl/final_models/models_for_closedloop/EEGNET_X02_best_finetune_session3' # TODO update path later
 net.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
 net = net.float()
 net.eval()
@@ -45,7 +45,7 @@ os.environ["KMP_DUPLICATE_LIB_OK"]="TRUE"
 
 #change path of folders according to your needs
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-result_path = Path(f'closed_loop/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
+result_path = Path(f'scripts/cl/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
 result_path.mkdir(exist_ok=True, parents=True)
 
 columns=['Time','FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8','AccX','AccY','AccZ','Gyro1','Gyro2','Gyro3',
@@ -86,7 +86,7 @@ ten_sec = ten_sec = visual.ShapeStim(
 # image of cross being showed
 restCross = visual.ImageStim(
     win=win, name='RestCross',
-    image=r'closed_loop/VC_Cross.jpg', mask=None, anchor='center',
+    image=r'scripts/cl/VC_Cross.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
@@ -94,7 +94,7 @@ restCross = visual.ImageStim(
 # this has been been manipulated to show random cues for the subject throughout the trial
 Cue = visual.ImageStim(
     win=win, name='Cue',
-    image=r'closed_loop/VC_Right.jpg', mask=None, anchor='center',
+    image=r'scripts/cl/VC_Right.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
@@ -109,7 +109,7 @@ focus = visual.ShapeStim(
 # blank screen for rest between cues for blinking, swallowing and other stuff
 Blank = visual.ImageStim(
     win=win, name='BlankScreen',
-    image=r'closed_loop/VC_Blank.jpg', mask=None, anchor='center',
+    image=r'scripts/cl/VC_Blank.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
@@ -156,9 +156,9 @@ event.waitKeys(keyList=['return'])
 
 # image list with labels for showing randomly and storing in the database
 # creating cue list
-img_list = [(r'closed_loop/VC_Relax.jpg',0),
-(r'closed_loop/VC_Right.jpg',1),
-(r'closed_loop/VC_Left.jpg',2)]*2
+img_list = [(r'scripts/cl/VC_Relax.jpg',0),
+(r'scripts/cl/VC_Right.jpg',1),
+(r'scripts/cl/VC_Left.jpg',2)]*2
 trials = len(img_list)
 np.random.shuffle(img_list)
 # calculating run time to shut off data capturing
@@ -316,7 +316,7 @@ MI_dict['MI_segments'] = all_MI_segments
 MI_dict['MI_labels'] = all_MI_labels
 MI_dict['predictions'] = predictions
 
-result_path = Path(f"closed_loop/Expdata/Subjects/{exType}/{subject}/{expInfo['sessionNum']}/{expName}")
+result_path = Path(f"scripts/cl/Expdata/Subjects/{exType}/{subject}/{expInfo['sessionNum']}/{expName}")
 exp_type = expInfo['type']
 MI_fname = f'{subject}_{str(date.today())}_{expName}_{exp_type}_{session}_MIData.pkl'
 print("Saving file MI Data file as.. ", MI_fname)
@@ -324,6 +324,6 @@ save_file = open(result_path / MI_fname, "wb")
 pickle.dump(MI_dict, save_file)
 save_file.close()
 
-fname = Path('closed_loop/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/'+results_fname)
+fname = Path('scripts/cl/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/'+results_fname)
 record_data.to_csv(fname, index = False)
 print('Trial Ended')

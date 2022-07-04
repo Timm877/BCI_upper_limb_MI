@@ -36,8 +36,8 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
     # INIT
     sampling_frequency = 250 
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
-    folder_path = Path(f'./closed_loop\Expdata\Subjects\wet\{subject}\{session}\openloop')
-    result_path = Path(f'./closed_loop\intermediate_files/{session}_CSP')
+    folder_path = Path(f'./scripts/cl\Expdata\Subjects\wet\{subject}\{session}\openloop')
+    result_path = Path(f'./scripts/cl\intermediate_files/{session}_CSP')
     result_path.mkdir(exist_ok=True, parents=True)  
     dataset_full = {}
 

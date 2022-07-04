@@ -1,30 +1,20 @@
-#!/usr/bin/env python
-# -*- coding: utf-8 -*-
-# adding all the required libraries
-#psychopy libraries for running the visual cues
-expName = 'openloop'
+from pylsl import StreamInlet, resolve_stream
+from psychopy import gui, visual, core, data, event, logging, clock, colors, layout
+# GUI for saving data # Store info about the experiment session
+expName = 'practice'
 exType = 'wet'
 expInfo = {'participant': 'X02','type': exType, 'sessionNum': 'session4'}
-from psychopy import gui, visual, core, data, event, logging, clock, colors, layout
-import psychopy.iohub as io
-from psychopy.hardware import keyboard
-#numpy and pd for data storing and manipulation
+
 import numpy as np
 import pandas as pd
+
 from numpy.random import random, shuffle
-# misc libraries to structure the cues properly and save it with date time and stuff
-import time
 from datetime import date
 from pathlib import Path
-
 import os
-import time
-import msvcrt
-import datetime
-# lab streaming layer library to capture the data sent by unicorn EEG headset
-from pylsl import StreamInlet, resolve_stream
 
-#change path of folders according to your needs
+
+
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
 result_path = Path(f'closed_loop/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
 result_path.mkdir(exist_ok=True, parents=True)
@@ -37,7 +27,6 @@ columns=['Time','FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8','AccX','AccY','
 
 data_dict = dict((k, []) for k in columns)
 
-#updating database with captured data from EEG
 def update_data(data,res):
     i = 0
     for key in list(data.keys()):
@@ -53,12 +42,7 @@ cueTime = 2.0
 focusTime = 10.0
 blkTime = 5.0
 
-# main code for visual cues 
-''' 
-1. Initializing Cue monitor
-2. Initializing the cues
-3. Calling the cues with the help of time
-'''
+
 # --------- Preparing Ready Window --------
 win = visual.Window(
     size=(1440, 900), fullscr=True, screen=1, 
@@ -77,43 +61,37 @@ ten_sec = ten_sec = visual.ShapeStim(
     opacity=None, depth=-2.0, interpolate=True)
 
 # Initialize components for Routine "trial"
-# image of cross being showed
 restCross = visual.ImageStim(
     win=win, name='RestCross',
-    image='closed_loop/VC_Cross.jpg', mask=None, anchor='center',
+    image='scripts/cl/VC_Cross.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
-# this has been been manipulated to show random cues for the subject throughout the trial
 Cue = visual.ImageStim(
     win=win, name='Cue',
-    image='closed_loop/VC_Right.jpg', mask=None, anchor='center',
+    image='scripts/cl//VC_Right.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
-# the small dot on the screen where the subject has to focus for our trial, later to be move during closed loop trials
 focus = visual.ShapeStim(
     win=win, name='focus',color = 'black',
     size=(0.044, 0.044), vertices='circle', # change size to 0.045,0.045 if zoomed in
     ori=0.0, pos=(0, 0), anchor='center',
     lineWidth=1.0,     colorSpace='rgb',  lineColor='darkgrey', fillColor=(0.3255,0.3255,0.3255),
     opacity=None, depth=-2.0, interpolate=True)
-# blank screen for rest between cues for blinking, swallowing and other stuff
 Blank = visual.ImageStim(
     win=win, name='BlankScreen',
-    image='closed_loop/VC_Blank.jpg', mask=None, anchor='center',
+    image='scripts/cl//VC_Blank.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
 
-# below code is for initializing the streaming layer which will help us capture data later
 finished = False
 streams = resolve_stream()
 inlet = StreamInlet(streams[0])
-sig_tot = ''
 
 # Auto updating trial numbers
 trial_list = []
@@ -132,18 +110,17 @@ else :
     
     
 print(f"Conducting {expName} experiment for subject :", expInfo['participant'])
-print('No. of Practice Trials before :', 2)
 print("Trial Number :", session)
+
 # if int(session) < 3:
 #     print('Practice Trial')
 # else :
 #     print('Actual Trial')
-print('Actual Trial')
-print('Total number of trials as of now :', int(session) + 2)
+
+print('Practice Trial')    
 results_fname = expInfo['participant']+'_'+str(date.today())+'_'+expName+'_'+ expInfo['type']+'_'+session+'.csv'
 print("Saving file as .. ", results_fname)
 
-# -------- Beginning of trial ----------
 # Create a stimulus for a certain window
 readyText = visual.TextStim(win, "Ready?", color=(1,1,1))
 readyText.draw()
@@ -154,37 +131,34 @@ event.waitKeys(keyList=['return'])
 # if endExpNow or defaultKeyboard.getKeys(keyList=["escape"]):
 #     core.quit()
 
-# image list with labels for showing randomly and storing in the database
 # creating cue list
-img_list = [('closed_loop/VC_Relax.jpg',0),('closed_loop/VC_Right.jpg',1),('closed_loop/VC_Left.jpg',2)]*2
+img_list = [('scripts/cl//VC_Relax.jpg',0),('scripts/cl//VC_Right.jpg',1),('scripts/cl//VC_Left.jpg',2)]*2 # can be two
 trials = len(img_list)
 np.random.shuffle(img_list)
-# calculating run time to shut off data capturing
 runtime = calTime +trials*(restTime + cueTime + focusTime + blkTime)
 
-classes = [] # to store the showed classes in a list later to be added to database .csv file
-Fs = 250 # sampling frequency of Unicorn EEG cap
+classes = []
+Fs = 250
 temp = []
 times = []
 #start = time.time()
 while not finished:
-    # capturing sample first using inlet.pull_sample()
+
     sample, timestamp = inlet.pull_sample()
 
-    # showing cues based on time, when time = 0 show ten_sec (cue initialized above)
-    if len(times) == 0: #times is a multiple of sampling frequency as we show 10 secs of initial screen
+    if len(times) == 0:
         ten_sec.draw()
         win.flip()
         core.wait(calTime)
-        classes = classes + 10*250*['Y'] # adding class to the class list
+        classes = classes + 10*250*['Y']
 
 
-    elif len(times) == 250*10 : # so length of times list would be 2500 now and its time for the next cue
+    elif len(times) == 250*10 :
     
         for cue in img_list:
-            
-            Cue.image = cue[0] # updating cue image 
-            cue_cls = cue[1] # updating cue label
+         
+            Cue.image = cue[0]
+            cue_cls = cue[1]
 
             restCross.draw()
             win.flip()
@@ -203,16 +177,15 @@ while not finished:
             Blank.draw()
             win.flip()
             core.wait(blkTime)
-            
-            # updating class list based on the cues shown
+
             if cue_cls == 0:
-                temp = 3*Fs*['Z']+4*Fs*['relax']+8*Fs*[0]+5*Fs*['rest']
+                temp = 4*Fs*['Z']+4*Fs*['relax']+8*Fs*[0]+4*Fs*['rest']
                 classes = classes + temp
             elif cue_cls == 1:
-                temp = 3*Fs*['Z']+4*Fs*['right']+8*Fs*[1]+5*Fs*['rest']
+                temp = 4*Fs*['Z']+4*Fs*['right']+8*Fs*[1]+4*Fs*['rest']
                 classes = classes + temp
             elif cue_cls == 2:
-                temp = 3*Fs*['Z']+4*Fs*['left']+8*Fs*[2]+5*Fs*['rest']
+                temp = 4*Fs*['Z']+4*Fs*['left']+8*Fs*[2]+4*Fs*['rest']
                 classes = classes + temp
                 
         message = visual.TextStim(win, text="Trial Done")
@@ -221,20 +194,18 @@ while not finished:
         core.wait(5.0)
         win.close()
         
-   # ending trial after runtime gets over (calculated beforehand)
+   
     if len(times) > runtime*Fs or len(times) == runtime*Fs :
         finished = True
         break
-    # updating data dictionary with newly transmitted samples 
+  
     res = [timestamp] + sample
     data_dict = update_data(data_dict,res)
     times.append(timestamp)
 
 data_dict['Class'] = classes
-# making dictionary into a dataframe for saving it as csv
 record_data = pd.DataFrame.from_dict(data_dict)
 
-
-fname = Path('closed_loop/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/'+results_fname)
+fname = Path('scripts/cl/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/'+results_fname)
 record_data.to_csv(fname, index = False)
 print('Trial Ended')

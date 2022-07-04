@@ -18,11 +18,11 @@ def execution(test_subject, session):
         session_num = int(session[-1])
 
         # model path and subjpath for future sessions
-        model_path = f"closed_loop/final_models/{model_type}\{session}/EEGNET_{test_subject}"
-        savepath_newmodel = f"closed_loop/final_models/models_for_closedloop/EEGNET_{test_subject}_{model_type}_{session}"
+        model_path = f"scripts/cl/final_models/{model_type}\{session}/EEGNET_{test_subject}"
+        savepath_newmodel = f"scripts/cl/final_models/models_for_closedloop/EEGNET_{test_subject}_{model_type}_{session}"
 
         # data path below
-        testsubj_path = Path(f'./closed_loop\intermediate_files/{session}/{test_subject}_deep.pkl')
+        testsubj_path = Path(f'./scripts/cl\intermediate_files/{session}/{test_subject}_deep.pkl')
  
         print(f'Getting {model_type} for {test_subject}..')
         for i in range(3):
