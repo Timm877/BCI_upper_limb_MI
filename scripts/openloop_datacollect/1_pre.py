@@ -42,7 +42,7 @@ def execution(pipeline_type, list_of_freq_lim, freq_limits_names_list, filt_orde
     sampling_frequency = 250 
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
     folder_path = Path(f'./data/openloop/{subject}/openloop')
-    result_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/RG_WITHFILT')
+    result_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/elec_exp/{subject}/')
     result_path.mkdir(exist_ok=True, parents=True)  
     dataset_full = {}
 

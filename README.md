@@ -16,6 +16,8 @@ conda activate BCI
 pip install -e .
 # install required packages:
 pip install -r requirements.txt --user
+# (as the amount of packages is extensive, one could also just use trial and error by trying to run a script to see which packages are required)
+
 # for running experiments with psychopy with data collection using pylsl:
 conda install -c conda-forge psychopy
 pip install pylsl

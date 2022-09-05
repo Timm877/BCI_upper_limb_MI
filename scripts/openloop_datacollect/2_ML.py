@@ -22,13 +22,10 @@ def execution(pipeline_type, subject, type):
     # INIT
     electrode_names =  ['FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8']
     n_electrodes = len(electrode_names)
-    folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/csp_fb_noCAR/{subject}')
-    result_path = Path(f'./results/intermediate_datafiles/openloop/{subject}_freqbands_noCAR')
+    folder_path = Path(f'./data/openloop/intermediate_datafiles/preprocess/elec_exp/{subject}')
+    result_path = Path(f'./results/intermediate_datafiles/openloop/elec_exp/{subject}')
     result_path.mkdir(exist_ok=True, parents=True)
 
-    folder_path = Path(f'closed_loop\intermediate_files\session1_RG')
-    result_path = Path(f'./results/intermediate_datafiles/openloop/cl_try_ses1')
-    result_path.mkdir(exist_ok=True, parents=True)
     if type == 'arms':
         results_fname = f'{pipeline_type}_{type}.csv'
         num_classes = 2
@@ -77,7 +74,7 @@ def execution(pipeline_type, subject, type):
                                     y_train.append(y[df][segment] -1) 
                         elif type == 'binary':
                             if (y[df][segment] == 1 or y[df][segment] == 2) and samp_num % 2 > 0:
-                                #print(samp_num)
+                                # print(samp_num)
                                 # only select half of the samples for left arm / right arm
                                 # and make label just 1
                                 # to have balanced MI vs relax
@@ -184,8 +181,8 @@ def execution(pipeline_type, subject, type):
                     'val_rec': np.around(np.array(val_rec_cv[clf]).mean(),3), 'val_roc_auc': np.around(np.array(val_roc_auc_cv[clf]).mean(),3), 
                     'full_valacc': val_acc_cv[clf], 'full_acc_classes': acc_classes_cv[clf]}  
             print('Finished 1 pipeline')
-    results_df = pd.DataFrame.from_dict(results, orient='index').sort_values('final_val_accuracy', ascending=False)  
-    results_df.to_csv(result_path / results_fname)
+    #results_df = pd.DataFrame.from_dict(results, orient='index').sort_values('final_val_accuracy', ascending=False)  
+    #results_df.to_csv(result_path / results_fname)
     print('Finished')
 
 
