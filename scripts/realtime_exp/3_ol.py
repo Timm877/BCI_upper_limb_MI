@@ -11,7 +11,7 @@ from pylsl import StreamInlet, resolve_stream
 expName = 'openloop'
 exType = 'wet'
 expInfo = {'participant': 'X02','type': exType, 'sessionNum': 'session4'}
-result_path = Path(f'scripts/cl/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
+result_path = Path(f'scripts/realtime_exp/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
 result_path.mkdir(exist_ok=True, parents=True)
 
 
@@ -62,7 +62,7 @@ ten_sec = ten_sec = visual.ShapeStim(
 # image of cross being showed
 restCross = visual.ImageStim(
     win=win, name='RestCross',
-    image='scripts/cl/VC_Cross.jpg', mask=None, anchor='center',
+    image='scripts/realtime_exp/VC_Cross.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
@@ -70,7 +70,7 @@ restCross = visual.ImageStim(
 # this has been been manipulated to show random cues for the subject throughout the trial
 Cue = visual.ImageStim(
     win=win, name='Cue',
-    image='scripts/cl/VC_Right.jpg', mask=None, anchor='center',
+    image='scripts/realtime_exp/VC_Right.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
@@ -85,7 +85,7 @@ focus = visual.ShapeStim(
 # blank screen for rest between cues for blinking, swallowing and other stuff
 Blank = visual.ImageStim(
     win=win, name='BlankScreen',
-    image='scripts/cl/VC_Blank.jpg', mask=None, anchor='center',
+    image='scripts/realtime_exp/VC_Blank.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
@@ -138,7 +138,7 @@ event.waitKeys(keyList=['return'])
 
 # image list with labels for showing randomly and storing in the database
 # creating cue list
-img_list = [('closed_loop/VC_Relax.jpg',0),('closed_loop/VC_Right.jpg',1),('closed_loop/VC_Left.jpg',2)]*2
+img_list = [('realtime_exp/VC_Relax.jpg',0),('realtime_exp/VC_Right.jpg',1),('realtime_exp/VC_Left.jpg',2)]*2
 trials = len(img_list)
 np.random.shuffle(img_list)
 # calculating run time to shut off data capturing

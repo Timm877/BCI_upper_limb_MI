@@ -22,7 +22,7 @@ total_outlier = 0
 # init DL model
 subject = expInfo['participant']
 net = utils.EEGNET()
-path = r'scripts/cl/final_models/models_for_closedloop/EEGNET_X03_best_finetune_session3' # TODO update path later
+path = r'scripts/realtime_exp/final_models/models_for_closedloop/EEGNET_X03_best_finetune_session3' # TODO update path later
 net.load_state_dict(torch.load(path, map_location=torch.device('cpu')))
 net = net.float()
 net.eval()
@@ -54,7 +54,7 @@ from pylsl import StreamInlet, resolve_stream
 
 #change path of folders according to your needs
 # Data file name stem = absolute path + name; later add .psyexp, .csv, .log, etc
-result_path = Path(f'scripts/cl/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
+result_path = Path(f'scripts/realtime_exp/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
 result_path.mkdir(exist_ok=True, parents=True)
 
 columns=['Time','FZ', 'C3', 'CZ', 'C4', 'PZ', 'PO7', 'OZ', 'PO8','AccX','AccY','AccZ','Gyro1','Gyro2','Gyro3',

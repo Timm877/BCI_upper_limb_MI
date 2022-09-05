@@ -11,7 +11,7 @@ import os
 expName = 'practice'
 exType = 'wet'
 expInfo = {'participant': 'X02','type': exType, 'sessionNum': 'session4'}
-result_path = Path(f'closed_loop/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
+result_path = Path(f'realtime_exp/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/')
 result_path.mkdir(exist_ok=True, parents=True)
 
 
@@ -55,14 +55,14 @@ ten_sec = ten_sec = visual.ShapeStim(
 # Initialize components for Routine "trial"
 restCross = visual.ImageStim(
     win=win, name='RestCross',
-    image='scripts/cl/VC_Cross.jpg', mask=None, anchor='center',
+    image='scripts/realtime_exp/VC_Cross.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
     texRes=128.0, interpolate=True, depth=-1.0)
 Cue = visual.ImageStim(
     win=win, name='Cue',
-    image='scripts/cl//VC_Right.jpg', mask=None, anchor='center',
+    image='scripts/realtime_exp/VC_Right.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
@@ -75,7 +75,7 @@ focus = visual.ShapeStim(
     opacity=None, depth=-2.0, interpolate=True)
 Blank = visual.ImageStim(
     win=win, name='BlankScreen',
-    image='scripts/cl//VC_Blank.jpg', mask=None, anchor='center',
+    image='scripts/realtime_exp//VC_Blank.jpg', mask=None, anchor='center',
     ori=0.0, pos=(0, 0), size=None,
     color=[1,1,1], colorSpace='rgb', opacity=None,
     flipHoriz=False, flipVert=False,
@@ -124,7 +124,7 @@ event.waitKeys(keyList=['return'])
 #     core.quit()
 
 # creating cue list
-img_list = [('scripts/cl//VC_Relax.jpg',0),('scripts/cl//VC_Right.jpg',1),('scripts/cl//VC_Left.jpg',2)]*2 # can be two
+img_list = [('scripts/realtime_exp//VC_Relax.jpg',0),('scripts/realtime_exp//VC_Right.jpg',1),('scripts/realtime_exp//VC_Left.jpg',2)]*2 # can be two
 trials = len(img_list)
 np.random.shuffle(img_list)
 runtime = calTime +trials*(restTime + cueTime + focusTime + blkTime)
@@ -198,6 +198,6 @@ while not finished:
 data_dict['Class'] = classes
 record_data = pd.DataFrame.from_dict(data_dict)
 
-fname = Path('scripts/cl/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/'+results_fname)
+fname = Path('scripts/realtime_exp/Expdata/Subjects/'+exType+'/'+expInfo['participant']+'/'+expInfo['sessionNum']+'/'+expName+'/'+results_fname)
 record_data.to_csv(fname, index = False)
 print('Trial Ended')
