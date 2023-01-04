@@ -1,7 +1,6 @@
 import copy
 import time
 from collections import Counter
-import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 from mne.decoding import CSP
@@ -17,9 +16,6 @@ from sklearn.svm import SVC
 from sklearn.metrics import f1_score, precision_score, recall_score, confusion_matrix, roc_auc_score
 from pathlib import Path
 import matplotlib.pyplot as plt
-import plotly.graph_objects as go
-import seaborn as sns 
-sns.set_style('darkgrid')
 
 
 def init_filters(freq_lim, sample_freq, filt_type = 'bandpass', order=2, state_space=True):
@@ -91,7 +87,6 @@ def filter_1seg_statespace(segment, selected_electrodes_names,filters, sample_du
                 A, B, C, D, Xnn[0,electrode])         
                 for data_point in filt_result_temp:
                     filter_results[selected_electrodes_names[electrode] + '_' + freq_limits_names[f]].append(data_point) 
-
             filters[f] = [A, B, C, D, Xnn]
     filtered_dataset = pd.DataFrame.from_dict(filter_results).transpose() 
     return filtered_dataset, filters

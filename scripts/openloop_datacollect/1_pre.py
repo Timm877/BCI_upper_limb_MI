@@ -6,11 +6,6 @@ import pandas as pd
 import pickle
 import src.utils_preprocess as utils
 pd.options.mode.chained_assignment = None  # default='warn'
-# Load packages
-import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns 
-sns.set_style('darkgrid')
 
 def main():
     for subj in FLAGS.subjects:
